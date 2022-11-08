@@ -1,5 +1,11 @@
+import Preview from "./components/Preview";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Preview />
+    </>
+  );
 }
 
 export default App;
