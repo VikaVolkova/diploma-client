@@ -1,9 +1,12 @@
 import Preview from "./components/Preview";
+import Container from "./components/Container";
 
 function App() {
   return (
     <>
-      <Preview />
+      <Container size="md">
+        <Preview />
+      </Container>
     </>
   );
 }
