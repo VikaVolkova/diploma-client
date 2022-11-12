@@ -1,38 +1,82 @@
 import React from "react";
+import cn from "classnames";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import Comment from "../Comment/index";
+import articlePropType from "../../proptypes/article";
 import s from "./index.module.css";
 import defaultThumb from "./defaultThumb.jpg";
 
-function Preview() {
+const getSpoilerText = (text) => {
+  const MAX_SPOILER_LENGTH = 100;
+  if (text.length <= MAX_SPOILER_LENGTH) return text;
+
+  const spoilerSpaceIndex = text.indexOf(" ", MAX_SPOILER_LENGTH);
+
+  return `${text.substring(0, spoilerSpaceIndex)}...`;
+};
+
+function Preview({ article, type }) {
+  const { spoiler } = article;
+
+  const shortSpoiler = getSpoilerText(spoiler);
   return (
-    <div className={s.full}>
-      <div className={s.pictureWrapperFull}>
+    <div className={cn({ [s[type]]: !!type })}>
+      <Link
+        to={`/${article?.category?.url}/${article.url}`}
+        className={cn(s.pictureWrapper, {
+          [s.pictureWrapperFull]: type === "full",
+          [s.pictureWrappeThumbnail]: type === "thumbnail",
+        })}
+      >
         <img
           className={s.picture}
-          src={defaultThumb}
-          alt="img"
+          src={article.picture ? article.picture : defaultThumb}
+          alt={article.title}
           id="previewImg"
         />
-      </div>
+      </Link>
       <div className={s.textBlock}>
         <div className={s.textBlockTitle}>
-          <a href="article">title</a>
-          <a href="article" className={s.comment}>
-            25
-          </a>
+          <Link to={`/${article?.category?.url}`} className={s.link}>
+            {article.category?.title}
+          </Link>
+          {/* <Link
+            to={`/${article?.category?.url}/${article.url}`}
+            className={s.comment}
+          >
+          <Comment count={article._count.comments} />
+          </Link> */}
         </div>
-        <a href="hgh" className={s.title}>
-          Title
-        </a>
+        <Link
+          to={`/${article?.category.url}/${article.url}`}
+          className={s.title}
+        >
+          {article.title}
+        </Link>
         <p className={s.spoiler}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim autem id
-          quos reprehenderit labore? Repellendus tempora quia, libero tenetur
-          minima similique. Numquam dolorem harum vero laudantium sint
-          reprehenderit quos obcaecati!
-          <a>More...</a>
+          {type === "full" ? article.spoiler : shortSpoiler}
+          {type === "full" && (
+            <Link
+              to={`/${article?.category.url}/${article.url}`}
+              className={s.articleLink}
+            >
+              [More...]
+            </Link>
+          )}
         </p>
       </div>
     </div>
   );
 }
+
+Preview.propTypes = {
+  article: PropTypes.shape(articlePropType).isRequired,
+  type: PropTypes.oneOf(["full", "thumbnail"]),
+};
+
+Preview.defaultProps = {
+  type: "full",
+};
 
 export default Preview;
