@@ -2,6 +2,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Category from "./pages/Category";
+import Article from "./pages/Article";
+import Gallery from "./components/Gallery";
 
 function App() {
   const location = useLocation();
@@ -15,6 +17,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path=":categoryUrl">
             <Route index element={<Category />} />
+            <Route path=":newsUrl">
+              <Route index element={<Article />} />
+              <Route path="image" element={<Gallery />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

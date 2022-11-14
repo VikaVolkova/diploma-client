@@ -9,6 +9,6 @@ export default {
   title: PropTypes.string,
   spoiler: PropTypes.string,
   picture: PropTypes.string,
-  comments: PropTypes.number,
+  comments: PropTypes.array,
   url: PropTypes.string,
 };
