@@ -1,14 +1,18 @@
 import React from "react";
 import Container from "../../components/Container";
 // import ArticleListTop from '../../components/ArticleListTop';
-import ArticlesList from "../../components/ArticlesList";
 import QueryHandler from "../../api";
+import { LoadMoreContent } from "../../components/LoadMoreContent";
+import { ArticleList } from "../../components/ArticleList";
 
 function Home() {
   return (
     <Container>
       {/* <ArticleListTop articles={[]} /> */}
-      <ArticlesList loadData={QueryHandler.fetchArticles} />
+      <LoadMoreContent
+        request={QueryHandler.fetchArticles}
+        render={ArticleList}
+      />
     </Container>
   );
 }
