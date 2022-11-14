@@ -41,12 +41,12 @@ function Preview({ article, type }) {
           <Link to={`/${article?.category?.url}`} className={s.link}>
             {article.category?.title}
           </Link>
-          {/* <Link
+          <Link
             to={`/${article?.category?.url}/${article.url}`}
             className={s.comment}
           >
-          <Comment count={article._count.comments} />
-          </Link> */}
+            <Comment count={article.comments.length} />
+          </Link>
         </div>
         <Link
           to={`/${article?.category.url}/${article.url}`}
