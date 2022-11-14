@@ -12,7 +12,7 @@ import unionBy from "lodash.unionby";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-const count = 3;
+const count = 2;
 function ArticlesList({ loadData, type }) {
   const [cursor, setCursor] = useState(0);
   const [articles, setArticles] = useState([]);
@@ -31,13 +31,13 @@ function ArticlesList({ loadData, type }) {
       const articlesList = await loadData(cursor, count);
       const newCursor = cursor + count;
       setArticles((prevArticles) =>
-        unionBy(prevArticles, articlesList.articles, "id")
+        unionBy(prevArticles, articlesList.articles, "_id")
       );
       setCursor(newCursor);
       if (newCursor >= articlesList.count) {
         setShowLoadMore(false);
       }
-      console.log(articlesList);
+      console.log(articles);
     } catch (e) {
       handleError(e);
     }
