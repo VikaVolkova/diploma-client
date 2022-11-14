@@ -19,15 +19,14 @@ function Navigation({ navigationList }) {
           <ul className={s.navList}>
             {navigationList.map(({ label, url, id }) => (
               <li className={s.navItem} key={`${label}-${id}`}>
-                {/* <NavLink
+                <NavLink
                   className={({ isActive }) =>
                     cn(s.navItemLink, { [s.navItemActive]: isActive })
                   }
                   to={("/", url)}
                 >
                   {label}
-                </NavLink> */}
-                <a>{label}</a>
+                </NavLink>
               </li>
             ))}
           </ul>

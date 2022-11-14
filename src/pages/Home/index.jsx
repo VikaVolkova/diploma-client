@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../../components/Container";
 // import ArticleListTop from '../../components/ArticleListTop';
-import ArticlesList from "../../components/LoadMoreNews";
+import ArticlesList from "../../components/ArticlesList";
 import QueryHandler from "../../api";
 
 function Home() {
