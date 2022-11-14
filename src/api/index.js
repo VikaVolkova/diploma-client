@@ -52,4 +52,11 @@ export default class QueryHandler {
     const res = await response.data;
     return res;
   }
+
+  static async fetchCommentsByArticleId(articleId) {
+    const response = await api.get(`${baseURL}/comments/article/${articleId}`);
+
+    const data = await response.data;
+    return data;
+  }
 }
