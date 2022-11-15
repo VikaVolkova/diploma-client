@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 import s from "./index.module.css";
-// import AuthNavigation from "../AuthNavigation";
+import AuthNavigation from "../AuthNavigation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import MobileMenu from "../MobileMenu";
@@ -30,7 +30,7 @@ function Navigation({ navigationList }) {
               </li>
             ))}
           </ul>
-          {/* <AuthNavigation /> */}
+          <AuthNavigation />
         </nav>
       ) : (
         <MobileMenu />

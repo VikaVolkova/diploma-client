@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Category from "./pages/Category";
 import Article from "./pages/Article";
 import Gallery from "./components/Gallery";
+import Login from "./pages/Login";
 
 function App() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function App() {
     <>
       <Routes location={background || location}>
         <Route path="/" element={<Layout />}>
+          <Route path="/login" element={<Login />} />
           <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path=":categoryUrl">
