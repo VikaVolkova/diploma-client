@@ -59,8 +59,9 @@ export default class QueryHandler {
     const data = await response.data;
     return data;
   }
-  static async register(email, password) {
+  static async register(name, email, password) {
     const response = await api.post(`${baseURL}/user/register`, {
+      name,
       email,
       password,
     });

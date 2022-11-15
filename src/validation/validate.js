@@ -1,3 +1,7 @@
+export function validateName(str) {
+  return str.length > 1;
+}
+
 export function validatePassword(str) {
   return str.length > 7;
 }
