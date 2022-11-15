@@ -76,10 +76,10 @@ export function AuthProvider({ children }) {
 
   // Sends sign up details to the server. On success we just apply
   // the created user to the state.
-  function register(email, password) {
+  function register(name, email, password) {
     setLoading(true);
 
-    QueryHandler.register(email, password)
+    QueryHandler.register(name, email, password)
       .then(() => {
         navigate("/login");
       })
