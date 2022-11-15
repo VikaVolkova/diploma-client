@@ -59,4 +59,63 @@ export default class QueryHandler {
     const data = await response.data;
     return data;
   }
+  static async register(email, password) {
+    const response = await api.post(`${baseURL}/user/register`, {
+      email,
+      password,
+    });
+
+    const data = await response.data;
+    return data;
+  }
+
+  static async login(email, password) {
+    const response = await api.post(`${baseURL}/user/login`, {
+      email,
+      password,
+    });
+
+    const data = await response.data;
+    return data;
+  }
+
+  static async forgotPassword(email) {
+    const response = await api.post(`${baseURL}/user/forgot-password`, {
+      email,
+    });
+
+    const data = await response.data;
+    return data;
+  }
+  static async restorePassword(password1, password2, token) {
+    const response = await api.post(`${baseURL}/user/restore-password`, {
+      password1,
+      password2,
+      token,
+    });
+
+    const data = await response.data;
+    return data;
+  }
+
+  static async fetchToken() {
+    const response = await api.get(`${baseURL}/user/token`);
+
+    const data = await response.data;
+    return data;
+  }
+
+  static async fetchMe() {
+    const response = await api.get(`${baseURL}/user/me`);
+
+    const data = await response.data;
+    return data;
+  }
+
+  static async logout() {
+    const response = await api.get(`${baseURL}/user/logout`);
+
+    const data = await response.data;
+    return data;
+  }
 }
