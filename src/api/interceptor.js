@@ -5,7 +5,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  baseURL: "/api",
+  baseURL: "http://localhost:5000/api",
 });
 
 api.interceptors.request.use(
@@ -27,7 +27,10 @@ api.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
-    if (originalConfig.url !== "/api/users/register" && err.response) {
+    if (
+      originalConfig.url !== "http://localhost:5000/api/users/register" &&
+      err.response
+    ) {
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         try {
@@ -36,7 +39,6 @@ api.interceptors.response.use(
           localStorage.setItem("accessToken", accessToken);
           return api(originalConfig);
         } catch (_error) {
-          console.log(_error);
           return Promise.reject(_error);
         }
       }
