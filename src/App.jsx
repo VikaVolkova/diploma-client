@@ -6,6 +6,8 @@ import Article from "./pages/Article";
 import Gallery from "./components/Gallery";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import RestorePassword from "./pages/RestorePassword";
 
 function App() {
   const location = useLocation();
@@ -17,6 +19,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/restore-password" element={<RestorePassword />} />
           <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path=":categoryUrl">
