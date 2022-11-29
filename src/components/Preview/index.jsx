@@ -62,7 +62,7 @@ function Preview({ article, type }) {
               to={`/${article?.category.url}/${article.url}`}
               className={s.articleLink}
             >
-              [More...]
+              [Читати далі...]
             </Link>
           )}
         </p>

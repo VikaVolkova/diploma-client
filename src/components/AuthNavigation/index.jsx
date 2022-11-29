@@ -21,7 +21,7 @@ function AuthNavigation() {
               })
             }
           >
-            Login
+            Войти
           </NavLink>
 
           <NavLink
@@ -32,7 +32,7 @@ function AuthNavigation() {
               })
             }
           >
-            Register
+            Зареєструватись
           </NavLink>
         </>
       )}
