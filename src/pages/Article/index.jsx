@@ -8,25 +8,35 @@ import CircularProgress from "@mui/material/CircularProgress";
 import defaultBanner from "./defaultBanner.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticleByUrl } from "../../features/article/articleActions";
+import { getCommentsByArticleId } from "../../features/comments/commentsActions";
+import { Typography } from "@mui/material";
+import { CommentsList } from "../../components/CommentsList";
 
 function Article() {
   const { newsUrl } = useParams();
   const dispatch = useDispatch();
-  const { article, loading } = useSelector((state) => state.article);
-  // dispatch(getArticleByUrl({ newsUrl }));
+  const { article, loadingArticles } = useSelector((state) => state.article);
+  const { comments } = useSelector((state) => state.comments);
+
+  console.log(comments);
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
-    // console.log("me");
   }, [dispatch, newsUrl]);
 
   // const navigate = useNavigate();
   // const location = useLocation();
 
   let bannerSrc = defaultBanner;
+  let articleId = 0;
   if (article) {
     bannerSrc = article.coverPicture ?? defaultBanner;
+    articleId = article._id;
   }
+
+  useEffect(() => {
+    articleId && dispatch(getCommentsByArticleId({ articleId }));
+  }, [articleId, dispatch]);
   // const handleUserKeyPress = useCallback(
   //   (e) => {
   //     if (e.target.tagName === "IMG" && e.target.id !== "previewImg") {
@@ -47,7 +57,7 @@ function Article() {
   //   };
   // }, [handleUserKeyPress]);
 
-  if (loading) {
+  if (loadingArticles) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <CircularProgress />
@@ -56,7 +66,8 @@ function Article() {
   }
 
   return (
-    article && (
+    article &&
+    comments && (
       <>
         <Container size="lg">
           <div className={s.containerBaner}>
@@ -71,6 +82,16 @@ function Article() {
         </Container>
         <Container>
           <Markdown>{article.content}</Markdown>
+        </Container>
+        <Container>
+          <Typography
+            variant="h6"
+            sx={{ marginTop: "50px", color: "primary.main" }}
+          >
+            Коментарі
+          </Typography>
+          {/* {user ? <AddComment articleId={post.id} /> : <Message />} */}
+          <CommentsList data={comments} />
         </Container>
       </>
     )
