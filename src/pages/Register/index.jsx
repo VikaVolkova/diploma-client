@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { TextField, Stack, Button, CircularProgress } from "@mui/material";
+import {
+  TextField,
+  Stack,
+  Button,
+  CircularProgress,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import FormContainerMUI from "../../components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,6 +19,7 @@ import {
   validatePassword,
 } from "../../validation/validate";
 import { register } from "../../features/auth/authActions";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function Register() {
   const [name, setName] = useState("");
@@ -20,6 +31,7 @@ function Register() {
   const [emailError, setEmailError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [showPassword, setShowPassword] = useState("");
 
   const { success, loading, error } = useSelector((state) => state.auth);
 
@@ -38,6 +50,11 @@ function Register() {
   const updatePassword = (e) => {
     setPassword(e.target.value);
     setPasswordError(!validatePassword(e.target.value));
+  };
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
   };
 
   const onSubmit = (e) => {
@@ -100,7 +117,7 @@ function Register() {
         helperText={emailError ? "Невірний e-mail" : null}
       />
 
-      <TextField
+      {/* <TextField
         fullWidth
         margin="normal"
         name="password"
@@ -113,7 +130,32 @@ function Register() {
         onBlur={hundleBlur}
         error={passwordDirty && passwordError}
         helperText="Пароль має бути не менше 8 символів"
-      />
+      /> */}
+      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+        <InputLabel htmlFor="password">Пароль</InputLabel>
+        <OutlinedInput
+          id="password"
+          label="Пароль"
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={updatePassword}
+          onBlur={hundleBlur}
+          placeholder="Мінімум 8 символів"
+          error={passwordDirty && passwordError}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => handleClickShowPassword()}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
 
       <Stack marginBottom="10px">
         <Button variant="contained" onClick={onSubmit} sx={{ mb: 2 }}>

@@ -90,7 +90,7 @@ function RestorePassword() {
           value={password1}
           onChange={changePassword}
           onBlur={hundleBlur}
-          placeholder="Пароль має бути не менше 8 символів"
+          placeholder="Мінімум 8 символів"
           error={passwordDirty && validationError}
           endAdornment={
             <InputAdornment position="end">
