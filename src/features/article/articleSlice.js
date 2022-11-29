@@ -6,17 +6,17 @@ import {
 } from "./articleActions";
 
 const setPending = (state) => {
-  state.loading = true;
+  state.loadingArticles = true;
   state.error = null;
 };
 
 const setError = (state, action) => {
-  state.loading = false;
+  state.loadingArticles = false;
   state.error = action.payload;
 };
 
 const initialState = {
-  loading: false,
+  loadingArticles: false,
   articles: [],
   article: null,
   error: null,
@@ -32,7 +32,7 @@ const articleSlice = createSlice({
     [getArticles.rejected]: setError,
     [getArticles.fulfilled]: (state, action) => {
       state.articles = action.payload.data;
-      state.loading = false;
+      state.loadingArticles = false;
       state.success = true;
       state.error = null;
     },
@@ -40,7 +40,7 @@ const articleSlice = createSlice({
     [getArticlesByCategoryUrl.rejected]: setError,
     [getArticlesByCategoryUrl.fulfilled]: (state, action) => {
       state.articles = action.payload.data;
-      state.loading = false;
+      state.loadingArticles = false;
       state.success = true;
       state.error = null;
     },
@@ -50,7 +50,7 @@ const articleSlice = createSlice({
       state.article = action.payload.article;
       console.log();
       state.articles = [];
-      state.loading = false;
+      state.loadingArticles = false;
       state.success = true;
       state.error = null;
     },
