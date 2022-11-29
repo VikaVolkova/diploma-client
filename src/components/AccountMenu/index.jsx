@@ -45,7 +45,7 @@ function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Account menu">
+        <Tooltip title="Меню користувача">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -101,7 +101,7 @@ function AccountMenu() {
               <NoteAddOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <Link href="/create-article" underline="none">
-              {"Create new article"}
+              {"Додати статтю"}
             </Link>
           </MenuItem>
         )}
@@ -111,7 +111,7 @@ function AccountMenu() {
               <NewspaperOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <Link href="/unpublished" underline="none">
-              {"Unpublished articles"}
+              {"Неопубліковані статті"}
             </Link>
           </MenuItem>
         )}
@@ -121,7 +121,7 @@ function AccountMenu() {
               <NewspaperOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <Link href="/unpublished-comments" underline="none">
-              {"Unpublished comments"}
+              {"Неопубліковані коментарі"}
             </Link>
           </MenuItem>
         )}
@@ -131,7 +131,7 @@ function AccountMenu() {
               <AddBoxOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <Link href="/create-category" underline="none">
-              {"Create new category"}
+              {"Додати категорію"}
             </Link>
           </MenuItem>
         )}
@@ -141,17 +141,7 @@ function AccountMenu() {
               <NewspaperOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <Link href="/credentials" underline="none">
-              {"Credentials"}
-            </Link>
-          </MenuItem>
-        )}
-        {[roles.user].includes(user?.role) && (
-          <MenuItem>
-            <ListItemIcon>
-              <AssignmentOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Link href="/" underline="none">
-              {"Read all news"}
+              {"Дані користувача"}
             </Link>
           </MenuItem>
         )}
@@ -167,7 +157,7 @@ function AccountMenu() {
             variant="body1"
             onClick={() => handleSignOut()}
           >
-            Logout
+            Вийти
           </Link>
         </MenuItem>
       </Menu>
