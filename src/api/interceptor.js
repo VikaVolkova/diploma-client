@@ -1,5 +1,6 @@
 import axios from "axios";
-import QueryHandler from ".";
+import { fetchToken } from "../features/auth/authActions";
+import { useDispatch } from "react-redux";
 
 const api = axios.create({
   headers: {
@@ -32,9 +33,10 @@ api.interceptors.response.use(
       err.response
     ) {
       if (err.response.status === 401 && !originalConfig._retry) {
+        const dispatch = useDispatch();
         originalConfig._retry = true;
         try {
-          const rs = await QueryHandler.fetchToken();
+          const rs = dispatch(fetchToken());
           const { accessToken } = rs;
           localStorage.setItem("accessToken", accessToken);
           return api(originalConfig);

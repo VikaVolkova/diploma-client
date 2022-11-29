@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import { useLocation, useNavigate } from "react-router-dom";
 import FormContainerMUI from "../../components/FormContainer";
-import useAuth from "../../useAuth";
 import { validatePassword } from "../../validation/validate";
+import { useDispatch, useSelector } from "react-redux";
+import { restorePassword } from "../../features/auth/authActions";
+import {
+  Stack,
+  Button,
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function useQuery() {
   const { search } = useLocation();
@@ -14,20 +22,35 @@ function useQuery() {
 }
 
 function RestorePassword() {
-  const { restorePassword } = useAuth();
   const query = useQuery();
+  const navigate = useNavigate();
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const [error, setError] = useState(false);
+  const [showPassword1, setShowPassword1] = useState("");
+  const [showPassword2, setShowPassword2] = useState("");
+  const [validationError, setValidationError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
+
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
+
+  const handleClickShowPassword = (password) => {
+    password === "password1"
+      ? setShowPassword1(!showPassword1)
+      : setShowPassword2(!showPassword2);
+  };
+
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
+  };
 
   const changePassword = (e) => {
     setPassword1(e.target.value);
-    setError(!validatePassword(e.target.value));
+    setValidationError(!validatePassword(e.target.value));
   };
 
-  const changeDublePassword = (e) => {
+  const changeDoublePassword = (e) => {
     setPassword2(e.target.value);
   };
 
@@ -37,10 +60,17 @@ function RestorePassword() {
       alert("fields do not match");
       return;
     }
+    const token = query.get("token");
 
-    restorePassword(password1, password2, query.get("token"));
+    dispatch(restorePassword({ password1, password2, token }));
     setPassword1("");
     setPassword2("");
+    if (!error) {
+      alert("Пароль було оновлено");
+      navigate("/login");
+    } else {
+      alert(error);
+    }
   };
 
   const hundleBlur = () => {
@@ -49,36 +79,61 @@ function RestorePassword() {
 
   return (
     <FormContainerMUI>
-      <h2>Enter your new password</h2>
+      <h2>Введіть ваш новий пароль</h2>
+      <h3>{error ? error : null}</h3>
+      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+        <InputLabel htmlFor="password1">Новий пароль</InputLabel>
+        <OutlinedInput
+          id="password1"
+          label="Новий пароль"
+          type={showPassword1 ? "text" : "password"}
+          value={password1}
+          onChange={changePassword}
+          onBlur={hundleBlur}
+          placeholder="Пароль має бути не менше 8 символів"
+          error={passwordDirty && validationError}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => handleClickShowPassword("password1")}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword1 ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
 
-      <TextField
-        fullWidth
-        margin="normal"
-        type="password"
-        label="New password"
-        variant="outlined"
-        value={password1}
-        onChange={changePassword}
-        onBlur={hundleBlur}
-        placeholder="new password"
-        error={passwordDirty && error}
-        helperText="must be at least 8 chars long"
-      />
-
-      <TextField
-        fullWidth
-        margin="normal"
-        type="password"
-        label="New password (Confirmation)"
-        variant="outlined"
-        value={password2}
-        onChange={changeDublePassword}
-        placeholder="new password"
-      />
+      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+        <InputLabel htmlFor="password2">Підтвердіть новий пароль</InputLabel>
+        <OutlinedInput
+          id="password2"
+          label="Підтвердіть новий пароль"
+          type={showPassword2 ? "text" : "password"}
+          value={password2}
+          onChange={changeDoublePassword}
+          placeholder="Новий пароль"
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => handleClickShowPassword("password2")}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword2 ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
 
       <Stack marginBottom="10px">
-        <Button onClick={onSubmit} variant="contained">
-          Restore password
+        <Button onClick={onSubmit} variant="contained" sx={{ mb: 2 }}>
+          Оновити пароль
         </Button>
       </Stack>
     </FormContainerMUI>

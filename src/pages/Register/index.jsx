@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import { Navigate } from "react-router-dom";
+import { TextField, Stack, Button, CircularProgress } from "@mui/material";
 import FormContainerMUI from "../../components/FormContainer";
-import useAuth from "../../useAuth";
+import { useDispatch, useSelector } from "react-redux";
 import {
   validateName,
   validateEmail,
   validatePassword,
 } from "../../validation/validate";
+import { register } from "../../features/auth/authActions";
 
 function Register() {
-  const { register } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +20,10 @@ function Register() {
   const [emailError, setEmailError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  const { success, loading, error } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
 
   const updateName = (e) => {
     setName(e.target.value);
@@ -39,11 +42,13 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    register(name, email, password);
+    dispatch(register({ name, email, password }));
     setName("");
     setEmail("");
     setPassword("");
   };
+
+  if (success) return <Navigate to="/login" />;
 
   const hundleBlur = (e) => {
     switch (e.target.name) {
@@ -56,31 +61,34 @@ function Register() {
       case "password":
         setPasswordDirty(true);
         break;
+      default:
+        break;
     }
   };
 
   return (
     <FormContainerMUI>
-      <h2>Register new account</h2>
+      <h2>Зареєструвати новий аккаунт</h2>
+      <h3>{error ? error : null}</h3>
       <TextField
         fullWidth
         margin="normal"
         id="outlined-basic"
-        label="name"
+        label="Ім'я"
         type="text"
         name="name"
         variant="outlined"
         value={name}
         onChange={updateName}
         onBlur={hundleBlur}
-        placeholder="User"
+        placeholder="Ім'я"
         error={nameDirty && nameError}
       />
       <TextField
         fullWidth
         margin="normal"
         id="outlined-basic"
-        label="e-mail"
+        label="E-mail"
         type="email"
         name="email"
         variant="outlined"
@@ -89,7 +97,7 @@ function Register() {
         onBlur={hundleBlur}
         placeholder="mango@gmail.com"
         error={emailDirty && emailError}
-        helperText="invalid e-mail"
+        helperText={emailError ? "Невірний e-mail" : null}
       />
 
       <TextField
@@ -97,19 +105,23 @@ function Register() {
         margin="normal"
         name="password"
         id="outlined-password-input"
-        label="password"
+        label="Пароль"
         type="password"
         value={password}
         onChange={updatePassword}
         autoComplete="current-password"
         onBlur={hundleBlur}
         error={passwordDirty && passwordError}
-        helperText="must be at least 8 chars long"
+        helperText="Пароль має бути не менше 8 символів"
       />
 
       <Stack marginBottom="10px">
-        <Button variant="contained" onClick={onSubmit}>
-          Registration
+        <Button variant="contained" onClick={onSubmit} sx={{ mb: 2 }}>
+          {loading ? (
+            <CircularProgress sx={{ color: "white" }} />
+          ) : (
+            "Зареєструвати"
+          )}
         </Button>
       </Stack>
     </FormContainerMUI>

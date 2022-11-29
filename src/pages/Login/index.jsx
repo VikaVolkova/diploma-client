@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import { Navigate } from "react-router-dom";
+import { TextField, Stack, Button, CircularProgress, Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import useAuth from "../../useAuth";
 import FormContainer from "../../components/FormContainer";
 import { validateEmail, validatePassword } from "../../validation/validate";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../features/auth/authActions";
 
 function Login() {
-  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
@@ -17,17 +15,24 @@ function Login() {
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  const { userInfo, loading, error } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
   const updateLogin = (e) => {
+    e.preventDefault();
     setEmail(e.target.value);
     setEmailError(!validateEmail(e.target.value));
   };
 
   const updatePassword = (e) => {
+    e.preventDefault();
     setPassword(e.target.value);
     setPasswordError(!validatePassword(e.target.value));
   };
 
   const hundleBlur = (e) => {
+    e.preventDefault();
     switch (e.target.name) {
       case "email":
         setEmailDirty(true);
@@ -35,25 +40,30 @@ function Login() {
       case "password":
         setPasswordDirty(true);
         break;
+      default:
+        break;
     }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    dispatch(login({ email, password }));
     setEmail("");
     setPassword("");
   };
 
+  if (userInfo?._id) return <Navigate to="/" />;
+
   return (
     <FormContainer>
-      <h2>Login into account</h2>
+      <h2>Увійти в обліковий запис</h2>
+      <h3>{error ? "Невірний пароль" : null}</h3>
       <Box>
         <TextField
           fullWidth
           margin="normal"
           id="outlined-basic"
-          label="e-mail"
+          label="E-mail"
           type="email"
           variant="outlined"
           value={email}
@@ -61,7 +71,7 @@ function Login() {
           onChange={updateLogin}
           placeholder="mango@gmail.com"
           error={emailDirty && emailError}
-          helperText="invalid e-mail"
+          helperText={emailError ? "невірний e-mail" : null}
           name="email"
         />
 
@@ -69,7 +79,7 @@ function Login() {
           fullWidth
           margin="normal"
           id="outlined-password-input"
-          label="password"
+          label="Пароль"
           type="password"
           value={password}
           onBlur={hundleBlur}
@@ -77,15 +87,15 @@ function Login() {
           autoComplete="current-password"
           name="password"
           error={passwordDirty && passwordError}
-          helperText="must be at least 8 chars long"
+          helperText="Пароль має бути не менше 8 символів"
         />
       </Box>
-      <Stack direction="row" spacing={2} marginBottom="10px">
+      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
         <Button type="submit" variant="contained" onClick={onSubmit}>
-          Login
+          {loading ? <CircularProgress sx={{ color: "white" }} /> : "Увійти"}
         </Button>
         <Button component={Link} to="/forgot-password" variant="outlined">
-          Forgot password
+          Забув пароль
         </Button>
       </Stack>
     </FormContainer>

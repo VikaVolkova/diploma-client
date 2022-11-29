@@ -2,7 +2,7 @@ import React from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Comment from "../Comment/index";
+// import Comment from "../Comment/index";
 import articlePropType from "../../proptypes/article";
 import s from "./index.module.css";
 import defaultThumb from "./defaultThumb.jpg";
@@ -41,14 +41,15 @@ function Preview({ article, type }) {
           <Link to={`/${article?.category?.url}`} className={s.link}>
             {article.category?.title}
           </Link>
-          <Link
+          {/* <Link
             to={`/${article?.category?.url}/${article.url}`}
             className={s.comment}
           >
             <Comment count={article.comments.length} />
-          </Link>
+          </Link> */}
         </div>
         <Link
+          // to={`/${article.url}`}
           to={`/${article?.category.url}/${article.url}`}
           className={s.title}
         >
