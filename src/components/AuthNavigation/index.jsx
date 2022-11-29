@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
-import useAuth from "../../useAuth";
 import s from "./index.module.css";
 import AccountMenu from "../AccountMenu";
+import { useSelector } from "react-redux";
 
 function AuthNavigation() {
-  const { user } = useAuth();
+  const { userInfo } = useSelector((state) => state.auth);
   return (
     <div className={s.authContainer}>
-      {user ? (
+      {userInfo ? (
         <AccountMenu />
       ) : (
         <>

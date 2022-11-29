@@ -1,21 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "../../components/Container";
-import QueryHandler from "../../api";
-import { LoadMoreContent } from "../../components/LoadMoreContent";
 import { ArticleList } from "../../components/ArticleList";
 
 function Category() {
   const { categoryUrl } = useParams();
+  const [category, setCategory] = useState(categoryUrl);
 
-  const memoizedCategory = useCallback(
-    () => QueryHandler.fetchArticlesByCategoryUrl(categoryUrl),
-    [categoryUrl]
-  );
+  useEffect(() => {
+    setCategory(categoryUrl);
+  }, [categoryUrl]);
 
   return (
     <Container>
-      <LoadMoreContent request={memoizedCategory} render={ArticleList} />
+      <ArticleList page="category" categoryUrl={category} />
     </Container>
   );
 }

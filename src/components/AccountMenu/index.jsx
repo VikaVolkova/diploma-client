@@ -1,23 +1,34 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  Link,
+  Box,
+  Avatar,
+  MenuItem,
+  Menu,
+  ListItemIcon,
+  Divider,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+
 import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
 import NewspaperOutlinedIcon from "@mui/icons-material/NewspaperOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
-import Tooltip from "@mui/material/Tooltip";
-import Logout from "@mui/icons-material/Logout";
-import useAuth from "../../useAuth";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 import roles from "../../constants/roles";
+import { logout } from "../../features/auth/authSlice";
 
 function AccountMenu() {
-  const { user, logout } = useAuth();
+  const { userInfo } = useSelector((state) => state.auth);
+  const { user } = userInfo;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // automatically authenticate user if token is found
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -26,7 +37,11 @@ function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const userNameFirstLetter = user.name.substr(0, 1).toUpperCase();
+  const handleSignOut = () => {
+    dispatch(logout(null));
+    navigate("/login");
+  };
+  const userNameFirstLetter = user?.name.substr(0, 1).toUpperCase();
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -80,7 +95,7 @@ function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {[roles.admin, roles.manager].includes(user.role) && (
+        {[roles.admin, roles.manager].includes(user?.role) && (
           <MenuItem>
             <ListItemIcon>
               <NoteAddOutlinedIcon fontSize="small" />
@@ -90,7 +105,7 @@ function AccountMenu() {
             </Link>
           </MenuItem>
         )}
-        {[roles.admin, roles.manager].includes(user.role) && (
+        {[roles.admin, roles.manager].includes(user?.role) && (
           <MenuItem>
             <ListItemIcon>
               <NewspaperOutlinedIcon fontSize="small" />
@@ -100,7 +115,7 @@ function AccountMenu() {
             </Link>
           </MenuItem>
         )}
-        {[roles.admin, roles.manager].includes(user.role) && (
+        {[roles.admin, roles.manager].includes(user?.role) && (
           <MenuItem>
             <ListItemIcon>
               <NewspaperOutlinedIcon fontSize="small" />
@@ -110,7 +125,7 @@ function AccountMenu() {
             </Link>
           </MenuItem>
         )}
-        {[roles.admin].includes(user.role) && (
+        {[roles.admin].includes(user?.role) && (
           <MenuItem>
             <ListItemIcon>
               <AddBoxOutlinedIcon fontSize="small" />
@@ -120,7 +135,7 @@ function AccountMenu() {
             </Link>
           </MenuItem>
         )}
-        {[roles.admin].includes(user.role) && (
+        {[roles.admin].includes(user?.role) && (
           <MenuItem>
             <ListItemIcon>
               <NewspaperOutlinedIcon fontSize="small" />
@@ -130,7 +145,7 @@ function AccountMenu() {
             </Link>
           </MenuItem>
         )}
-        {[roles.user].includes(user.role) && (
+        {[roles.user].includes(user?.role) && (
           <MenuItem>
             <ListItemIcon>
               <AssignmentOutlinedIcon fontSize="small" />
@@ -144,13 +159,13 @@ function AccountMenu() {
         <Divider />
         <MenuItem>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <LogoutIcon fontSize="small" />
           </ListItemIcon>
           <Link
             underline="none"
             component="button"
             variant="body1"
-            onClick={logout}
+            onClick={() => handleSignOut()}
           >
             Logout
           </Link>
