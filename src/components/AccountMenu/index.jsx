@@ -23,9 +23,8 @@ import roles from "../../constants/roles";
 import { logout } from "../../features/auth/authSlice";
 
 function AccountMenu() {
-  const user = useSelector((state) => state.auth.userInfo);
-  console.log(user);
-  // const { user } = userInfo;
+  const { userInfo } = useSelector((state) => state.auth);
+  const { user } = userInfo;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
