@@ -16,7 +16,6 @@ import {
 import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
 import NewspaperOutlinedIcon from "@mui/icons-material/NewspaperOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import roles from "../../constants/roles";
@@ -24,8 +23,6 @@ import { logout } from "../../features/auth/authSlice";
 
 function AccountMenu() {
   const user = useSelector((state) => state.auth.userInfo);
-  console.log(user);
-  // const { user } = userInfo;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
