@@ -11,14 +11,15 @@ import { getArticleByUrl } from "../../features/article/articleActions";
 import { getCommentsByArticleId } from "../../features/comments/commentsActions";
 import { Typography } from "@mui/material";
 import { CommentsList } from "../../components/CommentsList";
+import AddComment from "../../components/AddComment";
+import Message from "../../components/Message";
 
 function Article() {
   const { newsUrl } = useParams();
   const dispatch = useDispatch();
   const { article, loadingArticles } = useSelector((state) => state.article);
   const { comments } = useSelector((state) => state.comments);
-
-  console.log(comments);
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
@@ -90,7 +91,7 @@ function Article() {
           >
             Коментарі
           </Typography>
-          {/* {user ? <AddComment articleId={post.id} /> : <Message />} */}
+          {userInfo ? <AddComment articleId={article._id} /> : <Message />}
           <CommentsList data={comments} />
         </Container>
       </>
