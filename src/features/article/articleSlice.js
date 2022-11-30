@@ -48,7 +48,6 @@ const articleSlice = createSlice({
     [getArticleByUrl.rejected]: setError,
     [getArticleByUrl.fulfilled]: (state, action) => {
       state.article = action.payload.article;
-      console.log();
       state.articles = [];
       state.loadingArticles = false;
       state.success = true;

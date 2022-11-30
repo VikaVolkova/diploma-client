@@ -21,7 +21,7 @@ function AuthNavigation() {
               })
             }
           >
-            Войти
+            Зайти
           </NavLink>
 
           <NavLink
