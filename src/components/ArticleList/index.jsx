@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getArticles,
   getArticlesByCategoryUrl,
+  getUnpublishedArticles,
 } from "../../features/article/articleActions";
 
 export const ArticleList = ({ page, categoryUrl }) => {
@@ -18,10 +19,12 @@ export const ArticleList = ({ page, categoryUrl }) => {
   useEffect(() => {
     if (page === "main") {
       dispatch(getArticles());
-    } else {
+    } else if (page === "category") {
       dispatch(getArticlesByCategoryUrl({ categoryUrl }));
+    } else {
+      dispatch(getUnpublishedArticles());
     }
-  }, [dispatch, categoryUrl]);
+  }, [dispatch, categoryUrl, page]);
   const { articles, loading } = useSelector((state) => state.article);
 
   const theme = useTheme();

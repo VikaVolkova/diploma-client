@@ -53,6 +53,23 @@ export const getArticlesByCategoryUrl = createAsyncThunk(
   }
 );
 
+export const getUnpublishedArticles = createAsyncThunk(
+  "/news/unpublished",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(`/news/unpublished`);
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
 export const createArticle = createAsyncThunk(
   "news/",
   async (data, { rejectWithValue }) => {

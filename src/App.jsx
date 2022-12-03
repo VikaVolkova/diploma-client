@@ -13,6 +13,7 @@ import Article from "./pages/Article";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateArticle from "./pages/CreateArticle";
 import roles from "./constants/roles";
+import UnpublishedArticles from "./pages/UnpublishedArticles";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,11 +35,16 @@ function App() {
           <Route
             path="/create-article"
             element={
-              <ProtectedRoute
-                // user={userInfo}
-                roles={[roles.admin, roles.manager]}
-              >
+              <ProtectedRoute roles={[roles.admin, roles.manager]}>
                 <CreateArticle />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/unpublished"
+            element={
+              <ProtectedRoute roles={[roles.admin, roles.manager]}>
+                <UnpublishedArticles />
               </ProtectedRoute>
             }
           />
