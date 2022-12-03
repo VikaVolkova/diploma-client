@@ -1,21 +1,23 @@
 import * as React from "react";
-import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import roles from "./constants/roles";
 import { useSelector } from "react-redux";
+import Message from "./components/Message";
+import Container from "./components/Container";
 
-const ProtectedRoute = ({ roles, children, redirectPath }) => {
-  const { userInfo, loading } = useSelector((state) => state.auth);
-  let isAllowed;
-  if (loading) {
-    return <h1>loading...</h1>;
-  }
+const ProtectedRoute = ({ roles, children }) => {
+  const { userInfo } = useSelector((state) => state.auth);
+  const isAllowed = !!userInfo && roles.includes(userInfo.role);
 
-  userInfo && (isAllowed = !!userInfo && roles.includes(userInfo.role));
-  console.log(userInfo);
-
-  if (!isAllowed && !loading) {
-    return <Navigate to={redirectPath} replace />;
+  if (!isAllowed) {
+    return (
+      <Container>
+        <Message
+          text="Сторінка доступна тільки користувачам з роллю адміністратора або менеджера"
+          type="unAuth"
+        />
+      </Container>
+    );
   }
 
   return children;
