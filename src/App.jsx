@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./features/auth/authSlice";
 import Category from "./pages/Category";
 import Article from "./pages/Article";
-// import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 import CreateArticle from "./pages/CreateArticle";
-// import roles from "./constants/roles";
+import roles from "./constants/roles";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,12 +34,12 @@ function App() {
           <Route
             path="/create-article"
             element={
-              // <ProtectedRoute
-              //   // user={userInfo}
-              //   roles={[roles.admin, roles.manager]}
-              // >
-              <CreateArticle />
-              // </ProtectedRoute>
+              <ProtectedRoute
+                // user={userInfo}
+                roles={[roles.admin, roles.manager]}
+              >
+                <CreateArticle />
+              </ProtectedRoute>
             }
           />
 

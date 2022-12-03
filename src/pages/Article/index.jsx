@@ -91,7 +91,15 @@ function Article() {
           >
             Коментарі
           </Typography>
-          {userInfo ? <AddComment articleId={article._id} /> : <Message />}
+          {userInfo ? (
+            <AddComment articleId={article._id} />
+          ) : (
+            <Message
+              text="Тільки зареєстровані користувачі можуть залишати повідомлення.
+          Будь-ласка зайдіть або зареєструйстесь."
+              type="login"
+            />
+          )}
           <CommentsList data={comments} />
         </Container>
       </>
