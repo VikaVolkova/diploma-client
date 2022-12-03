@@ -16,10 +16,10 @@ import roles from "./constants/roles";
 
 function App() {
   const dispatch = useDispatch();
-  const { userInfo, loading } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch, loading, userInfo]);
+  }, [dispatch, userInfo]);
   const location = useLocation();
   const background = location.state;
 

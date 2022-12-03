@@ -39,7 +39,7 @@ function AccountMenu() {
     dispatch(logout(null));
     navigate("/login");
   };
-  const userNameFirstLetter = user?.name.substr(0, 1).toUpperCase();
+  const userNameFirstLetter = user?.name?.substr(0, 1).toUpperCase();
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
