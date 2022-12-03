@@ -70,7 +70,7 @@ function Login() {
     setPassword("");
   };
 
-  if (userInfo?._id) return <Navigate to="/" />;
+  if (userInfo) return <Navigate to="/" />;
 
   return (
     <FormContainer>

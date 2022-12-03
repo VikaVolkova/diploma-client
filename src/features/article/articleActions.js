@@ -52,3 +52,19 @@ export const getArticlesByCategoryUrl = createAsyncThunk(
     }
   }
 );
+
+export const createArticle = createAsyncThunk(
+  "news/",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log(data);
+      await api.post("news/", data);
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);

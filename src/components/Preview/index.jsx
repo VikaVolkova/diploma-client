@@ -31,7 +31,7 @@ function Preview({ article, type }) {
       >
         <img
           className={s.picture}
-          src={article.picture ? article.picture : defaultThumb}
+          src={article.coverImage ? article.coverImage : defaultThumb}
           alt={article.title}
           id="previewImg"
         />
