@@ -3,6 +3,7 @@ import {
   getArticles,
   getArticlesByCategoryUrl,
   getArticleByUrl,
+  createArticle,
 } from "./articleActions";
 
 const setPending = (state) => {
@@ -49,6 +50,13 @@ const articleSlice = createSlice({
     [getArticleByUrl.fulfilled]: (state, action) => {
       state.article = action.payload.article;
       state.articles = [];
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [createArticle.pending]: setPending,
+    [createArticle.rejected]: setError,
+    [createArticle.fulfilled]: (state) => {
       state.loadingArticles = false;
       state.success = true;
       state.error = null;

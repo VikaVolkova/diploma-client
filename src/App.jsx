@@ -10,13 +10,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./features/auth/authSlice";
 import Category from "./pages/Category";
 import Article from "./pages/Article";
+// import ProtectedRoute from "./ProtectedRoute";
+import CreateArticle from "./pages/CreateArticle";
+// import roles from "./constants/roles";
 
 function App() {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo, loading } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch, userInfo]);
+  }, [dispatch, loading, userInfo]);
   const location = useLocation();
   const background = location.state;
 
@@ -28,6 +31,18 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/restore-password" element={<RestorePassword />} />
+          <Route
+            path="/create-article"
+            element={
+              // <ProtectedRoute
+              //   // user={userInfo}
+              //   roles={[roles.admin, roles.manager]}
+              // >
+              <CreateArticle />
+              // </ProtectedRoute>
+            }
+          />
+
           <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path=":categoryUrl">

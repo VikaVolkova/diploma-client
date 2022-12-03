@@ -31,7 +31,7 @@ function Article() {
   let bannerSrc = defaultBanner;
   let articleId = 0;
   if (article) {
-    bannerSrc = article.coverPicture ?? defaultBanner;
+    bannerSrc = article.coverImage ?? defaultBanner;
     articleId = article._id;
   }
 

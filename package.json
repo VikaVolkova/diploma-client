@@ -21,6 +21,7 @@
     "lodash.unionby": "^4.8.0",
     "markdown-to-jsx": "^7.1.7",
     "prop-types": "^15.8.1",
+    "ramda": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

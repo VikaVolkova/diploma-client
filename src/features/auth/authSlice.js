@@ -51,6 +51,7 @@ const authSlice = createSlice({
         const user = jwtDecode(token);
         return {
           ...state,
+          loading: false,
           accessToken: action.payload,
           userInfo: user,
         };
