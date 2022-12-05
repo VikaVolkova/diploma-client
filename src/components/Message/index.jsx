@@ -24,7 +24,7 @@ function Message({ text, type }) {
             </Button>
           </>
         )}
-        {type === "unAuth" && (
+        {type === "main" && (
           <>
             <Button href="/" variant="contained">
               Повернутись на головну

@@ -14,7 +14,7 @@ const ProtectedRoute = ({ roles, children }) => {
       <Container>
         <Message
           text="Сторінка доступна тільки користувачам з роллю адміністратора або менеджера"
-          type="unAuth"
+          type="main"
         />
       </Container>
     );

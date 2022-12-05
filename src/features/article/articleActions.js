@@ -85,3 +85,39 @@ export const createArticle = createAsyncThunk(
     }
   }
 );
+
+export const toggleArticlePublish = createAsyncThunk(
+  "news/publish/:id",
+  async ({ id, isPublished }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post(
+        `news/publish/${id}?isPublished=${isPublished}`
+      );
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const removeArticle = createAsyncThunk(
+  "news/:id",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.delete(`news/${id}`);
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);

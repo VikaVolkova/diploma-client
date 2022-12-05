@@ -5,6 +5,8 @@ import {
   getArticleByUrl,
   createArticle,
   getUnpublishedArticles,
+  toggleArticlePublish,
+  removeArticle,
 } from "./articleActions";
 
 const setPending = (state) => {
@@ -66,6 +68,22 @@ const articleSlice = createSlice({
     [createArticle.pending]: setPending,
     [createArticle.rejected]: setError,
     [createArticle.fulfilled]: (state) => {
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [removeArticle.pending]: setPending,
+    [removeArticle.rejected]: setError,
+    [removeArticle.fulfilled]: (state, action) => {
+      state.article = action.payload.article;
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [toggleArticlePublish.pending]: setPending,
+    [toggleArticlePublish.rejected]: setError,
+    [toggleArticlePublish.fulfilled]: (state, action) => {
+      state.article = action.payload.article;
       state.loadingArticles = false;
       state.success = true;
       state.error = null;

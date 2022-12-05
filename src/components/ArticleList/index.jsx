@@ -12,10 +12,63 @@ import {
   getArticles,
   getArticlesByCategoryUrl,
   getUnpublishedArticles,
+  toggleArticlePublish,
+  removeArticle,
 } from "../../features/article/articleActions";
+import roles from "../../constants/roles";
+import ActionPanel from "../ActionPanel";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Message from "../Message";
 
-export const ArticleList = ({ page, categoryUrl }) => {
+export const ArticleList = ({ page, categoryUrl, type }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { articles, loadingArticles } = useSelector((state) => state.article);
+  const { userInfo } = useSelector((state) => state.auth);
+  const [articlesArr, setArticlesArr] = useState([]);
+
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    if (!loadingArticles) {
+      setArticlesArr(articles);
+    }
+  }, [loadingArticles, articles]);
+
+  const removeItem = (id) =>
+    setArticlesArr((prev) => prev.filter((item) => item._id !== id));
+
+  const publishArticle = async (id) => {
+    try {
+      const isPublished = "true";
+      await dispatch(toggleArticlePublish({ id, isPublished }));
+      removeItem(id);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const unpublishArticle = async (id) => {
+    try {
+      const isPublished = "true";
+      await dispatch(toggleArticlePublish({ id, isPublished }));
+      removeItem(id);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const deleteArticle = async (id) => {
+    try {
+      await dispatch(removeArticle({ id }));
+      removeItem(id);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
     if (page === "main") {
       dispatch(getArticles());
@@ -25,12 +78,8 @@ export const ArticleList = ({ page, categoryUrl }) => {
       dispatch(getUnpublishedArticles());
     }
   }, [dispatch, categoryUrl, page]);
-  const { articles, loading } = useSelector((state) => state.article);
 
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
-
-  if (loading) {
+  if (loadingArticles) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <CircularProgress />
@@ -38,9 +87,33 @@ export const ArticleList = ({ page, categoryUrl }) => {
     );
   }
 
-  return articles.map((article) => (
+  if (!loadingArticles && articles.length === 0 && type === "unpublished") {
+    return <Message text="Наразі немає неопублікованих статей" type="main" />;
+  }
+
+  return articlesArr.map((article) => (
     <Grid item key={article._id} marginBottom={5}>
       <Preview article={article} type={isTablet ? "thumbnail" : "full"} />
+      {type === "unpublished" && (
+        <>
+          {[roles.admin, roles.manager].includes(userInfo.role) && (
+            <ActionPanel
+              handleEdit={() => navigate(`/update/${article._id}`)}
+              handlePublish={
+                userInfo?.role === roles.admin && !article.isPublished
+                  ? () => publishArticle(article._id)
+                  : undefined
+              }
+              handleUnpublish={
+                userInfo?.role === roles.admin && article.isPublished
+                  ? () => unpublishArticle(article._id)
+                  : undefined
+              }
+              handleDelete={() => deleteArticle(article._id)}
+            />
+          )}
+        </>
+      )}
     </Grid>
   ));
 };
