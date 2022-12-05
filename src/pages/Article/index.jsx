@@ -1,5 +1,5 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Markdown from "markdown-to-jsx";
 import Container from "../../components/Container";
 import s from "./index.module.css";
@@ -7,12 +7,18 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import defaultBanner from "./defaultBanner.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { getArticleByUrl } from "../../features/article/articleActions";
+import {
+  getArticleByUrl,
+  toggleArticlePublish,
+  removeArticle,
+} from "../../features/article/articleActions";
 import { getCommentsByArticleId } from "../../features/comments/commentsActions";
 import { Typography } from "@mui/material";
 import { CommentsList } from "../../components/CommentsList";
 import AddComment from "../../components/AddComment";
 import Message from "../../components/Message";
+import ActionPanel from "../../components/ActionPanel";
+import roles from "../../constants/roles";
 
 function Article() {
   const { newsUrl } = useParams();
@@ -20,13 +26,11 @@ function Article() {
   const { article, loadingArticles } = useSelector((state) => state.article);
   const { comments } = useSelector((state) => state.comments);
   const { userInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
   }, [dispatch, newsUrl]);
-
-  // const navigate = useNavigate();
-  // const location = useLocation();
 
   let bannerSrc = defaultBanner;
   let articleId = 0;
@@ -38,25 +42,6 @@ function Article() {
   useEffect(() => {
     articleId && dispatch(getCommentsByArticleId({ articleId }));
   }, [articleId, dispatch]);
-  // const handleUserKeyPress = useCallback(
-  //   (e) => {
-  //     if (e.target.tagName === "IMG" && e.target.id !== "previewImg") {
-  //       const imageSrc = e.target.getAttribute("src");
-  //       const params = new URLSearchParams({ src: imageSrc });
-  //       navigate(`/image?${params}`, {
-  //         state: { background: location },
-  //       });
-  //     }
-  //   },
-  //   [location, navigate]
-  // );
-
-  // useEffect(() => {
-  //   window.addEventListener("click", handleUserKeyPress);
-  //   return () => {
-  //     window.removeEventListener("click", handleUserKeyPress);
-  //   };
-  // }, [handleUserKeyPress]);
 
   if (loadingArticles) {
     return (
@@ -65,6 +50,23 @@ function Article() {
       </Box>
     );
   }
+
+  const deleteArticle = async (id) => {
+    await dispatch(removeArticle({ id }));
+    navigate(-1);
+  };
+
+  const publishArticle = async (id) => {
+    const isPublished = true;
+    await dispatch(toggleArticlePublish({ id, isPublished }));
+    navigate(-1);
+  };
+
+  const unpublishArticle = async (id) => {
+    const isPublished = false;
+    await dispatch(toggleArticlePublish({ id, isPublished }));
+    navigate(-1);
+  };
 
   return (
     article &&
@@ -80,6 +82,32 @@ function Article() {
             />
             <h1 className={s.title}>{article.title}</h1>
           </div>
+          {userInfo && [roles.admin, roles.manager].includes(userInfo.role) && (
+            <ActionPanel
+              handleEdit={
+                userInfo?._id === article.author ||
+                userInfo?.role === roles.admin
+                  ? () => navigate(`/update/${article._id}`)
+                  : undefined
+              }
+              handlePublish={
+                userInfo?.role === roles.admin && !article.isPublished
+                  ? () => publishArticle(article._id)
+                  : undefined
+              }
+              handleUnpublish={
+                userInfo?.role === roles.admin && article.isPublished
+                  ? () => unpublishArticle(article._id)
+                  : undefined
+              }
+              handleDelete={
+                userInfo?._id === article.author ||
+                userInfo?.role === roles.admin
+                  ? () => deleteArticle(article._id)
+                  : undefined
+              }
+            />
+          )}
         </Container>
         <Container>
           <Markdown>{article.content}</Markdown>

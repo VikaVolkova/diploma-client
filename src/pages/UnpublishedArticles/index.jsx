@@ -5,7 +5,7 @@ import { ArticleList } from "../../components/ArticleList";
 function UnpublishedArticles() {
   return (
     <Container>
-      <ArticleList page="unpublished" />
+      <ArticleList page="unpublished" type="unpublished" />
     </Container>
   );
 }

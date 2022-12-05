@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -21,12 +21,10 @@ function App() {
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch, userInfo]);
-  const location = useLocation();
-  const background = location.state;
 
   return (
     <>
-      <Routes location={background || location}>
+      <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
