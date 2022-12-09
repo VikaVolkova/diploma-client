@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getCommentsByArticleId, createComment } from "./commentsActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { getCommentsByArticleId, createComment } from './commentsActions';
 
 const setPending = (state) => {
   state.loadingComments = true;
@@ -20,7 +20,7 @@ const initialState = {
 };
 
 const commentsSlice = createSlice({
-  name: "comments",
+  name: 'comments',
   initialState,
   reducers: {},
   extraReducers: {

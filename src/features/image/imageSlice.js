@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { uploadImage } from "./imageActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { uploadImage } from './imageActions';
 
 const setPending = (state) => {
   state.loadingImages = true;
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const imageSlice = createSlice({
-  name: "image",
+  name: 'image',
   initialState,
   reducers: {},
   extraReducers: {

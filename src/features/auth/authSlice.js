@@ -1,16 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  register,
-  login,
-  forgotPassword,
-  restorePassword,
-  fetchToken,
-} from "./authActions";
-import jwtDecode from "jwt-decode";
+import { createSlice } from '@reduxjs/toolkit';
+import { register, login, forgotPassword, restorePassword, fetchToken } from './authActions';
+import jwtDecode from 'jwt-decode';
 
 // initialize userToken from local storage
-const accessToken = localStorage.getItem("accessToken")
-  ? localStorage.getItem("accessToken")
+const accessToken = localStorage.getItem('accessToken')
+  ? localStorage.getItem('accessToken')
   : null;
 
 const initialState = {
@@ -32,11 +26,11 @@ const setError = (state, action) => {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logout(state) {
-      localStorage.removeItem("accessToken"); // delete token from storage
+      localStorage.removeItem('accessToken'); // delete token from storage
       return {
         ...state,
         loading: false,
