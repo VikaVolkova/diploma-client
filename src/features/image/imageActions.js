@@ -1,22 +1,18 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api/interceptor";
-
-const headers = {
-  "Content-Type": "multipart/form-data",
-};
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../../api/interceptor';
 
 export const uploadImage = createAsyncThunk(
-  "images/upload",
+  'images/upload',
   async ({ image }, { rejectWithValue }) => {
     try {
       const data = api.post(
-        "images/upload",
+        'images/upload',
         { image },
         {
           headers: {
-            "content-type": "multipart/form-data",
+            'content-type': 'multipart/form-data',
           },
-        }
+        },
       );
 
       return data;
@@ -27,5 +23,5 @@ export const uploadImage = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
-  }
+  },
 );

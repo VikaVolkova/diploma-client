@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getCategories } from "./categoryActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { getCategories } from './categoryActions';
 
 const setPending = (state) => {
   state.loadingCategories = true;
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const categorySlice = createSlice({
-  name: "category",
+  name: 'category',
   initialState,
   reducers: {},
   extraReducers: {

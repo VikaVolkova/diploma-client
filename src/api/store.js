@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../features/auth/authSlice";
-import aticleReducer from "../features/article/articleSlice";
-import commentsReducer from "../features/comments/commentsSlice";
-import categorySlice from "../features/category/categorySlice";
-import imageSlice from "../features/image/imageSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../features/auth/authSlice';
+import aticleReducer from '../features/article/articleSlice';
+import commentsReducer from '../features/comments/commentsSlice';
+import categorySlice from '../features/category/categorySlice';
+import imageSlice from '../features/image/imageSlice';
 
 const store = configureStore({
   reducer: {

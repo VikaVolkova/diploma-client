@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   getArticles,
   getArticlesByCategoryUrl,
@@ -7,7 +7,7 @@ import {
   getUnpublishedArticles,
   toggleArticlePublish,
   removeArticle,
-} from "./articleActions";
+} from './articleActions';
 
 const setPending = (state) => {
   state.loadingArticles = true;
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 const articleSlice = createSlice({
-  name: "article",
+  name: 'article',
   initialState,
   reducers: {},
   extraReducers: {
