@@ -14,3 +14,8 @@ export const MESSAGE_TYPE = {
   MAIN: 'main',
   LOGIN: 'login',
 };
+
+export const TOKENS = {
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken',
+};

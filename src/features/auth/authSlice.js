@@ -1,10 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, forgotPassword, restorePassword, fetchToken } from './authActions';
+import {
+  register,
+  login,
+  forgotPassword,
+  restorePassword,
+  fetchToken,
+  getUser,
+} from './authActions';
 import jwtDecode from 'jwt-decode';
+import { TOKENS } from '../../helpers/constans';
 
 // initialize userToken from local storage
-const accessToken = localStorage.getItem('accessToken')
-  ? localStorage.getItem('accessToken')
+const accessToken = localStorage.getItem(TOKENS.ACCESS_TOKEN)
+  ? localStorage.getItem(TOKENS.ACCESS_TOKEN)
   : null;
 
 const initialState = {
@@ -39,14 +47,13 @@ const authSlice = createSlice({
         error: null,
       };
     },
-    loadUser(state, action) {
+    loadUser(state) {
       const token = state.accessToken;
+      console.log(token);
       if (token) {
         const user = jwtDecode(token);
         return {
           ...state,
-          loading: false,
-          accessToken: action.payload,
           userInfo: user,
         };
       }
@@ -89,6 +96,13 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken;
     },
     [fetchToken.rejected]: setError,
+    [getUser.pending]: setPending,
+    [getUser.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.userInfo = action.payload;
+    },
+    [getUser.rejected]: setError,
   },
 });
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
 import { Container } from '../Container/Container';
@@ -18,13 +17,4 @@ export const Header = () => {
       </Container>
     </header>
   );
-};
-
-Header.propTypes = {
-  navigation: PropTypes.objectOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      url: PropTypes.string,
-    }),
-  ).isRequired,
 };

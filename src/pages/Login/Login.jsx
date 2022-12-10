@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FormContainer } from '../../shared/FormContainer/FormContainer';
-import { validateEmail, validatePassword } from '../../validation/validate';
+import { validateEmail, validatePassword } from '../../helpers/validate';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/auth/authActions';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
