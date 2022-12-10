@@ -91,3 +91,17 @@ export const fetchToken = createAsyncThunk('user/token', async (_, { rejectWithV
     }
   }
 });
+
+export const getUser = createAsyncThunk('user/me', async (_, { rejectWithValue }) => {
+  try {
+    const response = await api.get('user/me');
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
+    }
+  }
+});

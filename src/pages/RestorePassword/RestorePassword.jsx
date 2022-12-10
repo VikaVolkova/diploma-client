@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../shared/FormContainer/FormContainer';
-import { validatePassword } from '../../validation/validate';
+import { validatePassword } from '../../helpers/validate';
 import { useDispatch, useSelector } from 'react-redux';
 import { restorePassword } from '../../features/auth/authActions';
 import {

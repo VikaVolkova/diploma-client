@@ -31,6 +31,6 @@ export const Message = ({ text, type }) => (
 );
 
 Message.propTypes = {
-  text: PropTypes.oneOf([MESSAGE_TYPE.LOGIN, MESSAGE_TYPE.MAIN]),
-  type: PropTypes.string,
+  type: PropTypes.oneOf([MESSAGE_TYPE.LOGIN, MESSAGE_TYPE.MAIN]),
+  text: PropTypes.string,
 };

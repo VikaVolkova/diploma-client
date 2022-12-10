@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Stack, Button } from '@mui/material';
 import { FormContainer } from '../../shared/FormContainer/FormContainer';
-import { validateEmail } from '../../validation/validate';
+import { validateEmail } from '../../helpers/validate';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword } from '../../features/auth/authActions';
 

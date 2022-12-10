@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { FormContainer } from '../../shared/FormContainer/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { validateName, validateEmail, validatePassword } from '../../validation/validate';
+import { validateName, validateEmail, validatePassword } from '../../helpers/validate';
 import { register } from '../../features/auth/authActions';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
