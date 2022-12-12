@@ -21,6 +21,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { createArticle } from '../../features/article/articleActions';
 import { getCategories } from '../../features/category/categoryActions';
 import { uploadImage } from '../../features/image/imageActions';
+import { defaultImage } from '../../helpers/constans';
 
 const validationSchema = yup
   .object({
@@ -77,7 +78,7 @@ export const CreateArticle = () => {
           createArticle({
             ...data,
             author: userInfo._id,
-            coverImage: res.payload.data,
+            coverImage: res.payload.data ? res.payload.data : defaultImage,
           }),
         );
       });

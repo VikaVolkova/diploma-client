@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getArticleByUrl,
   toggleArticlePublish,
-  removeArticle,
+  deleteArticle,
 } from '../../features/article/articleActions';
 import { getCommentsByArticleId } from '../../features/comments/commentsActions';
 import { Typography } from '@mui/material';
@@ -51,8 +51,8 @@ export const Article = () => {
     );
   }
 
-  const deleteArticle = async (id) => {
-    await dispatch(removeArticle({ id }));
+  const removeArticle = async (id) => {
+    await dispatch(deleteArticle({ id }));
     navigate(-1);
   };
 
@@ -101,7 +101,7 @@ export const Article = () => {
               }
               handleDelete={
                 userInfo?._id === article.author || userInfo?.role === ROLES.ADMIN
-                  ? () => deleteArticle(article._id)
+                  ? () => removeArticle(article._id)
                   : undefined
               }
             />

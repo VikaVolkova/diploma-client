@@ -92,65 +92,65 @@ export const AccountMenu = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {[ROLES.ADMIN, ROLES.MANAGER].includes(user?.role) && (
-          <MenuItem>
-            <ListItemIcon>
-              <NoteAddOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Link href={ROUTES.CREATE_ARTICLE} underline="none">
+          <Link href={ROUTES.CREATE_ARTICLE} underline="none">
+            <MenuItem>
+              <ListItemIcon>
+                <NoteAddOutlinedIcon fontSize="small" />
+              </ListItemIcon>
               {'Додати статтю'}
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         {[ROLES.ADMIN, ROLES.MANAGER].includes(user?.role) && (
-          <MenuItem>
-            <ListItemIcon>
-              <NewspaperOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Link href={ROUTES.UNPUBLISHED} underline="none">
+          <Link href={ROUTES.UNPUBLISHED} underline="none">
+            <MenuItem>
+              <ListItemIcon>
+                <NewspaperOutlinedIcon fontSize="small" />
+              </ListItemIcon>
               {'Неопубліковані статті'}
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         {[ROLES.ADMIN, ROLES.MANAGER].includes(user?.role) && (
-          <MenuItem>
-            <ListItemIcon>
-              <NewspaperOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Link href={ROUTES.UNPUBLISHED_COMMENTS} underline="none">
+          <Link href={ROUTES.UNPUBLISHED_COMMENTS} underline="none">
+            <MenuItem>
+              <ListItemIcon>
+                <NewspaperOutlinedIcon fontSize="small" />
+              </ListItemIcon>
               {'Неопубліковані коментарі'}
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         {[ROLES.ADMIN].includes(user?.role) && (
-          <MenuItem>
-            <ListItemIcon>
-              <AddBoxOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Link href={ROUTES.CREATE_CATEGORY} underline="none">
+          <Link href={ROUTES.CREATE_CATEGORY} underline="none">
+            <MenuItem>
+              <ListItemIcon>
+                <AddBoxOutlinedIcon fontSize="small" />
+              </ListItemIcon>
               {'Додати категорію'}
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         {[ROLES.ADMIN].includes(user?.role) && (
-          <MenuItem>
-            <ListItemIcon>
-              <NewspaperOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <Link href={ROUTES.CREDENTIALS} underline="none">
+          <Link href={ROUTES.CREDENTIALS} underline="none">
+            <MenuItem>
+              <ListItemIcon>
+                <NewspaperOutlinedIcon fontSize="small" />
+              </ListItemIcon>
               {'Дані користувача'}
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
 
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <LogoutIcon fontSize="small" />
-          </ListItemIcon>
-          <Link underline="none" component="button" variant="body1" onClick={() => handleSignOut()}>
+        <Link underline="none" component="button" variant="body1" onClick={() => handleSignOut()}>
+          <MenuItem>
+            <ListItemIcon>
+              <LogoutIcon fontSize="small" />
+            </ListItemIcon>
             Вийти
-          </Link>
-        </MenuItem>
+          </MenuItem>
+        </Link>
       </Menu>
     </React.Fragment>
   );

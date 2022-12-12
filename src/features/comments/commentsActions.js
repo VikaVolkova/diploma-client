@@ -1,11 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/interceptor';
+import { ACTION_ROUTES } from '../../helpers/routes';
 
 export const getCommentsByArticleId = createAsyncThunk(
-  'comments/article/:articleId',
+  ACTION_ROUTES.COMMENT.GET_COMMENTS_BY_ARTICLE_ID,
   async ({ articleId }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/comments/article/${articleId}`);
+      const { data } = await api.get(
+        `${ACTION_ROUTES.COMMENT.GET_COMMENTS_BY_ARTICLE_ID}${articleId}`,
+      );
 
       return data;
     } catch (error) {
@@ -18,18 +21,11 @@ export const getCommentsByArticleId = createAsyncThunk(
   },
 );
 
-// static async createComment(text, articleId) {
-//   const response = await api.post(`/comments`, { text, articleId });
-
-//   const data = await response.data;
-//   return data;
-// }
-
 export const createComment = createAsyncThunk(
-  'comments/',
+  ACTION_ROUTES.COMMENT.BASE,
   async ({ text, authorId, articleId }, { rejectWithValue }) => {
     try {
-      await api.post('comments/', { text, authorId, articleId });
+      await api.post(ACTION_ROUTES.COMMENT.BASE, { text, authorId, articleId });
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
