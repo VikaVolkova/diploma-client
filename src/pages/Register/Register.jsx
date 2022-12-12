@@ -29,7 +29,7 @@ export const Register = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState('');
 
-  const { success, loading, error } = useSelector((state) => state.auth);
+  const { registered, loading, error } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -61,7 +61,7 @@ export const Register = () => {
     setPassword('');
   };
 
-  if (success) return <Navigate to="/login" />;
+  if (registered) return <Navigate to="/login" />;
 
   const hundleBlur = (e) => {
     switch (e.target.name) {

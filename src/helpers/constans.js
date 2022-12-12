@@ -19,3 +19,5 @@ export const TOKENS = {
   ACCESS_TOKEN: 'accessToken',
   REFRESH_TOKEN: 'refreshToken',
 };
+
+export const defaultImage = 'https://thetechswing.com/wp-content/uploads/2022/03/Web-Dev-Blog.png';

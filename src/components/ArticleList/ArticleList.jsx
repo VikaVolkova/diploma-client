@@ -8,7 +8,7 @@ import {
   getArticlesByCategoryUrl,
   getUnpublishedArticles,
   toggleArticlePublish,
-  removeArticle,
+  deleteArticle,
 } from '../../features/article/articleActions';
 import { ActionPanel } from '../ActionPanel/ActionPanel';
 import { useNavigate } from 'react-router-dom';
@@ -54,9 +54,9 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     }
   };
 
-  const deleteArticle = async (id) => {
+  const removeArticle = async (id) => {
     try {
-      await dispatch(removeArticle({ id }));
+      await dispatch(deleteArticle({ id }));
       removeItem(id);
     } catch (err) {
       console.log(err.message);
@@ -103,7 +103,7 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
                   ? () => unpublishArticle(article._id)
                   : undefined
               }
-              handleDelete={() => deleteArticle(article._id)}
+              handleDelete={() => removeArticle(article._id)}
             />
           )}
         </>

@@ -21,6 +21,7 @@ const initialState = {
   accessToken,
   error: null,
   success: false,
+  registered: false,
 };
 
 const setPending = (state) => {
@@ -49,7 +50,6 @@ const authSlice = createSlice({
     },
     loadUser(state) {
       const token = state.accessToken;
-      console.log(token);
       if (token) {
         const user = jwtDecode(token);
         return {
@@ -64,7 +64,7 @@ const authSlice = createSlice({
     [login.pending]: setPending,
     [login.fulfilled]: (state, action) => {
       state.loading = false;
-      state.userInfo = action.payload;
+      state.userInfo = action.payload.user;
       state.accessToken = action.payload.accessToken;
       state.success = true;
     },
@@ -72,6 +72,7 @@ const authSlice = createSlice({
     // register user
     [register.pending]: setPending,
     [register.fulfilled]: (state) => {
+      state.registered = true;
       state.loading = false;
       state.success = true; // registration successful
     },

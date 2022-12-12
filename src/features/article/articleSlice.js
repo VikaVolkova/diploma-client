@@ -6,7 +6,7 @@ import {
   createArticle,
   getUnpublishedArticles,
   toggleArticlePublish,
-  removeArticle,
+  deleteArticle,
 } from './articleActions';
 
 const setPending = (state) => {
@@ -72,9 +72,9 @@ const articleSlice = createSlice({
       state.success = true;
       state.error = null;
     },
-    [removeArticle.pending]: setPending,
-    [removeArticle.rejected]: setError,
-    [removeArticle.fulfilled]: (state, action) => {
+    [deleteArticle.pending]: setPending,
+    [deleteArticle.rejected]: setError,
+    [deleteArticle.fulfilled]: (state, action) => {
       state.article = action.payload.article;
       state.loadingArticles = false;
       state.success = true;

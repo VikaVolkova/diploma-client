@@ -12,3 +12,32 @@ export const ROUTES = {
   CREATE_CATEGORY: '/create-category',
   CREDENTIALS: '/credentials',
 };
+
+export const ACTION_ROUTES = {
+  USER: {
+    LOGIN: 'user/login',
+    REGISTER: 'user/register',
+    FORGOT_PASSWORD: 'user/forgot-password',
+    RESTORE_PASSWORD: 'user/restore-password',
+    TOKEN: 'user/token',
+    GET_USER: 'user/me',
+  },
+  ARTICLE: {
+    BASE: 'news',
+    GET_ARTICLE_BY_URL: 'news/:newsUrl',
+    GET_ARTICLES_BY_CATEGORY_URL: 'news/category/',
+    GET_UNPUBLISHED_ARTICLES: 'news/unpublished',
+    TOGGLE_ARTICLE_PUBLISH: 'news/publish/',
+    DELETE_ARTICLE: 'news/:id',
+  },
+  CATEGORY: {
+    BASE: '/category',
+  },
+  COMMENT: {
+    BASE: 'comments/',
+    GET_COMMENTS_BY_ARTICLE_ID: '/comments/article/',
+  },
+  IMAGE: {
+    UPLOAD: 'images/upload',
+  },
+};
