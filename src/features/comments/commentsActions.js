@@ -35,3 +35,20 @@ export const createComment = createAsyncThunk(
     }
   },
 );
+
+export const getUnpublishedComments = createAsyncThunk(
+  ACTION_ROUTES.COMMENT.GET_UNPUBLISHED_COMMENTS,
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(ACTION_ROUTES.COMMENT.GET_UNPUBLISHED_COMMENTS);
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);

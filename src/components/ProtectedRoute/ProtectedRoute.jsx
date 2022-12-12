@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Message } from '../Message/Message';
 import { Container } from '../Container/Container';
-import { MESSAGE_TYPE, ROLES } from '../../helpers';
+import { MESSAGES, MESSAGE_TYPE, ROLES } from '../../helpers';
 
 export const ProtectedRoute = ({ roles, children }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -12,10 +12,7 @@ export const ProtectedRoute = ({ roles, children }) => {
   if (!isAllowed) {
     return (
       <Container>
-        <Message
-          text="Сторінка доступна тільки користувачам з роллю адміністратора"
-          type={MESSAGE_TYPE.MAIN}
-        />
+        <Message text={MESSAGES.NO_RIGHTS} type={MESSAGE_TYPE.MAIN} />
       </Container>
     );
   }
