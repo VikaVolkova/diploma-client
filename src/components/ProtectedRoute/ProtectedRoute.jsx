@@ -13,7 +13,7 @@ export const ProtectedRoute = ({ roles, children }) => {
     return (
       <Container>
         <Message
-          text="Сторінка доступна тільки користувачам з роллю адміністратора або менеджера"
+          text="Сторінка доступна тільки користувачам з роллю адміністратора"
           type={MESSAGE_TYPE.MAIN}
         />
       </Container>
