@@ -36,6 +36,7 @@ export const ACTION_ROUTES = {
   COMMENT: {
     BASE: 'comments/',
     GET_COMMENTS_BY_ARTICLE_ID: '/comments/article/',
+    GET_UNPUBLISHED_COMMENTS: 'comments/unpublished',
   },
   IMAGE: {
     UPLOAD: 'images/upload',

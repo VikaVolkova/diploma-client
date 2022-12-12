@@ -14,6 +14,7 @@ import { Home } from '../../pages/Home/Home';
 import { Category } from '../../pages/Category/Category';
 import { Article } from '../../pages/Article/Article';
 import CreateCategory from '../../pages/CreateCategory/CreateCategory';
+import UnpublishedComments from '../../pages/UnpublishedComments/UnpublishedComments';
 
 export const AppRoutes = () => (
   <Routes>
@@ -43,6 +44,14 @@ export const AppRoutes = () => (
         element={
           <ProtectedRoute roles={[ROLES.ADMIN]}>
             <CreateCategory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTES.UNPUBLISHED_COMMENTS}
+        element={
+          <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
+            <UnpublishedComments />
           </ProtectedRoute>
         }
       />

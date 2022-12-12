@@ -18,7 +18,7 @@ import { CommentsList } from '../../components/CommentsList/CommentsList';
 import { AddComment } from '../../components/AddComment/AddComment';
 import { Message } from '../../components/Message/Message';
 import { ActionPanel } from '../../components/ActionPanel/ActionPanel';
-import { MESSAGE_TYPE, ROLES } from '../../helpers';
+import { MESSAGES, MESSAGE_TYPE, ROLES } from '../../helpers';
 
 export const Article = () => {
   const { newsUrl } = useParams();
@@ -117,11 +117,7 @@ export const Article = () => {
           {userInfo ? (
             <AddComment articleId={article._id} />
           ) : (
-            <Message
-              text="Тільки зареєстровані користувачі можуть залишати повідомлення.
-          Будь-ласка зайдіть або зареєструйстесь."
-              type={MESSAGE_TYPE.LOGIN}
-            />
+            <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
           )}
           <CommentsList data={comments} />
         </Container>

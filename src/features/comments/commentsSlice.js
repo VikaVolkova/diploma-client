@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCommentsByArticleId, createComment } from './commentsActions';
+import { getCommentsByArticleId, createComment, getUnpublishedComments } from './commentsActions';
 
 const setPending = (state) => {
   state.loadingComments = true;
@@ -35,6 +35,14 @@ const commentsSlice = createSlice({
     [createComment.pending]: setPending,
     [createComment.rejected]: setError,
     [createComment.fulfilled]: (state) => {
+      state.loadingComments = false;
+      state.success = true;
+      state.error = null;
+    },
+    [getUnpublishedComments.pending]: setPending,
+    [getUnpublishedComments.rejected]: setError,
+    [getUnpublishedComments.fulfilled]: (state, action) => {
+      state.comments = action.payload.data;
       state.loadingComments = false;
       state.success = true;
       state.error = null;

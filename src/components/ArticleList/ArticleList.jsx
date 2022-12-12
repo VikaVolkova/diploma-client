@@ -14,7 +14,7 @@ import { ActionPanel } from '../ActionPanel/ActionPanel';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Message } from '../Message/Message';
-import { MESSAGE_TYPE, PAGE_TYPE, ROLES } from '../../helpers';
+import { MESSAGES, MESSAGE_TYPE, PAGE_TYPE, ROLES } from '../../helpers';
 
 export const ArticleList = ({ page, categoryUrl, type }) => {
   const dispatch = useDispatch();
@@ -64,9 +64,9 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
   };
 
   useEffect(() => {
-    if (page === 'main') {
+    if (page === PAGE_TYPE.MAIN) {
       dispatch(getArticles());
-    } else if (page === 'category') {
+    } else if (page === PAGE_TYPE.CATEGORY) {
       dispatch(getArticlesByCategoryUrl({ categoryUrl }));
     } else {
       dispatch(getUnpublishedArticles());
@@ -81,14 +81,14 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     );
   }
 
-  if (!loadingArticles && articles.length === 0 && type === 'unpublished') {
-    return <Message text="Наразі немає неопублікованих статей" type={MESSAGE_TYPE.MAIN} />;
+  if (!loadingArticles && articles.length === 0 && type === PAGE_TYPE.UNPUBLISHED) {
+    return <Message text={MESSAGES.NO_UNPUBLISHED_ARTICLES} type={MESSAGE_TYPE.MAIN} />;
   }
 
   return articlesArr.map((article) => (
     <Grid item key={article._id} marginBottom={5}>
       <Preview article={article} type={isTablet ? 'thumbnail' : 'full'} />
-      {type === 'unpublished' && (
+      {type === PAGE_TYPE.UNPUBLISHED && (
         <>
           {[ROLES.ADMIN, ROLES.MANAGER].includes(userInfo.role) && (
             <ActionPanel
