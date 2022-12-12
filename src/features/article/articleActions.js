@@ -77,7 +77,6 @@ export const createArticle = createAsyncThunk(
   ACTION_ROUTES.ARTICLE.BASE,
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
       await api.post(ACTION_ROUTES.ARTICLE.BASE, data);
     } catch (error) {
       if (error.response && error.response.data.message) {

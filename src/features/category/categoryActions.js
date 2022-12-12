@@ -19,3 +19,21 @@ export const getCategories = createAsyncThunk(
     }
   },
 );
+
+export const createCategory = createAsyncThunk(
+  ACTION_ROUTES.CATEGORY.BASE,
+  async (categoryData, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post(ACTION_ROUTES.CATEGORY.BASE, categoryData);
+
+      return data;
+    } catch (error) {
+      // return custom error message from API if any
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
