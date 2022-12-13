@@ -14,11 +14,11 @@ const validationSchema = yup
   })
   .required();
 
-export const AddComment = ({ articleId }) => {
+export const AddComment = ({ article }) => {
   const dispatch = useDispatch();
   const { loadingComments, error } = useSelector((state) => state.comments);
   const { userInfo } = useSelector((state) => state.auth);
-  const authorId = userInfo._id;
+  const author = userInfo._id;
 
   const {
     handleSubmit,
@@ -33,7 +33,7 @@ export const AddComment = ({ articleId }) => {
   });
 
   const onSubmit = ({ text }) => {
-    dispatch(createComment({ text, articleId, authorId })).then(() => {
+    dispatch(createComment({ text, article, author })).then(() => {
       reset();
     });
   };
@@ -72,5 +72,5 @@ export const AddComment = ({ articleId }) => {
 };
 
 AddComment.propTypes = {
-  articleId: PropTypes.number.isRequired,
+  article: PropTypes.string.isRequired,
 };

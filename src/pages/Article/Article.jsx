@@ -115,7 +115,7 @@ export const Article = () => {
             Коментарі
           </Typography>
           {userInfo ? (
-            <AddComment articleId={article._id} />
+            <AddComment article={article._id} />
           ) : (
             <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
           )}
