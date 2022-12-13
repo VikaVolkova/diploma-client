@@ -42,7 +42,7 @@ export const Preview = ({ article, type }) => {
             {article.category?.title}
           </Link>
           <Link to={`/${article?.category?.url}/${article.url}`} className={s.comment}>
-            <Comments count={article.comments.length} />
+            <Comments count={article?.comments?.length} />
           </Link>
         </div>
         <Link to={`/${article?.category.url}/${article.url}`} className={s.title}>

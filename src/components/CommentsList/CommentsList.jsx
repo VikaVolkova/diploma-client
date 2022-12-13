@@ -9,7 +9,7 @@ export const CommentsList = ({ data, type }) => {
     // <div key={comment._id}>
     //   <Comment comment={comment} />
     // </div>
-    <div key={comment.id}>
+    <div key={comment._id}>
       {type === 'unpublished' ? (
         <>
           <Typography
@@ -20,7 +20,7 @@ export const CommentsList = ({ data, type }) => {
           >
             Коментар для{' '}
             <Link
-              to={`/news/${comment.articleId.url}`}
+              to={`/news/${comment.article.url}`}
               style={{
                 color: 'royalblue',
                 textDecoration: 'none',
@@ -28,7 +28,7 @@ export const CommentsList = ({ data, type }) => {
                 fontSize: 14,
               }}
             >
-              {comment.articleId.title}
+              {comment.article.title}
             </Link>
             :
           </Typography>

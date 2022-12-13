@@ -9,7 +9,7 @@ export const Comment = ({ comment }) => (
       <ListItemText
         primary={
           <Typography color="primary.main">
-            {comment.authorId.name || comment.authorId.email}
+            {comment.author.name || comment.author.email}
           </Typography>
         }
         secondary={<Markdown>{comment.text}</Markdown>}

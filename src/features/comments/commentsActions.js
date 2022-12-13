@@ -23,9 +23,9 @@ export const getCommentsByArticleId = createAsyncThunk(
 
 export const createComment = createAsyncThunk(
   ACTION_ROUTES.COMMENT.BASE,
-  async ({ text, authorId, articleId }, { rejectWithValue }) => {
+  async ({ text, author, article }, { rejectWithValue }) => {
     try {
-      await api.post(ACTION_ROUTES.COMMENT.BASE, { text, authorId, articleId });
+      await api.post(ACTION_ROUTES.COMMENT.BASE, { text, author, article });
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
