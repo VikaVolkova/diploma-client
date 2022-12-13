@@ -92,7 +92,7 @@ export const toggleArticlePublish = createAsyncThunk(
   ACTION_ROUTES.ARTICLE.TOGGLE_ARTICLE_PUBLISH,
   async ({ id, isPublished }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post(
+      const data = await api.post(
         `${ACTION_ROUTES.ARTICLE.TOGGLE_ARTICLE_PUBLISH}${id}?isPublished=${isPublished}`,
       );
 
@@ -111,7 +111,7 @@ export const deleteArticle = createAsyncThunk(
   ACTION_ROUTES.ARTICLE.DELETE_ARTICLE,
   async ({ id }, { rejectWithValue }) => {
     try {
-      const { data } = await api.delete(`${ACTION_ROUTES.ARTICLE.BASE}/${id}`);
+      const data = await api.delete(`${ACTION_ROUTES.ARTICLE.BASE}/${id}`);
 
       return data;
     } catch (error) {

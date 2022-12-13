@@ -24,7 +24,7 @@ export const Article = () => {
   const { newsUrl } = useParams();
   const dispatch = useDispatch();
   const { article, loadingArticles } = useSelector((state) => state.article);
-  const { comments } = useSelector((state) => state.comments);
+  const { comments, loadingComments } = useSelector((state) => state.comments);
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ export const Article = () => {
 
   return (
     article &&
-    comments && (
+    !loadingComments && (
       <>
         <Container size="lg">
           <div className={s.containerBaner}>

@@ -32,23 +32,10 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     }
   }, [loadingArticles, articles]);
 
-  const removeItem = (id) => setArticlesArr((prev) => prev.filter((item) => item._id !== id));
-
   const publishArticle = async (id) => {
     try {
       const isPublished = 'true';
-      await dispatch(toggleArticlePublish({ id, isPublished }));
-      removeItem(id);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  const unpublishArticle = async (id) => {
-    try {
-      const isPublished = 'true';
-      await dispatch(toggleArticlePublish({ id, isPublished }));
-      removeItem(id);
+      dispatch(toggleArticlePublish({ id, isPublished }));
     } catch (err) {
       console.log(err.message);
     }
@@ -56,8 +43,7 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
 
   const removeArticle = async (id) => {
     try {
-      await dispatch(deleteArticle({ id }));
-      removeItem(id);
+      dispatch(deleteArticle({ id }));
     } catch (err) {
       console.log(err.message);
     }
@@ -94,14 +80,7 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
             <ActionPanel
               handleEdit={() => navigate(`/update/${article._id}`)}
               handlePublish={
-                userInfo?.role === ROLES.ADMIN && !article.isPublished
-                  ? () => publishArticle(article._id)
-                  : undefined
-              }
-              handleUnpublish={
-                userInfo?.role === ROLES.ADMIN && article.isPublished
-                  ? () => unpublishArticle(article._id)
-                  : undefined
+                userInfo?.role === ROLES.ADMIN ? () => publishArticle(article._id) : undefined
               }
               handleDelete={() => removeArticle(article._id)}
             />
