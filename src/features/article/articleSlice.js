@@ -75,7 +75,8 @@ const articleSlice = createSlice({
     [deleteArticle.pending]: setPending,
     [deleteArticle.rejected]: setError,
     [deleteArticle.fulfilled]: (state, action) => {
-      state.article = action.payload.article;
+      state.articles = state.articles.filter((item) => item._id !== action.payload.data._id);
+      state.article = action.payload.data;
       state.loadingArticles = false;
       state.success = true;
       state.error = null;
@@ -83,7 +84,8 @@ const articleSlice = createSlice({
     [toggleArticlePublish.pending]: setPending,
     [toggleArticlePublish.rejected]: setError,
     [toggleArticlePublish.fulfilled]: (state, action) => {
-      state.article = action.payload.article;
+      state.articles = state.articles.filter((item) => item._id !== action.payload.data._id);
+      state.article = action.payload.data;
       state.loadingArticles = false;
       state.success = true;
       state.error = null;

@@ -22,12 +22,16 @@ function UnpublishedComments() {
     );
   }
   if (!loadingComments && comments.length === 0) {
-    return <Message text={MESSAGES.NO_UNPUBLISHED_COMMENTS} type={MESSAGE_TYPE.MAIN} />;
+    return (
+      <Container>
+        <Message text={MESSAGES.NO_UNPUBLISHED_COMMENTS} type={MESSAGE_TYPE.MAIN} />
+      </Container>
+    );
   }
 
   return (
     comments && (
-      <Container maxWidth="md">
+      <Container>
         <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
           Неопубліковані коментарі
         </Typography>

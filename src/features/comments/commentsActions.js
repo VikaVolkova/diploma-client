@@ -52,3 +52,37 @@ export const getUnpublishedComments = createAsyncThunk(
     }
   },
 );
+
+export const publishComment = createAsyncThunk(
+  ACTION_ROUTES.COMMENT.PUBLISH_COMMENT,
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const data = await api.post(`${ACTION_ROUTES.COMMENT.PUBLISH_COMMENT}${id}`);
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const deleteComment = createAsyncThunk(
+  ACTION_ROUTES.COMMENT.DELETE_COMMENT,
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const data = await api.delete(`${ACTION_ROUTES.COMMENT.BASE}/${id}`);
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
