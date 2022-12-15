@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
-import { validatePassword } from '../../../helpers';
+import { HELPER_TEXT, MESSAGES, ROUTES, validatePassword } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { restorePassword } from '../../../store/features/auth/authMiddlewares';
 import {
@@ -64,8 +64,8 @@ export const RestorePassword = () => {
     setPassword1('');
     setPassword2('');
     if (!error) {
-      alert('Пароль було оновлено');
-      navigate('/login');
+      alert(MESSAGES.PASSWORD_UPDATE);
+      navigate(ROUTES.LOGIN);
     } else {
       alert(error);
     }
@@ -78,7 +78,7 @@ export const RestorePassword = () => {
   return (
     <FormContainer>
       <h2>Введіть ваш новий пароль</h2>
-      <h3>{error ? error : null}</h3>
+      <h3>{!!error}</h3>
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
         <InputLabel htmlFor="password1">Новий пароль</InputLabel>
         <OutlinedInput
@@ -88,7 +88,7 @@ export const RestorePassword = () => {
           value={password1}
           onChange={changePassword}
           onBlur={hundleBlur}
-          placeholder="Мінімум 8 символів"
+          placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           error={passwordDirty && validationError}
           endAdornment={
             <InputAdornment position="end">
@@ -113,7 +113,7 @@ export const RestorePassword = () => {
           type={showPassword2 ? 'text' : 'password'}
           value={password2}
           onChange={changeDoublePassword}
-          placeholder="Новий пароль"
+          placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           endAdornment={
             <InputAdornment position="end">
               <IconButton

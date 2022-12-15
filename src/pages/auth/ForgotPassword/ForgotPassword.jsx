@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Stack, Button } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
-import { validateEmail } from '../../../helpers';
+import { ERROR_MESSAGES, HELPER_TEXT, MESSAGES, validateEmail } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword } from '../../../store/features/auth/authMiddlewares';
 
@@ -9,7 +9,6 @@ export const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
-  const message = 'Письмо було відправлено. Перевірте почту для відновлення паролю';
 
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
@@ -24,7 +23,7 @@ export const ForgotPassword = () => {
 
     dispatch(forgotPassword({ email }));
     setEmail('');
-    alert(message);
+    alert(MESSAGES.EMAIL_SENT);
   };
   const hundleBlur = () => {
     setEmailDirty(true);
@@ -33,7 +32,7 @@ export const ForgotPassword = () => {
   return (
     <FormContainer>
       <h2>Забули пароль?</h2>
-      <h3>{error ? error : null}</h3>
+      <h3>{!!error}</h3>
 
       <TextField
         fullWidth
@@ -45,9 +44,9 @@ export const ForgotPassword = () => {
         value={email}
         onChange={changeEmail}
         onBlur={hundleBlur}
-        placeholder="mango@gmail.com"
+        placeholder={HELPER_TEXT.EMAIL_PLACEHOLDER}
         error={emailDirty && emailError}
-        helperText={emailError ? 'невірний e-mail' : null}
+        helperText={emailError && ERROR_MESSAGES.EMAIL}
         sx={{ mb: 2 }}
       />
 

@@ -4,6 +4,7 @@ import cn from 'classnames';
 import s from './AuthNavigation.module.css';
 import { AccountMenu } from '../AccountMenu/AccountMenu';
 import { useSelector } from 'react-redux';
+import { ROUTES } from '../../../../helpers';
 
 export const AuthNavigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -14,7 +15,7 @@ export const AuthNavigation = () => {
       ) : (
         <>
           <NavLink
-            to="/login"
+            to={ROUTES.LOGIN}
             className={({ isActive }) =>
               cn(s.authLink, {
                 [s.authLinkActive]: isActive,
@@ -25,7 +26,7 @@ export const AuthNavigation = () => {
           </NavLink>
 
           <NavLink
-            to="/register"
+            to={ROUTES.REGISTER}
             className={({ isActive }) =>
               cn(s.authLink, {
                 [s.authLinkActive]: isActive,

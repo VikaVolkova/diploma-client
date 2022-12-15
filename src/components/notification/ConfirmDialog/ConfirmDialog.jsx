@@ -14,7 +14,7 @@ export const ConfirmDialog = ({ open, onClose, title, content, handleConfirm }) 
       {content && <DialogContent>{content}</DialogContent>}
       <DialogActions>
         <Button variant="contained" onClick={confirm} color="primary">
-          Confirm
+          Підтвердити
         </Button>
       </DialogActions>
     </Dialog>
