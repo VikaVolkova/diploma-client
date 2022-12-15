@@ -75,8 +75,17 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     );
   }
 
-  if (!loadingArticles && articles.length === 0 && type === PAGE_TYPE.UNPUBLISHED) {
-    return <Message text={MESSAGES.NO_UNPUBLISHED_ARTICLES} type={MESSAGE_TYPE.MAIN} />;
+  if (!loadingArticles && articles.length === 0) {
+    return (
+      <Message
+        text={
+          type === PAGE_TYPE.UNPUBLISHED
+            ? MESSAGES.NO_UNPUBLISHED_ARTICLES
+            : MESSAGES.NO_CATEGORY_ARTICLES
+        }
+        type={MESSAGE_TYPE.MAIN}
+      />
+    );
   }
 
   return articlesArr.map((article) => (
