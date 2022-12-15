@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { React } from 'react';
 import PropTypes from 'prop-types';
-import { MESSAGE_TYPE } from '../../../helpers';
+import { MESSAGE_TYPE, PAGE_TYPE, ROUTES } from '../../../helpers';
 
 export const Message = ({ text, type }) => (
   <Card>
@@ -9,19 +9,19 @@ export const Message = ({ text, type }) => (
       <Typography variant="subtitle1">{text}</Typography>
     </CardContent>
     <CardActions sx={{ marginLeft: '8px' }}>
-      {type === 'login' && (
+      {type === PAGE_TYPE.LOGIN && (
         <>
-          <Button href="/login" variant="contained">
+          <Button href={ROUTES.LOGIN} variant="contained">
             Зайти
           </Button>
-          <Button href="/register" variant="contained">
+          <Button href={ROUTES.REGISTER} variant="contained">
             Зареєструватись
           </Button>
         </>
       )}
-      {type === 'main' && (
+      {type === PAGE_TYPE.MAIN && (
         <>
-          <Button href="/" variant="contained">
+          <Button href={ROUTES.HOME} variant="contained">
             Повернутись на головну
           </Button>
         </>
