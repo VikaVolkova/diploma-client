@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { fetchToken } from '../features/auth/authActions';
+import { fetchToken } from '../store/features/auth/authMiddlewares';
 import { useDispatch } from 'react-redux';
+import { getAccessToken, setAccessToken } from '../helpers/helpers';
 
-const api = axios.create({
+export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,7 +12,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken') || '';
+    const accessToken = getAccessToken();
     if (accessToken) {
       config.headers['x-access-token'] = accessToken;
     }
@@ -35,7 +36,7 @@ api.interceptors.response.use(
         try {
           const rs = dispatch(fetchToken());
           const { accessToken } = rs;
-          localStorage.setItem('accessToken', accessToken);
+          setAccessToken(accessToken);
           return api(originalConfig);
         } catch (_error) {
           return Promise.reject(_error);
@@ -45,5 +46,3 @@ api.interceptors.response.use(
     return Promise.reject(err);
   },
 );
-
-export default api;
