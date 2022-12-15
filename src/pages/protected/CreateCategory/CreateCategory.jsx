@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import {
   Stack,
   TextField,
-  CircularProgress,
   Typography,
   Container,
   FormHelperText,
   Button,
+  CircularProgress,
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createCategory } from '../../../store/features/category/categoryMiddlewares';
 import * as yup from 'yup';
+import { ERROR_MESSAGES, HELPER_TEXT } from '../../../helpers';
 
 const validationSchema = yup
   .object({
@@ -46,7 +47,7 @@ export const CreateCategory = () => {
         reset();
       })
       .catch(() => {
-        setServerError('Server Error');
+        setServerError(ERROR_MESSAGES.SERVER_ERROR);
       });
   };
 
@@ -69,9 +70,7 @@ export const CreateCategory = () => {
               placeholder="UI/UX"
               error={!!errors?.category}
               helperText={
-                errors.category?.message
-                  ? errors.category.message
-                  : 'Назва повинна починатися з великої літери'
+                errors.category?.message ? errors.category.message : HELPER_TEXT.CATEGORY_TIP
               }
               {...field}
             />
@@ -87,11 +86,7 @@ export const CreateCategory = () => {
               label="URL-адреса категорії"
               placeholder="ui-ux"
               error={!!errors?.url}
-              helperText={
-                errors.url?.message
-                  ? errors.url.message
-                  : 'Будь ласка, використовуйте дефіс замість пробілів або спеціальних символів'
-              }
+              helperText={errors.url?.message ? errors.url.message : HELPER_TEXT.URL_TIP}
               {...field}
             />
           )}
@@ -102,7 +97,7 @@ export const CreateCategory = () => {
           variant="contained"
           disabled={isButtonDisabled}
           loadingPosition="start"
-          startIcon={loadingCategories && <CircularProgress size={20} />}
+          startIcon={loadingCategories && <CircularProgress size={20} sx={{ color: 'white' }} />}
         >
           Зберегти категорію
         </Button>

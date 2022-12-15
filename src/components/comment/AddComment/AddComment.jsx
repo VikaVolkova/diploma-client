@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../../store/features/comments/commentsMiddlewares';
 import PropTypes from 'prop-types';
 import MDEditor from '@uiw/react-md-editor';
+import { ERROR_MESSAGES } from '../../../helpers';
 
 const validationSchema = yup
   .object({
@@ -42,7 +43,7 @@ export const AddComment = ({ article }) => {
 
   return (
     <Stack component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
-      {!!error && <FormHelperText error>Помилка на сервері, спробуйте ще раз</FormHelperText>}
+      {!!error && <FormHelperText error>{ERROR_MESSAGES.SERVER_ERROR}</FormHelperText>}
       <Controller
         name="text"
         control={control}
@@ -58,7 +59,7 @@ export const AddComment = ({ article }) => {
         type="submit"
         variant="contained"
         size="medium"
-        sx={{ marginTop: '15px' }}
+        sx={{ mt: '15px' }}
         disabled={isButtonDisabled}
       >
         {loadingComments ? (

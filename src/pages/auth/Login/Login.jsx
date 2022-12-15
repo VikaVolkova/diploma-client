@@ -4,17 +4,23 @@ import {
   TextField,
   Stack,
   Button,
-  CircularProgress,
   Box,
   InputAdornment,
   IconButton,
   OutlinedInput,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
-import { validateEmail, validatePassword } from '../../../helpers';
+import {
+  ERROR_MESSAGES,
+  HELPER_TEXT,
+  ROUTES,
+  validateEmail,
+  validatePassword,
+} from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -75,7 +81,7 @@ export const Login = () => {
   return (
     <FormContainer>
       <h2>Увійти в обліковий запис</h2>
-      <h3>{error ? 'Невірний пароль' : null}</h3>
+      <h3>{error && ERROR_MESSAGES.PASSWORD}</h3>
       <Box>
         <TextField
           fullWidth
@@ -87,9 +93,9 @@ export const Login = () => {
           value={email}
           onBlur={hundleBlur}
           onChange={updateLogin}
-          placeholder="mango@gmail.com"
+          placeholder={HELPER_TEXT.EMAIL_PLACEHOLDER}
           error={emailDirty && emailError}
-          helperText={emailError ? 'невірний e-mail' : null}
+          helperText={emailError && ERROR_MESSAGES.EMAIL}
           name="email"
         />
 
@@ -102,7 +108,7 @@ export const Login = () => {
             value={password}
             onChange={updatePassword}
             onBlur={hundleBlur}
-            placeholder="Мінімум 8 символів"
+            placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
             error={passwordDirty && passwordError}
             endAdornment={
               <InputAdornment position="end">
@@ -121,9 +127,9 @@ export const Login = () => {
       </Box>
       <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
         <Button type="submit" variant="contained" onClick={onSubmit}>
-          {loading ? <CircularProgress sx={{ color: 'white' }} /> : 'Увійти'}
+          {loading ? <CircularProgress size={20} sx={{ color: 'white' }} /> : 'Увійти'}
         </Button>
-        <Button component={Link} to="/forgot-password" variant="outlined">
+        <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant="outlined">
           Забув пароль
         </Button>
       </Stack>

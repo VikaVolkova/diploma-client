@@ -4,16 +4,22 @@ import {
   TextField,
   Stack,
   Button,
-  CircularProgress,
   IconButton,
   InputAdornment,
   OutlinedInput,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { validateName, validateEmail, validatePassword } from '../../../helpers';
+import {
+  validateName,
+  validateEmail,
+  validatePassword,
+  ERROR_MESSAGES,
+  HELPER_TEXT,
+} from '../../../helpers';
 import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -82,7 +88,7 @@ export const Register = () => {
   return (
     <FormContainer>
       <h2>Зареєструвати новий аккаунт</h2>
-      <h3>{error ? error : null}</h3>
+      <h3>{!!error}</h3>
 
       <TextField
         fullWidth
@@ -110,9 +116,9 @@ export const Register = () => {
         value={email}
         onChange={updateEmail}
         onBlur={hundleBlur}
-        placeholder="mango@gmail.com"
+        placeholder={HELPER_TEXT.EMAIL_PLACEHOLDER}
         error={emailDirty && emailError}
-        helperText={emailError ? 'Невірний e-mail' : null}
+        helperText={emailError && ERROR_MESSAGES.EMAIL}
       />
 
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
@@ -124,7 +130,7 @@ export const Register = () => {
           value={password}
           onChange={updatePassword}
           onBlur={hundleBlur}
-          placeholder="Мінімум 8 символів"
+          placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           error={passwordDirty && passwordError}
           endAdornment={
             <InputAdornment position="end">
@@ -143,7 +149,7 @@ export const Register = () => {
 
       <Stack marginBottom="10px">
         <Button variant="contained" onClick={onSubmit} sx={{ mb: 2 }}>
-          {loading ? <CircularProgress sx={{ color: 'white' }} /> : 'Зареєструвати'}
+          {loading ? <CircularProgress size={20} sx={{ color: 'white' }} /> : 'Зареєструвати'}
         </Button>
       </Stack>
     </FormContainer>

@@ -37,7 +37,7 @@ export const AccountMenu = () => {
   };
   const handleSignOut = () => {
     dispatch(logout(null));
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   };
   const userNameFirstLetter = user?.name?.substr(0, 1).toUpperCase();
   return (
@@ -56,7 +56,7 @@ export const AccountMenu = () => {
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={paperProps}
-        transformOrigin={{ horizontal: 'right' }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {checkRole([ROLES.ADMIN, ROLES.MANAGER], user) && (

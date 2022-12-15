@@ -5,12 +5,12 @@ import {
   Typography,
   TextField,
   Button,
-  CircularProgress,
   FormHelperText,
   Select,
   MenuItem,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
@@ -22,6 +22,7 @@ import { createArticle } from '../../../store/features/article/articleMiddleware
 import { getCategories } from '../../../store/features/category/categoryMiddlewares';
 import { uploadImage } from '../../../store/features/image/imageMiddlewares';
 import { DEFAULT_IMAGE } from '../../../helpers/constants/constans';
+import { ERROR_MESSAGES, HELPER_TEXT } from '../../../helpers';
 
 const validationSchema = yup
   .object({
@@ -84,7 +85,7 @@ export const CreateArticle = () => {
       });
       reset();
     } catch (err) {
-      setServerError('Server Error');
+      setServerError(ERROR_MESSAGES.SERVER_ERROR);
       console.log(err);
     } finally {
       setIsLoading(false);
@@ -110,11 +111,7 @@ export const CreateArticle = () => {
                 fullWidth
                 label="Заголовок"
                 error={!!errors.title}
-                helperText={
-                  errors.title?.message
-                    ? errors.title.message
-                    : "Заголовок є обов'язковим полем і може містити максимум 255 символів"
-                }
+                helperText={errors.title?.message ? errors.title.message : HELPER_TEXT.TITLE_TIP}
                 {...field}
               />
             )}
@@ -157,11 +154,7 @@ export const CreateArticle = () => {
                 fullWidth
                 label="Url:"
                 error={!!errors.url}
-                helperText={
-                  errors.url?.message
-                    ? errors.url.message
-                    : "URL є обов'язковим полем і може містити максимум 30 символів"
-                }
+                helperText={errors.url?.message ? errors.url.message : HELPER_TEXT.URL_TIP}
                 {...field}
               />
             )}
@@ -178,9 +171,7 @@ export const CreateArticle = () => {
                 label="Спойлер"
                 error={!!errors.spoiler}
                 helperText={
-                  errors.spoiler?.message
-                    ? errors.spoiler.message
-                    : "Спойлер є обов'язковим полем і може містити максимум 100 символів"
+                  errors.spoiler?.message ? errors.spoiler.message : HELPER_TEXT.SPOILER_TIP
                 }
                 {...field}
               />
@@ -222,8 +213,7 @@ export const CreateArticle = () => {
             type="submit"
             variant="contained"
             disabled={isButtonDisabled}
-            // loadingPosition="start"
-            startIcon={isLoading && <CircularProgress size={20} />}
+            startIcon={isLoading && <CircularProgress size={20} sx={{ color: 'white' }} />}
           >
             Зберегти
           </Button>

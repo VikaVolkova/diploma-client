@@ -6,18 +6,20 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { ConfirmDialog } from '../../notification/ConfirmDialog/ConfirmDialog';
+import { ACTION, CONFIRM_MESSAGE } from '../../../helpers';
 
 export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnpublish }) => {
   const [openPublish, setOpenPublish] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openUnpublish, setOpenUnpublish] = useState(false);
+  const large = 'large';
   return (
     <>
       <div>
         <Stack direction="row" justifyContent="flex-end">
           {!!handleEdit && (
-            <Tooltip title="Edit">
-              <IconButton aria-label="Edit" size="large" onClick={handleEdit}>
+            <Tooltip title={ACTION.EDIT}>
+              <IconButton aria-label={ACTION.EDIT} size={large} onClick={handleEdit}>
                 <EditOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -25,25 +27,29 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
 
           {!!handlePublish && (
             <>
-              <Tooltip title="Publish">
-                <IconButton aria-label="Publish" size="large" onClick={() => setOpenPublish(true)}>
+              <Tooltip title={ACTION.PUBLISH}>
+                <IconButton
+                  aria-label={ACTION.PUBLISH}
+                  size={large}
+                  onClick={() => setOpenPublish(true)}
+                >
                   <AddBoxOutlinedIcon />
                 </IconButton>
               </Tooltip>
               <ConfirmDialog
                 open={openPublish}
                 onClose={() => setOpenPublish(false)}
-                title="Are you sure you want to publish it?"
+                title={CONFIRM_MESSAGE.PUBLISH}
                 handleConfirm={handlePublish}
               />
             </>
           )}
           {!!handleUnpublish && (
             <>
-              <Tooltip title="Unpublish">
+              <Tooltip title={ACTION.UNPUBLISH}>
                 <IconButton
-                  aria-label="Publish"
-                  size="large"
+                  aria-label={ACTION.UNPUBLISH}
+                  size={large}
                   onClick={() => setOpenUnpublish(true)}
                 >
                   <IndeterminateCheckBoxOutlinedIcon />
@@ -52,22 +58,26 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
               <ConfirmDialog
                 open={openUnpublish}
                 onClose={() => setOpenUnpublish(false)}
-                title="Are you sure you want to unpublish it?"
+                title={CONFIRM_MESSAGE.UNPUBLISH}
                 handleConfirm={handleUnpublish}
               />
             </>
           )}
           {!!handleDelete && (
             <>
-              <Tooltip title="Delete">
-                <IconButton aria-label="Delete" size="large" onClick={() => setOpenDelete(true)}>
+              <Tooltip title={ACTION.DELETE}>
+                <IconButton
+                  aria-label={ACTION.DELETE}
+                  size={large}
+                  onClick={() => setOpenDelete(true)}
+                >
                   <DeleteOutlineOutlinedIcon />
                 </IconButton>
               </Tooltip>
               <ConfirmDialog
                 open={openDelete}
                 onClose={() => setOpenDelete(false)}
-                title="Are you sure you want to delete it?"
+                title={CONFIRM_MESSAGE.DELETE}
                 handleConfirm={handleDelete}
               />
             </>
