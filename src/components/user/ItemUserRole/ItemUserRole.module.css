@@ -1,0 +1,9 @@
+.item {
+  border-bottom: 1px solid black;
+  padding-bottom: 25px;
+}
+
+.sectionAvatar {
+  display: flex;
+  align-items: center;
+}

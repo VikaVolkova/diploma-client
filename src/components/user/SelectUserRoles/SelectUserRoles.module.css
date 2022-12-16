@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select {
+  width: 150px;
+  margin-bottom: 25px;
+}

@@ -15,6 +15,7 @@ import { Category } from '../../../pages/main/Category/Category';
 import { Article } from '../../../pages/main/Article/Article';
 import { CreateCategory } from '../../../pages/protected/CreateCategory/CreateCategory';
 import { UnpublishedComments } from '../../../pages/protected/UnpublishedComments/UnpublishedComments';
+import { UpdateRole } from '../../../pages/protected/UpdateRole/UpdateRole';
 
 export const AppRoutes = () => (
   <Routes>
@@ -50,8 +51,16 @@ export const AppRoutes = () => (
       <Route
         path={ROUTES.UNPUBLISHED_COMMENTS}
         element={
-          <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
+          <ProtectedRoute roles={[ROLES.ADMIN]}>
             <UnpublishedComments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTES.UPDATE_ROLE}
+        element={
+          <ProtectedRoute roles={[ROLES.ADMIN]}>
+            <UpdateRole />
           </ProtectedRoute>
         }
       />

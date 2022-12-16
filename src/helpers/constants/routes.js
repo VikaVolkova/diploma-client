@@ -11,17 +11,20 @@ export const ROUTES = {
   UNPUBLISHED_COMMENTS: '/unpublished-comments',
   CREATE_CATEGORY: '/create-category',
   CREDENTIALS: '/credentials',
-  UPDATE_LINK: '/update/',
+  UPDATE_ARTICLE: '/update/',
+  UPDATE_ROLE: '/update-role/',
 };
 
 export const ACTION_ROUTES = {
   USER: {
+    BASE: 'user',
     LOGIN: 'user/login',
     REGISTER: 'user/register',
     FORGOT_PASSWORD: 'user/forgot-password',
     RESTORE_PASSWORD: 'user/restore-password',
     TOKEN: 'user/token',
     GET_USER: 'user/me',
+    GET_ALL_USERS: 'user/all',
   },
   ARTICLE: {
     BASE: 'news',

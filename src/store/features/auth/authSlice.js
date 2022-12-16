@@ -6,6 +6,8 @@ import {
   restorePassword,
   fetchToken,
   getUser,
+  getAllUsers,
+  updateRole,
 } from './authMiddlewares';
 import jwtDecode from 'jwt-decode';
 import { TOKENS } from '../../../helpers';
@@ -16,6 +18,7 @@ const accessToken = getAccessToken();
 
 const initialState = {
   loading: false,
+  users: [],
   userInfo: null,
   accessToken,
   error: null,
@@ -103,6 +106,19 @@ const authSlice = createSlice({
       state.userInfo = action.payload;
     },
     [getUser.rejected]: setError,
+    [getAllUsers.pending]: setPending,
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.users = action.payload;
+      state.loading = false;
+      state.success = true;
+    },
+    [getAllUsers.rejected]: setError,
+    [updateRole.pending]: setPending,
+    [updateRole.fulfilled]: (state) => {
+      state.loading = false;
+      state.success = true;
+    },
+    [updateRole.rejected]: setError,
   },
 });
 
