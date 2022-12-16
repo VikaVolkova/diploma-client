@@ -113,3 +113,35 @@ export const getUser = createAsyncThunk(
     }
   },
 );
+
+export const getAllUsers = createAsyncThunk(
+  ACTION_ROUTES.USER.GET_ALL_USERS,
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get(ACTION_ROUTES.USER.GET_ALL_USERS);
+      const { users } = await response.data;
+      return users;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const updateRole = createAsyncThunk(
+  ACTION_ROUTES.USER.BASE,
+  async ({ email, role }, { rejectWithValue }) => {
+    try {
+      await api.put(ACTION_ROUTES.USER.BASE, { email, role });
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);

@@ -109,6 +109,16 @@ export const AccountMenu = () => {
             </MenuItem>
           </Link>
         )}
+        {checkRole([ROLES.ADMIN], user) && (
+          <Link href={ROUTES.UPDATE_ROLE} underline="none">
+            <MenuItem>
+              <ListItemIcon>
+                <NewspaperOutlinedIcon fontSize="small" />
+              </ListItemIcon>
+              Оновити ролі користувачів
+            </MenuItem>
+          </Link>
+        )}
 
         <Divider />
         <Link underline="none" component="button" variant="body1" onClick={() => handleSignOut()}>
