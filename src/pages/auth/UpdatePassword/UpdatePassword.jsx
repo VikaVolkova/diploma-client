@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import { HELPER_TEXT, MESSAGES, ROUTES, validatePassword } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
-import { restorePassword } from '../../../store/features/auth/authMiddlewares';
+import { updatePassword } from '../../../store/features/auth/authMiddlewares';
 import {
   Stack,
   Button,
@@ -14,33 +14,45 @@ import {
   FormControl,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useEffect } from 'react';
 
-function useQuery() {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
-
-export const RestorePassword = () => {
-  const query = useQuery();
+export const UpdatePassword = () => {
   const navigate = useNavigate();
 
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
   const [showPassword1, setShowPassword1] = useState('');
   const [showPassword2, setShowPassword2] = useState('');
+  const [showOldPassword, setShowOldPassword] = useState('');
   const [validationError, setValidationError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
+  const [badPassword, setBadPassword] = useState(false);
 
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
+  const token = useSelector((state) => state.auth.accessToken);
+  const { success, error, loading } = useSelector((state) => state.auth);
 
   const handleClickShowPassword = (password) => {
-    password === 'password1' ? setShowPassword1(!showPassword1) : setShowPassword2(!showPassword2);
+    switch (password) {
+      case 'password1':
+        setShowPassword1(!showPassword1);
+        break;
+      case 'password2':
+        setShowPassword2(!showPassword2);
+        break;
+      case 'oldPassword':
+        setShowOldPassword(!showOldPassword);
+        break;
+    }
   };
 
   const handleMouseDownPassword = (e) => {
     e.preventDefault();
+  };
+
+  const changeOldPassword = (e) => {
+    setOldPassword(e.target.value);
   };
 
   const changePassword = (e) => {
@@ -48,29 +60,32 @@ export const RestorePassword = () => {
     setValidationError(!validatePassword(e.target.value));
   };
 
-  const changeDoublePassword = (e) => {
+  const changeSecondPassword = (e) => {
     setPassword2(e.target.value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      alert('fields do not match');
+      alert(MESSAGES.PASSWORDS_NOT_MATCH);
       return;
     }
-    const token = query.get('token');
-    console.log(token);
 
-    dispatch(restorePassword({ password1, password2, token }));
+    dispatch(updatePassword({ oldPassword, password1, password2, token }));
+
     setPassword1('');
     setPassword2('');
-    if (!error) {
-      alert(MESSAGES.PASSWORD_UPDATE);
-      navigate(ROUTES.LOGIN);
-    } else {
-      alert(error);
-    }
+    setOldPassword('');
   };
+
+  useEffect(() => {
+    !!error && !loading && setBadPassword(true);
+    if (success) {
+      alert(MESSAGES.PASSWORD_UPDATE);
+      setBadPassword(false);
+      navigate(ROUTES.LOGIN);
+    }
+  }, [success, error, loading]);
 
   const hundleBlur = () => {
     setPasswordDirty(true);
@@ -79,7 +94,32 @@ export const RestorePassword = () => {
   return (
     <FormContainer>
       <h2>Введіть ваш новий пароль</h2>
-      <h3>{!!error}</h3>
+      <h3>{badPassword && 'Неправильний старий пароль'}</h3>
+      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+        <InputLabel htmlFor="oldPassword">Старий пароль</InputLabel>
+        <OutlinedInput
+          id="oldPassword"
+          label="Старий пароль"
+          type={showOldPassword ? 'text' : 'password'}
+          value={oldPassword}
+          onChange={changeOldPassword}
+          onBlur={hundleBlur}
+          placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => handleClickShowPassword('oldPassword')}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showOldPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
         <InputLabel htmlFor="password1">Новий пароль</InputLabel>
         <OutlinedInput
@@ -113,7 +153,7 @@ export const RestorePassword = () => {
           label="Підтвердіть новий пароль"
           type={showPassword2 ? 'text' : 'password'}
           value={password2}
-          onChange={changeDoublePassword}
+          onChange={changeSecondPassword}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           endAdornment={
             <InputAdornment position="end">
@@ -133,6 +173,9 @@ export const RestorePassword = () => {
       <Stack marginBottom="10px">
         <Button onClick={onSubmit} variant="contained" sx={{ mb: 2 }}>
           Оновити пароль
+        </Button>
+        <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant="outlined">
+          Забув пароль
         </Button>
       </Stack>
     </FormContainer>

@@ -7,6 +7,7 @@ import { Login } from '../../../pages/auth/Login/Login';
 import { Register } from '../../../pages/auth/Register/Register';
 import { ForgotPassword } from '../../../pages/auth/ForgotPassword/ForgotPassword';
 import { RestorePassword } from '../../../pages/auth/RestorePassword/RestorePassword';
+import { UpdatePassword } from '../../../pages/auth/UpdatePassword/UpdatePassword';
 import { CreateArticle } from '../../../pages/protected/CreateArticle/CreateArticle';
 import { ProtectedRoute } from '../../layout/auth/ProtectedRoute/ProtectedRoute';
 import { UnpublishedArticles } from '../../../pages/protected/UnpublishedArticles/UnpublishedArticles';
@@ -16,6 +17,7 @@ import { Article } from '../../../pages/main/Article/Article';
 import { CreateCategory } from '../../../pages/protected/CreateCategory/CreateCategory';
 import { UnpublishedComments } from '../../../pages/protected/UnpublishedComments/UnpublishedComments';
 import { UpdateRole } from '../../../pages/protected/UpdateRole/UpdateRole';
+import { UserPage } from '../../../pages/protected/UserPage/UserPage';
 
 export const AppRoutes = () => (
   <Routes>
@@ -24,6 +26,7 @@ export const AppRoutes = () => (
       <Route path={ROUTES.REGISTER} element={<Register />} />
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path={ROUTES.RESTORE_PASSWORD} element={<RestorePassword />} />
+      <Route path={ROUTES.UPDATE_PASSWORD} element={<UpdatePassword />} />
       <Route
         path={ROUTES.CREATE_ARTICLE}
         element={
@@ -61,6 +64,14 @@ export const AppRoutes = () => (
         element={
           <ProtectedRoute roles={[ROLES.ADMIN]}>
             <UpdateRole />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTES.USER}
+        element={
+          <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER, ROLES.USER]}>
+            <UserPage />
           </ProtectedRoute>
         }
       />
