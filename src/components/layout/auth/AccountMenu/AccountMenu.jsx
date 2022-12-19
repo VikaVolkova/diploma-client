@@ -16,10 +16,12 @@ import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { logout } from '../../../../store/features/auth/authSlice';
 import { ROUTES, ROLES, paperProps } from '../../../../helpers';
 import { useNavigate } from 'react-router-dom';
 import { checkRole } from '../../../../helpers/helpers';
+import { anchorOrigin, avatar, transformOrigin } from './AccountMenu.helpers';
 
 export const AccountMenu = () => {
   const user = useSelector((state) => state.auth.userInfo);
@@ -39,13 +41,12 @@ export const AccountMenu = () => {
     dispatch(logout(null));
     navigate(ROUTES.LOGIN);
   };
-  const userNameFirstLetter = user?.name?.substr(0, 1).toUpperCase();
   return (
     <>
       <Box>
         <Tooltip title="Меню користувача">
           <IconButton onClick={handleClick} sx={{ ml: 2 }}>
-            <Avatar sx={{ width: 32, height: 32 }}>{userNameFirstLetter}</Avatar>
+            <Avatar sx={avatar}>{user.image}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -56,8 +57,8 @@ export const AccountMenu = () => {
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={paperProps}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={transformOrigin}
+        anchorOrigin={anchorOrigin}
       >
         {checkRole([ROLES.ADMIN, ROLES.MANAGER], user) && (
           <Link href={ROUTES.CREATE_ARTICLE} underline="none">
@@ -121,6 +122,15 @@ export const AccountMenu = () => {
         )}
 
         <Divider />
+        <Link href={ROUTES.USER} underline="none">
+          <MenuItem>
+            <ListItemIcon>
+              <AccountCircleOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            Мій профіль
+          </MenuItem>
+        </Link>
+
         <Link underline="none" component="button" variant="body1" onClick={() => handleSignOut()}>
           <MenuItem>
             <ListItemIcon>

@@ -7,6 +7,7 @@ export const MESSAGES = {
   NO_UNPUBLISHED_COMMENTS: 'Наразі немає неопублікованих коментарів',
   EMAIL_SENT: 'Письмо було відправлено. Перевірте почту для відновлення паролю',
   PASSWORD_UPDATE: 'Пароль було оновлено',
+  PASSWORDS_NOT_MATCH: 'Паролі не збігаються',
 };
 
 export const MESSAGE_TYPE = {

@@ -4,6 +4,7 @@ import {
   login,
   forgotPassword,
   restorePassword,
+  updatePassword,
   fetchToken,
   getUser,
   getAllUsers,
@@ -92,6 +93,12 @@ const authSlice = createSlice({
       state.success = true;
     },
     [restorePassword.rejected]: setError,
+    [updatePassword.pending]: setPending,
+    [updatePassword.fulfilled]: (state) => {
+      state.loading = false;
+      state.success = true;
+    },
+    [updatePassword.rejected]: setError,
     [fetchToken.pending]: setPending,
     [fetchToken.fulfilled]: (state, action) => {
       state.loading = false;

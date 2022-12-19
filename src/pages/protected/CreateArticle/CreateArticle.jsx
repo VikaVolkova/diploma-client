@@ -21,7 +21,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { createArticle } from '../../../store/features/article/articleMiddlewares';
 import { getCategories } from '../../../store/features/category/categoryMiddlewares';
 import { uploadImage } from '../../../store/features/image/imageMiddlewares';
-import { DEFAULT_IMAGE } from '../../../helpers/constants/constans';
+import { DEFAULT_ARTICLE_IMAGE } from '../../../helpers/constants/constans';
 import { ERROR_MESSAGES, HELPER_TEXT } from '../../../helpers';
 
 const validationSchema = yup
@@ -79,7 +79,7 @@ export const CreateArticle = () => {
           createArticle({
             ...data,
             author: userInfo._id,
-            coverImage: res.payload.data || DEFAULT_IMAGE,
+            coverImage: res.payload.data || DEFAULT_ARTICLE_IMAGE,
           }),
         );
       });

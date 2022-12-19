@@ -1,4 +1,7 @@
-export const DEFAULT_IMAGE = 'https://thetechswing.com/wp-content/uploads/2022/03/Web-Dev-Blog.png';
+export const DEFAULT_ARTICLE_IMAGE =
+  'https://thetechswing.com/wp-content/uploads/2022/03/Web-Dev-Blog.png';
+export const DEFAULT_USER_IMAGE =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png';
 export const BASE_URL = 'http://localhost:5000/api';
 export const REGISTER_URL = 'http://localhost:5000/api/users/register';
 export const ACCESS_TOKEN = 'x-access-token';
