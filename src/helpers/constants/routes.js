@@ -15,6 +15,7 @@ export const ROUTES = {
   UPDATE_ARTICLE: '/update/',
   UPDATE_ROLE: '/update-role/',
   UPDATE_USER: '/update-user',
+  DELETE_USER: '/delete-user',
 };
 
 export const ACTION_ROUTES = {
@@ -26,6 +27,7 @@ export const ACTION_ROUTES = {
     RESTORE_PASSWORD: 'user/restore-password',
     CHECK_PASSWORD: 'user/check-password',
     UPDATE_USER: 'user/update-user',
+    DELETE_USER: 'user/delete-user',
     TOKEN: 'user/token',
     GET_USER: 'user/me',
     GET_ALL_USERS: 'user/all',
