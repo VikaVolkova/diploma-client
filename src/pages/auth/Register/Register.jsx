@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Stack,
@@ -21,9 +21,11 @@ import {
   ERROR_MESSAGES,
   HELPER_TEXT,
   theme,
+  ROUTES,
 } from '../../../helpers';
-import { register } from '../../../store/features/auth/authMiddlewares';
+import { register, signInGoogle } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { GoogleLogin } from '@react-oauth/google';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -40,6 +42,7 @@ export const Register = () => {
   const { registered, loading, error } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const updateName = (e) => {
     setName(e.target.value);
@@ -69,7 +72,7 @@ export const Register = () => {
     setPassword('');
   };
 
-  if (registered) return <Navigate to="/login" />;
+  if (registered) navigate(ROUTES.LOGIN);
 
   const hundleBlur = (e) => {
     switch (e.target.name) {
@@ -148,10 +151,20 @@ export const Register = () => {
           }
         />
       </FormControl>
+      <GoogleLogin
+        onSuccess={(credentialResponse) => {
+          const googleToken = credentialResponse.credential;
+          dispatch(signInGoogle({ googleToken }));
+          navigate(ROUTES.HOME);
+        }}
+        onError={() => {
+          console.log('Registration Failed');
+        }}
+      />
 
       <Stack marginBottom="10px">
         <ThemeProvider theme={theme}>
-          <Button variant="contained" onClick={onSubmit} sx={{ mb: 2 }}>
+          <Button variant="contained" onClick={onSubmit} sx={{ mb: 2, mt: 2 }}>
             {loading ? <CircularProgress size={20} color="white" /> : 'Зареєструвати'}
           </Button>
         </ThemeProvider>

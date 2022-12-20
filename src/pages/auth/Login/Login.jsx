@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Stack,
@@ -24,8 +24,9 @@ import {
   validatePassword,
 } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../store/features/auth/authMiddlewares';
+import { login, signInGoogle } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { GoogleLogin } from '@react-oauth/google';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -35,6 +36,8 @@ export const Login = () => {
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const { userInfo, loading, error } = useSelector((state) => state.auth);
 
@@ -84,7 +87,7 @@ export const Login = () => {
     setPassword('');
   };
 
-  if (userInfo) return <Navigate to="/" />;
+  if (userInfo) navigate(ROUTES.HOME);
 
   return (
     <FormContainer>
@@ -133,7 +136,18 @@ export const Login = () => {
           />
         </FormControl>
       </Box>
-      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+      <GoogleLogin
+        onSuccess={(credentialResponse) => {
+          const googleToken = credentialResponse.credential;
+          dispatch(signInGoogle({ googleToken }));
+          navigate(ROUTES.HOME);
+        }}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+        useOneTap
+      />
+      <Stack direction="row" spacing={2} sx={{ mb: 2, mt: 2 }}>
         <ThemeProvider theme={theme}>
           <Button type="submit" variant="contained" onClick={onSubmit}>
             {loading ? <CircularProgress size={20} color="white" /> : 'Увійти'}
