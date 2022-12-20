@@ -12,11 +12,13 @@ import {
   Stack,
   Typography,
   CircularProgress,
+  ThemeProvider,
 } from '@mui/material';
 import { omit } from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../../../store/features/image/imageMiddlewares';
 import { updateUser } from '../../../store/features/auth/authMiddlewares';
+import { ROUTES, theme } from '../../../helpers';
 
 const UserDto = (user) => {
   return {
@@ -34,11 +36,10 @@ const validationSchema = yup
   .required();
 
 export const UpdateUser = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
   const formRef = useRef();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const {
@@ -57,22 +58,17 @@ export const UpdateUser = () => {
 
   const onSubmit = async (data) => {
     try {
-      setIsLoading(true);
       setServerError('');
       const formData = new FormData(formRef.current);
       const image = formData.get('image');
 
       setServerError('');
-      setIsLoading(true);
       await dispatch(uploadImage({ image })).then((res) => {
         dispatch(updateUser({ ...data, image: res.payload.data || userInfo.image }));
-        // dispatch(updateUser({ userId, ...data, image: res.payload.data }));
       });
-      navigate('/');
+      navigate(ROUTES.USER);
     } catch (err) {
       setServerError('Server Error');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -91,13 +87,11 @@ export const UpdateUser = () => {
             <Box sx={{ mt: '10px' }}>
               <TextField
                 margin="normal"
-                label="Name:"
+                label="Ім'я:"
                 fullWidth
                 {...field}
                 error={!!errors?.name}
-                helperText={
-                  errors.name?.message ? errors.name.message : 'The title is require field'
-                }
+                helperText={!!errors?.name?.message}
               />
             </Box>
           )}
@@ -110,11 +104,11 @@ export const UpdateUser = () => {
             <Box sx={{ mt: '10px' }}>
               <TextField
                 margin="normal"
-                label="email:"
+                label="E-mail:"
                 fullWidth
                 {...field}
                 error={!!errors?.email}
-                helperText={errors.email?.message ? errors.email.message : 'The field is require'}
+                helperText={!!errors?.email?.message}
               />
             </Box>
           )}
@@ -129,7 +123,7 @@ export const UpdateUser = () => {
               <>
                 <input hidden type="file" accept="image/*" id="image" {...fieldProps} />
                 <Button htmlFor="image" variant="contained" component="label" fullWidth>
-                  Upload Image
+                  Завантажити зображення
                 </Button>
                 {errors.image && <FormHelperText error>{errors.image?.message}</FormHelperText>}
               </>
@@ -138,14 +132,11 @@ export const UpdateUser = () => {
         />
 
         {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={isButtonDisabled}
-          startIcon={isLoading && <CircularProgress size={20} />}
-        >
-          Save user
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button type="submit" variant="contained" disabled={isButtonDisabled}>
+            {loading ? <CircularProgress size={20} color="white" /> : 'Зберегти'}
+          </Button>
+        </ThemeProvider>
       </Stack>
     </Container>
   );

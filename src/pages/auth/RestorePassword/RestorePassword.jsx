@@ -59,7 +59,6 @@ export const RestorePassword = () => {
       return;
     }
     const token = query.get('token');
-    console.log(token);
 
     dispatch(restorePassword({ password1, password2, token }));
     setPassword1('');

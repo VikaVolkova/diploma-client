@@ -9,6 +9,7 @@ import {
   getUser,
   getAllUsers,
   updateRole,
+  updateUser,
 } from './authMiddlewares';
 import jwtDecode from 'jwt-decode';
 import { TOKENS } from '../../../helpers';
@@ -126,6 +127,18 @@ const authSlice = createSlice({
       state.success = true;
     },
     [updateRole.rejected]: setError,
+    [updateUser.pending]: setPending,
+    [updateUser.fulfilled]: (state, action) => {
+      state.userInfo = {
+        ...state,
+        image: action.payload.image,
+        email: action.payload.email,
+        name: action.payload.name,
+      };
+      state.loading = false;
+      state.success = true;
+    },
+    [updateUser.rejected]: setError,
   },
 });
 
