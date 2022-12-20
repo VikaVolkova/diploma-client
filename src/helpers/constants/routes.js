@@ -14,6 +14,7 @@ export const ROUTES = {
   USER: '/user',
   UPDATE_ARTICLE: '/update/',
   UPDATE_ROLE: '/update-role/',
+  UPDATE_USER: '/update-user',
 };
 
 export const ACTION_ROUTES = {
@@ -24,6 +25,7 @@ export const ACTION_ROUTES = {
     FORGOT_PASSWORD: 'user/forgot-password',
     RESTORE_PASSWORD: 'user/restore-password',
     CHECK_PASSWORD: 'user/check-password',
+    UPDATE_USER: 'user/update-user',
     TOKEN: 'user/token',
     GET_USER: 'user/me',
     GET_ALL_USERS: 'user/all',

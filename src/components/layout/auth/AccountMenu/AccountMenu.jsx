@@ -46,7 +46,7 @@ export const AccountMenu = () => {
       <Box>
         <Tooltip title="Меню користувача">
           <IconButton onClick={handleClick} sx={{ ml: 2 }}>
-            <Avatar sx={avatar}>{user.image}</Avatar>
+            <Avatar sx={avatar} src={user.image} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -97,16 +97,6 @@ export const AccountMenu = () => {
                 <AddBoxOutlinedIcon fontSize="small" />
               </ListItemIcon>
               Додати категорію
-            </MenuItem>
-          </Link>
-        )}
-        {checkRole([ROLES.ADMIN], user) && (
-          <Link href={ROUTES.CREDENTIALS} underline="none">
-            <MenuItem>
-              <ListItemIcon>
-                <NewspaperOutlinedIcon fontSize="small" />
-              </ListItemIcon>
-              Дані користувача
             </MenuItem>
           </Link>
         )}
