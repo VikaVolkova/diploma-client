@@ -1,3 +1,11 @@
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+  palette: {
+    white: 'white',
+  },
+});
+
 export const paperProps = {
   elevation: 0,
   sx: {

@@ -171,7 +171,11 @@ export const updateUser = createAsyncThunk(
   ACTION_ROUTES.USER.UPDATE_USER,
   async ({ name, email, image }, { rejectWithValue }) => {
     try {
-      await api.put(ACTION_ROUTES.USER.UPDATE_USER, { name, email, image });
+      const response = await api.put(ACTION_ROUTES.USER.UPDATE_USER, { name, email, image });
+      console.log(response);
+      const { data } = response;
+
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
