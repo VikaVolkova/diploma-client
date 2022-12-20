@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import jwtDecode from 'jwt-decode';
 import { api } from '../../../api/interceptor';
 import { ACTION_ROUTES } from '../../../helpers';
 import { setAccessToken } from '../../../helpers/helpers';
@@ -190,6 +191,27 @@ export const deleteUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await api.delete(ACTION_ROUTES.USER.DELETE_USER);
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const signInGoogle = createAsyncThunk(
+  ACTION_ROUTES.USER.SIGNIN_GOOGLE,
+  async ({ googleToken }, { rejectWithValue }) => {
+    try {
+      const user = jwtDecode(googleToken);
+      const { email, name } = user;
+      const image = user.picture;
+
+      setAccessToken(googleToken);
+
+      return { email, name, image, role: 'USER' };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

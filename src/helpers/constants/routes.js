@@ -29,6 +29,7 @@ export const ACTION_ROUTES = {
     UPDATE_USER: 'user/update-user',
     DELETE_USER: 'user/delete-user',
     TOKEN: 'user/token',
+    SIGNIN_GOOGLE: 'user/signin-google',
     GET_USER: 'user/me',
     GET_ALL_USERS: 'user/all',
   },

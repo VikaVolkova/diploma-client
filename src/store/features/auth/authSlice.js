@@ -11,6 +11,7 @@ import {
   updateRole,
   updateUser,
   deleteUser,
+  signInGoogle,
 } from './authMiddlewares';
 import jwtDecode from 'jwt-decode';
 import { TOKENS } from '../../../helpers';
@@ -27,6 +28,7 @@ const initialState = {
   error: null,
   success: false,
   registered: false,
+  registeredGoogle: false,
 };
 
 const setPending = (state) => {
@@ -54,12 +56,18 @@ const authSlice = createSlice({
       };
     },
     loadUser(state) {
-      const token = state.accessToken;
+      const token = state.accessToken ? state.accessToken : getAccessToken();
       if (token) {
         const user = jwtDecode(token);
         return {
           ...state,
-          userInfo: user,
+          userInfo: {
+            image: user.picture ? user.picture : user.image,
+            email: user.email,
+            name: user.name,
+            role: user.role ? user.role : 'USER',
+          },
+          registeredGoogle: user._id ? false : true,
         };
       }
     },
@@ -115,6 +123,14 @@ const authSlice = createSlice({
       state.userInfo = action.payload;
     },
     [getUser.rejected]: setError,
+    [signInGoogle.pending]: setPending,
+    [signInGoogle.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.userInfo = action.payload;
+      state.registeredGoogle = true;
+    },
+    [signInGoogle.rejected]: setError,
     [getAllUsers.pending]: setPending,
     [getAllUsers.fulfilled]: (state, action) => {
       state.users = action.payload;
@@ -150,6 +166,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, loadUser } = authSlice.actions;
+export const { logout, loadUser, loginGoogle } = authSlice.actions;
 
 export default authSlice.reducer;
