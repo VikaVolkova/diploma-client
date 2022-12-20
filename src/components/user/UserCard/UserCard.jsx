@@ -12,20 +12,21 @@ export const UserCard = ({ user }) => {
   const updatePassword = () => {
     navigate(ROUTES.UPDATE_PASSWORD);
   };
+
   return (
     <div className={s.container}>
       <div className={s.image}>
-        <Avatar sx={avatar}>{user.image}</Avatar>
+        <Avatar sx={avatar} src={user.image} />
       </div>
       <div className={s.userData}>
         <Typography variant="h6">{`Ім'я: ${user.name}`}</Typography>
-        <Typography variant="h6" color="neutral">{`E-mail: ${user.email}`}</Typography>
+        <Typography variant="h6">{`E-mail: ${user.email}`}</Typography>
         <div className={s.buttons}>
           <Button variant="contained" sx={button} onClick={() => updatePassword()}>
             Оновити пароль
           </Button>
           <ActionPanel
-            handleEdit={() => console.log('edit')}
+            handleEdit={() => navigate(ROUTES.UPDATE_USER)}
             handleDelete={() => console.log('remove')}
           />
         </div>

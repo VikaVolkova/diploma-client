@@ -120,9 +120,9 @@ export const fetchToken = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   ACTION_ROUTES.USER.GET_USER,
-  async (_, { rejectWithValue }) => {
+  async ({ accessToken }, { rejectWithValue }) => {
     try {
-      const response = await api.get(ACTION_ROUTES.USER.GET_USER);
+      const response = await api.get(`${ACTION_ROUTES.USER.GET_USER}?token=${accessToken}`);
       const data = await response.data;
       return data;
     } catch (error) {
@@ -157,6 +157,21 @@ export const updateRole = createAsyncThunk(
   async ({ email, role }, { rejectWithValue }) => {
     try {
       await api.put(ACTION_ROUTES.USER.BASE, { email, role });
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const updateUser = createAsyncThunk(
+  ACTION_ROUTES.USER.UPDATE_USER,
+  async ({ name, email, image }, { rejectWithValue }) => {
+    try {
+      await api.put(ACTION_ROUTES.USER.UPDATE_USER, { name, email, image });
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
