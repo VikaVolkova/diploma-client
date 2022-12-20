@@ -172,10 +172,24 @@ export const updateUser = createAsyncThunk(
   async ({ name, email, image }, { rejectWithValue }) => {
     try {
       const response = await api.put(ACTION_ROUTES.USER.UPDATE_USER, { name, email, image });
-      console.log(response);
       const { data } = response;
 
       return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const deleteUser = createAsyncThunk(
+  ACTION_ROUTES.USER.DELETE_USER,
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.delete(ACTION_ROUTES.USER.DELETE_USER);
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

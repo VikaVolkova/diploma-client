@@ -11,6 +11,7 @@ import {
   InputLabel,
   FormControl,
   CircularProgress,
+  ThemeProvider,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
@@ -18,6 +19,7 @@ import {
   ERROR_MESSAGES,
   HELPER_TEXT,
   ROUTES,
+  theme,
   validateEmail,
   validatePassword,
 } from '../../../helpers';
@@ -37,6 +39,12 @@ export const Login = () => {
   const { userInfo, loading, error } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const errorMessage =
+    error === ERROR_MESSAGES.FAILED_400
+      ? ERROR_MESSAGES.USER_NO_EXIST
+      : error === ERROR_MESSAGES.FAILED_404
+      ? ERROR_MESSAGES.PASSWORD
+      : '';
 
   const updateLogin = (e) => {
     e.preventDefault();
@@ -81,7 +89,7 @@ export const Login = () => {
   return (
     <FormContainer>
       <h2>Увійти в обліковий запис</h2>
-      <h3>{error && ERROR_MESSAGES.PASSWORD}</h3>
+      <h3>{errorMessage}</h3>
       <Box>
         <TextField
           fullWidth
@@ -126,12 +134,14 @@ export const Login = () => {
         </FormControl>
       </Box>
       <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
-        <Button type="submit" variant="contained" onClick={onSubmit}>
-          {loading ? <CircularProgress size={20} sx={{ color: 'white' }} /> : 'Увійти'}
-        </Button>
-        <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant="outlined">
-          Забув пароль
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button type="submit" variant="contained" onClick={onSubmit}>
+            {loading ? <CircularProgress size={20} color="white" /> : 'Увійти'}
+          </Button>
+          <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant="outlined">
+            Забув пароль
+          </Button>
+        </ThemeProvider>
       </Stack>
     </FormContainer>
   );

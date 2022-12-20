@@ -10,6 +10,7 @@ import {
   InputLabel,
   FormControl,
   CircularProgress,
+  ThemeProvider,
 } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ import {
   validatePassword,
   ERROR_MESSAGES,
   HELPER_TEXT,
+  theme,
 } from '../../../helpers';
 import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -148,9 +150,11 @@ export const Register = () => {
       </FormControl>
 
       <Stack marginBottom="10px">
-        <Button variant="contained" onClick={onSubmit} sx={{ mb: 2 }}>
-          {loading ? <CircularProgress size={20} sx={{ color: 'white' }} /> : 'Зареєструвати'}
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button variant="contained" onClick={onSubmit} sx={{ mb: 2 }}>
+            {loading ? <CircularProgress size={20} color="white" /> : 'Зареєструвати'}
+          </Button>
+        </ThemeProvider>
       </Stack>
     </FormContainer>
   );

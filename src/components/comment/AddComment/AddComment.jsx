@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, CircularProgress, FormHelperText, Stack } from '@mui/material';
+import { Button, CircularProgress, FormHelperText, Stack, ThemeProvider } from '@mui/material';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../../store/features/comments/commentsMiddlewares';
 import PropTypes from 'prop-types';
 import MDEditor from '@uiw/react-md-editor';
-import { ERROR_MESSAGES } from '../../../helpers';
+import { ERROR_MESSAGES, theme } from '../../../helpers';
 
 const validationSchema = yup
   .object({
@@ -55,19 +55,17 @@ export const AddComment = ({ article }) => {
           </div>
         )}
       />
-      <Button
-        type="submit"
-        variant="contained"
-        size="medium"
-        sx={{ mt: '15px' }}
-        disabled={isButtonDisabled}
-      >
-        {loadingComments ? (
-          <CircularProgress size={20} sx={{ color: 'white' }} />
-        ) : (
-          'Додати коментар'
-        )}
-      </Button>
+      <ThemeProvider theme={theme}>
+        <Button
+          type="submit"
+          variant="contained"
+          size="medium"
+          sx={{ mt: '15px' }}
+          disabled={isButtonDisabled}
+        >
+          {loadingComments ? <CircularProgress size={20} color="white" /> : 'Додати коментар'}
+        </Button>
+      </ThemeProvider>
     </Stack>
   );
 };
