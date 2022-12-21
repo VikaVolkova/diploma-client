@@ -152,6 +152,11 @@ export const Register = () => {
         />
       </FormControl>
       <GoogleLogin
+        theme="outline"
+        size="medium"
+        text="signup_with"
+        width="300px"
+        locale="uk"
         onSuccess={(credentialResponse) => {
           const googleToken = credentialResponse.credential;
           dispatch(signInGoogle({ googleToken }));
