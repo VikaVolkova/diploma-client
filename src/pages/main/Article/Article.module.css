@@ -24,3 +24,20 @@
   bottom: 25px;
   left: 50px;
 }
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.likes {
+  padding-left: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.likesCount {
+  padding-left: 5px;
+  font-size: 18px;
+}

@@ -123,3 +123,37 @@ export const deleteArticle = createAsyncThunk(
     }
   },
 );
+
+export const getPopularArticles = createAsyncThunk(
+  ACTION_ROUTES.ARTICLE.GET_POPULAR_ARTICLES,
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(ACTION_ROUTES.ARTICLE.GET_POPULAR_ARTICLES);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const toggleLike = createAsyncThunk(
+  ACTION_ROUTES.ARTICLE.TOGGLE_ARTICLE_LIKE,
+  async ({ articleId, liked }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.put(`${ACTION_ROUTES.ARTICLE.TOGGLE_ARTICLE_LIKE}${articleId}`, {
+        liked,
+      });
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);

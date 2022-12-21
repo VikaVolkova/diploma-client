@@ -1,4 +1,4 @@
-.comments {
+.likes {
   display: inline-flex;
   flex-direction: row;
   justify-content: space-between;
@@ -7,6 +7,6 @@
   line-height: 0;
 }
 
-.commentNumber {
+.likesNumber {
   margin-left: 5px;
 }

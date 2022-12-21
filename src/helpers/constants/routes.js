@@ -35,10 +35,12 @@ export const ACTION_ROUTES = {
   },
   ARTICLE: {
     BASE: 'news',
+    GET_POPULAR_ARTICLES: 'news/popular',
     GET_ARTICLE_BY_URL: 'news/:newsUrl',
     GET_ARTICLES_BY_CATEGORY_URL: 'news/category/',
     GET_UNPUBLISHED_ARTICLES: 'news/unpublished',
     TOGGLE_ARTICLE_PUBLISH: 'news/publish/',
+    TOGGLE_ARTICLE_LIKE: 'news/like/',
     DELETE_ARTICLE: 'news/:id',
   },
   CATEGORY: {

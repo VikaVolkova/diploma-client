@@ -62,6 +62,7 @@ const authSlice = createSlice({
         return {
           ...state,
           userInfo: {
+            _id: user._id,
             image: user.picture ? user.picture : user.image,
             email: user.email,
             name: user.name,

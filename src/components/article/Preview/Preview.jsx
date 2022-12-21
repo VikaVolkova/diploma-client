@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Comments } from '../../comment/Comments/Comments';
+import { Likes } from '../../comment/Likes/Likes';
 import s from './Preview.module.css';
 import { PREVIEW_TYPE } from '../../../helpers';
 
@@ -36,7 +36,7 @@ export const Preview = ({ article, type }) => {
             {article.category?.title}
           </Link>
           <Link to={`/${article?.category?.url}/${article.url}`} className={s.comment}>
-            <Comments count={article?.comments?.length} />
+            <Likes count={article?.likes?.length} />
           </Link>
         </div>
         <Link to={`/${article?.category.url}/${article.url}`} className={s.title}>
@@ -62,7 +62,7 @@ Preview.propTypes = {
     title: PropTypes.string,
     spoiler: PropTypes.string,
     coverImage: PropTypes.string,
-    comments: PropTypes.array,
+    likes: PropTypes.array,
     url: PropTypes.string,
   }).isRequired,
   type: PropTypes.oneOf(['full', 'thumbnail']),

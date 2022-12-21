@@ -20,4 +20,6 @@ export const ACTION = {
   PUBLISH: 'Опублікувати',
   UNPUBLISH: 'Скасувати публікацію',
   DELETE: 'Видалити',
+  LIKE: 'Подобається',
+  NO_LIKE: 'Не подобається',
 };
