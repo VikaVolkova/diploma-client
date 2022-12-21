@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   getArticles,
+  getPopularArticles,
   getArticlesByCategoryUrl,
   getArticleByUrl,
   createArticle,
   getUnpublishedArticles,
   toggleArticlePublish,
   deleteArticle,
+  toggleLike,
 } from './articleMiddlewares';
 
 const setPending = (state) => {
@@ -21,6 +23,7 @@ const setError = (state, action) => {
 
 const initialState = {
   loadingArticles: false,
+  popularArticles: [],
   articles: [],
   article: null,
   error: null,
@@ -36,6 +39,14 @@ const articleSlice = createSlice({
     [getArticles.rejected]: setError,
     [getArticles.fulfilled]: (state, action) => {
       state.articles = action.payload.data;
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [getPopularArticles.pending]: setPending,
+    [getPopularArticles.rejected]: setError,
+    [getPopularArticles.fulfilled]: (state, action) => {
+      state.popularArticles = action.payload.data;
       state.loadingArticles = false;
       state.success = true;
       state.error = null;
@@ -85,6 +96,14 @@ const articleSlice = createSlice({
     [toggleArticlePublish.rejected]: setError,
     [toggleArticlePublish.fulfilled]: (state, action) => {
       state.articles = state.articles.filter((item) => item._id !== action.payload.data._id);
+      state.article = action.payload.data;
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [toggleLike.pending]: setPending,
+    [toggleLike.rejected]: setError,
+    [toggleLike.fulfilled]: (state, action) => {
       state.article = action.payload.data;
       state.loadingArticles = false;
       state.success = true;

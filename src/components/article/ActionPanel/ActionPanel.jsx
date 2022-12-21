@@ -13,6 +13,7 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
   const [openDelete, setOpenDelete] = useState(false);
   const [openUnpublish, setOpenUnpublish] = useState(false);
   const large = 'large';
+
   return (
     <>
       <div>
