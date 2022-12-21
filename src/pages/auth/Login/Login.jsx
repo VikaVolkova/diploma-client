@@ -82,9 +82,9 @@ export const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
     setEmail('');
     setPassword('');
+    dispatch(login({ email, password }));
   };
 
   if (userInfo) navigate(ROUTES.HOME);
@@ -137,6 +137,11 @@ export const Login = () => {
         </FormControl>
       </Box>
       <GoogleLogin
+        theme="outline"
+        size="large"
+        text="signin_with"
+        width="300"
+        locale="uk"
         onSuccess={(credentialResponse) => {
           const googleToken = credentialResponse.credential;
           dispatch(signInGoogle({ googleToken }));
