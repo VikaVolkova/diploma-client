@@ -9,6 +9,7 @@ import {
   toggleArticlePublish,
   deleteArticle,
   toggleLike,
+  toggleComment,
 } from './articleMiddlewares';
 
 const setPending = (state) => {
@@ -104,6 +105,14 @@ const articleSlice = createSlice({
     [toggleLike.pending]: setPending,
     [toggleLike.rejected]: setError,
     [toggleLike.fulfilled]: (state, action) => {
+      state.article = action.payload.data;
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [toggleComment.pending]: setPending,
+    [toggleComment.rejected]: setError,
+    [toggleComment.fulfilled]: (state, action) => {
       state.article = action.payload.data;
       state.loadingArticles = false;
       state.success = true;

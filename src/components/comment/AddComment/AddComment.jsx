@@ -8,6 +8,7 @@ import { createComment } from '../../../store/features/comments/commentsMiddlewa
 import PropTypes from 'prop-types';
 import MDEditor from '@uiw/react-md-editor';
 import { ERROR_MESSAGES, theme } from '../../../helpers';
+import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 
 const validationSchema = yup
   .object({
@@ -34,7 +35,10 @@ export const AddComment = ({ article }) => {
   });
 
   const onSubmit = ({ text }) => {
-    dispatch(createComment({ text, article, author })).then(() => {
+    dispatch(createComment({ text, article, author })).then((comment) => {
+      dispatch(
+        toggleComment({ articleId: article, commentId: comment.payload._id, deleted: false }),
+      );
       reset();
     });
   };

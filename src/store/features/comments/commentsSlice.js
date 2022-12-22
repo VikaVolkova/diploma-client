@@ -40,7 +40,8 @@ const commentsSlice = createSlice({
     },
     [createComment.pending]: setPending,
     [createComment.rejected]: setError,
-    [createComment.fulfilled]: (state) => {
+    [createComment.fulfilled]: (state, action) => {
+      state.comment = action.payload;
       state.loadingComments = false;
       state.success = true;
       state.error = null;

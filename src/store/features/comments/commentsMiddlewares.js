@@ -25,7 +25,8 @@ export const createComment = createAsyncThunk(
   ACTION_ROUTES.COMMENT.BASE,
   async ({ text, author, article }, { rejectWithValue }) => {
     try {
-      await api.post(ACTION_ROUTES.COMMENT.BASE, { text, author, article });
+      const { data } = await api.post(ACTION_ROUTES.COMMENT.BASE, { text, author, article });
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

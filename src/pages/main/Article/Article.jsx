@@ -12,7 +12,6 @@ import {
   deleteArticle,
   toggleLike,
 } from '../../../store/features/article/articleMiddlewares';
-// import { getCommentsByArticleId } from '../../../store/features/comments/commentsMiddlewares';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { CommentsList } from '../../../components/comment/CommentsList/CommentsList';
 import { AddComment } from '../../../components/comment/AddComment/AddComment';
@@ -30,7 +29,6 @@ export const Article = () => {
   const [articleId, setArticleId] = useState(0);
   const [likes, setLikes] = useState([]);
   const { article, loadingArticles } = useSelector((state) => state.article);
-  const { comments, loadingComments } = useSelector((state) => state.comments);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,10 +43,6 @@ export const Article = () => {
       setLikes(article.likes);
     }
   }, [article]);
-
-  // useEffect(() => {
-  //   articleId && dispatch(getCommentsByArticleId({ articleId }));
-  // }, [articleId, dispatch]);
 
   useEffect(() => {
     userInfo && likes && setIsLiked(likes.includes(userInfo._id) ? true : false);
@@ -77,8 +71,7 @@ export const Article = () => {
   };
 
   return (
-    article &&
-    !loadingComments && (
+    article && (
       <>
         <Container size="lg">
           <div className={s.containerBaner}>
@@ -140,7 +133,7 @@ export const Article = () => {
           ) : (
             <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
           )}
-          <CommentsList data={comments} />
+          <CommentsList articleId={article._id} />
         </Container>
       </>
     )
