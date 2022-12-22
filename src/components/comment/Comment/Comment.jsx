@@ -8,7 +8,7 @@ export const Comment = ({ comment }) => (
     <ListItem alignItems="flex-start" key={comment._id}>
       <ListItemText
         primary={
-          <Typography color="primary.main">
+          <Typography component={'span'} color="primary.main">
             {comment.author.name || comment.author.email}
           </Typography>
         }

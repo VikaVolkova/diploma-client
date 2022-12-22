@@ -157,3 +157,22 @@ export const toggleLike = createAsyncThunk(
     }
   },
 );
+
+export const toggleComment = createAsyncThunk(
+  ACTION_ROUTES.ARTICLE.ADD_COMMENT,
+  async ({ articleId, commentId, deleted }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.put(`${ACTION_ROUTES.ARTICLE.ADD_COMMENT}${articleId}`, {
+        commentId,
+        deleted,
+      });
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);

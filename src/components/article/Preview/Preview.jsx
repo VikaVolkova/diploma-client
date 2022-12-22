@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Likes } from '../../comment/Likes/Likes';
+import { Likes } from '../Likes/Likes';
 import s from './Preview.module.css';
 import { PREVIEW_TYPE } from '../../../helpers';
 
