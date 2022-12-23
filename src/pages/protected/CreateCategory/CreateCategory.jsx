@@ -96,7 +96,6 @@ export const CreateCategory = () => {
           type="submit"
           variant="contained"
           disabled={isButtonDisabled}
-          loadingPosition="start"
           startIcon={loadingCategories && <CircularProgress size={20} sx={{ color: 'white' }} />}
         >
           Зберегти категорію

@@ -19,6 +19,7 @@ import { UnpublishedComments } from '../../../pages/protected/UnpublishedComment
 import { UpdateRole } from '../../../pages/protected/UpdateRole/UpdateRole';
 import { UserPage } from '../../../pages/protected/UserPage/UserPage';
 import { UpdateUser } from '../../../pages/protected/UpdateUser/UpdateUser';
+import { UpdateArticle } from '../../../pages/protected/UpdateArticle/UpdateArticle';
 
 export const AppRoutes = () => (
   <Routes>
@@ -33,6 +34,14 @@ export const AppRoutes = () => (
         element={
           <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
             <CreateArticle />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/update/:newsUrl"
+        element={
+          <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
+            <UpdateArticle />
           </ProtectedRoute>
         }
       />

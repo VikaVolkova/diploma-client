@@ -21,7 +21,7 @@ export const getCategories = createAsyncThunk(
 );
 
 export const createCategory = createAsyncThunk(
-  ACTION_ROUTES.CATEGORY.BASE,
+  ACTION_ROUTES.CATEGORY.CREATE,
   async (categoryData, { rejectWithValue }) => {
     try {
       const { data } = await api.post(ACTION_ROUTES.CATEGORY.BASE, categoryData);

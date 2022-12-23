@@ -88,7 +88,7 @@ export const Article = () => {
               <ActionPanel
                 handleEdit={
                   (checkAuthor(userInfo, article.author) || checkAdmin(userInfo)) &&
-                  (() => navigate(`${ROUTES.UPDATE_LINK}${article._id}`))
+                  (() => navigate(`${ROUTES.UPDATE_ARTICLE}${article.url}`))
                 }
                 handlePublish={
                   checkAdmin(userInfo) &&
@@ -116,7 +116,7 @@ export const Article = () => {
                     {isLiked ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteBorderIcon />}
                   </IconButton>
                 </Tooltip>
-                <span className={s.likesCount}>{article.likes.length}</span>
+                <span className={s.likesCount}>{article?.likes?.length}</span>
               </div>
             </div>
           )}

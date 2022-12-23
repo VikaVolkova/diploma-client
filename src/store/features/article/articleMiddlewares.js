@@ -124,6 +124,30 @@ export const deleteArticle = createAsyncThunk(
   },
 );
 
+export const updateArticle = createAsyncThunk(
+  ACTION_ROUTES.ARTICLE.UPDATE_ARTICLE,
+  async ({ id, title, url, spoiler, content, category, coverImage }, { rejectWithValue }) => {
+    try {
+      const updatedArticle = await api.put(`${ACTION_ROUTES.ARTICLE.UPDATE_ARTICLE}${id}`, {
+        title,
+        url,
+        spoiler,
+        content,
+        category,
+        coverImage,
+      });
+
+      return updatedArticle;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
 export const getPopularArticles = createAsyncThunk(
   ACTION_ROUTES.ARTICLE.GET_POPULAR_ARTICLES,
   async (_, { rejectWithValue }) => {

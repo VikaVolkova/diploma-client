@@ -32,3 +32,5 @@ export const paperProps = {
     },
   },
 };
+
+export const formMargin = { mt: '10px' };
