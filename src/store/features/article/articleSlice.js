@@ -8,6 +8,7 @@ import {
   getUnpublishedArticles,
   toggleArticlePublish,
   deleteArticle,
+  updateArticle,
   toggleLike,
   toggleComment,
 } from './articleMiddlewares';
@@ -88,6 +89,14 @@ const articleSlice = createSlice({
     [deleteArticle.rejected]: setError,
     [deleteArticle.fulfilled]: (state, action) => {
       state.articles = state.articles.filter((item) => item._id !== action.payload.data._id);
+      state.article = action.payload.data;
+      state.loadingArticles = false;
+      state.success = true;
+      state.error = null;
+    },
+    [updateArticle.pending]: setPending,
+    [updateArticle.rejected]: setError,
+    [updateArticle.fulfilled]: (state, action) => {
       state.article = action.payload.data;
       state.loadingArticles = false;
       state.success = true;

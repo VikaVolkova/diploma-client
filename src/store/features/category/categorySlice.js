@@ -27,7 +27,7 @@ const categorySlice = createSlice({
     [getCategories.pending]: setPending,
     [getCategories.rejected]: setError,
     [getCategories.fulfilled]: (state, action) => {
-      state.categories = action.payload.data;
+      state.categories = action.payload;
       state.loadingCategories = false;
       state.success = true;
       state.error = null;

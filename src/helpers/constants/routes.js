@@ -42,10 +42,12 @@ export const ACTION_ROUTES = {
     TOGGLE_ARTICLE_PUBLISH: 'news/publish/',
     TOGGLE_ARTICLE_LIKE: 'news/like/',
     DELETE_ARTICLE: 'news/:id',
+    UPDATE_ARTICLE: 'news/update/',
     ADD_COMMENT: 'news/comment/',
   },
   CATEGORY: {
     BASE: '/category',
+    CREATE: '/category-create',
   },
   COMMENT: {
     BASE: 'comments/',

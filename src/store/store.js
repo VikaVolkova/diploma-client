@@ -13,4 +13,8 @@ export const store = configureStore({
     category: categorySlice,
     image: imageSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
