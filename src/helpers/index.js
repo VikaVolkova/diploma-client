@@ -4,6 +4,7 @@ export * from './constants/navigation';
 export * from './constants/message';
 export * from './constants/pageTypes';
 export * from './constants/auth';
+export * from './constants/socials';
 export * from './styles';
 export * from './helpers';
 export * from './validate';

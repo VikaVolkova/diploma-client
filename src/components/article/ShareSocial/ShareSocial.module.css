@@ -1,0 +1,17 @@
+.modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: none;
+  box-shadow: 24;
+}
+
+.MuiFab-root {
+  width: 20px;
+  height: 20px;
+}

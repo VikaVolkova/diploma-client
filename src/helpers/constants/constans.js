@@ -3,6 +3,7 @@ export const DEFAULT_ARTICLE_IMAGE =
 export const DEFAULT_USER_IMAGE =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png';
 export const BASE_URL = 'http://localhost:5000/api';
+export const WEBSITE_URL = 'http://localhost:3000';
 export const REGISTER_URL = 'http://localhost:5000/api/users/register';
 export const OAUTH_CLIENT_ID =
   '945998487819-3fr915t89v64bdgk45gg2bb8k6q6jg85.apps.googleusercontent.com';
@@ -22,4 +23,5 @@ export const ACTION = {
   DELETE: 'Видалити',
   LIKE: 'Подобається',
   NO_LIKE: 'Не подобається',
+  SHARE: 'Поділитись',
 };

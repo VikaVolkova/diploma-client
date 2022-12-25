@@ -28,11 +28,10 @@
 .actions {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
-.likes {
-  padding-left: 5px;
+.interactions {
   display: flex;
   align-items: center;
 }

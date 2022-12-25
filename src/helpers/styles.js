@@ -33,4 +33,16 @@ export const paperProps = {
   },
 };
 
+export const shareSocials = {
+  height: 320,
+  transform: 'translateZ(0px)',
+  flexGrow: 1,
+  position: 'fixed',
+  zIndex: '1',
+  bottom: 70,
+  right: 40,
+};
+
+export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
+
 export const formMargin = { mt: '10px' };
