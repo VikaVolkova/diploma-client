@@ -96,7 +96,7 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
           {checkRole([ROLES.ADMIN, ROLES.MANAGER], userInfo) && (
             <ActionPanel
               handleEdit={() => navigate(`${ROUTES.UPDATE_ARTICLE}${article.url}`)}
-              handlePublish={checkAdmin(userInfo) && (() => publishArticle(article._id))}
+              handlePublish={checkAdmin(userInfo) ? () => publishArticle(article._id) : null}
               handleDelete={() => removeArticle(article._id)}
             />
           )}

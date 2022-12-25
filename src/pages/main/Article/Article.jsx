@@ -22,6 +22,7 @@ import { checkAdmin, checkAuthor, checkRole } from '../../../helpers/helpers';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { pink } from '@mui/material/colors';
+import { ShareSocial } from '../../../components/article/ShareSocial/ShareSocial';
 
 export const Article = () => {
   const { newsUrl } = useParams();
@@ -73,6 +74,7 @@ export const Article = () => {
   return (
     article && (
       <>
+        {article.isPublished && <ShareSocial />}
         <Container size="lg">
           <div className={s.containerBaner}>
             <div
@@ -87,25 +89,27 @@ export const Article = () => {
             <div className={s.actions}>
               <ActionPanel
                 handleEdit={
-                  (checkAuthor(userInfo, article.author) || checkAdmin(userInfo)) &&
-                  (() => navigate(`${ROUTES.UPDATE_ARTICLE}${article.url}`))
+                  checkAuthor(userInfo, article.author) || checkAdmin(userInfo)
+                    ? () => navigate(`${ROUTES.UPDATE_ARTICLE}${article.url}`)
+                    : null
                 }
                 handlePublish={
-                  checkAdmin(userInfo) &&
-                  !article.isPublished &&
-                  (() => togglePublish(article._id, true))
+                  checkAdmin(userInfo) && !article.isPublished
+                    ? () => togglePublish(article._id, true)
+                    : null
                 }
                 handleUnpublish={
-                  checkAdmin(userInfo) &&
-                  article.isPublished &&
-                  (() => togglePublish(article._id, false))
+                  checkAdmin(userInfo) && article.isPublished
+                    ? () => togglePublish(article._id, false)
+                    : null
                 }
                 handleDelete={
-                  (checkAuthor(userInfo, article.author) || checkAdmin(userInfo)) &&
-                  (() => removeArticle(article._id))
+                  checkAuthor(userInfo, article.author) || checkAdmin(userInfo)
+                    ? () => removeArticle(article._id)
+                    : null
                 }
               />
-              <div className={s.likes}>
+              <div className={s.interactions}>
                 <Tooltip title={isLiked ? ACTION.NO_LIKE : ACTION.LIKE}>
                   <IconButton
                     aria-label={ACTION.LIKE}
