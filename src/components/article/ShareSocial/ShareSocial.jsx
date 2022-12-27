@@ -7,7 +7,6 @@ import { Box, SpeedDial, SpeedDialAction } from '@mui/material';
 export const ShareSocial = () => {
   const url = useLocation();
   const items = socials(`${WEBSITE_URL}${url.pathname}`);
-  console.log(url);
   return (
     <Box sx={shareSocials}>
       <SpeedDial ariaLabel="Share" icon={<ShareOutlinedIcon />} sx={speedDial}>
