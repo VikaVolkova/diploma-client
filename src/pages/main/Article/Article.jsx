@@ -3,8 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Markdown from 'markdown-to-jsx';
 import { Container } from '../../../components/layout/Container/Container';
 import s from './Article.module.css';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getArticleByUrl,
@@ -29,7 +27,7 @@ export const Article = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [articleId, setArticleId] = useState(0);
   const [likes, setLikes] = useState([]);
-  const { article, loadingArticles } = useSelector((state) => state.article);
+  const { article } = useSelector((state) => state.article);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,14 +47,6 @@ export const Article = () => {
     userInfo && likes && setIsLiked(likes.includes(userInfo._id) ? true : false);
   }, [likes, userInfo]);
 
-  if (loadingArticles) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
   const removeArticle = (id) => {
     dispatch(deleteArticle({ id }));
     navigate(-1);
@@ -67,7 +57,8 @@ export const Article = () => {
     navigate(-1);
   };
 
-  const toggleLikes = (liked) => {
+  const toggleLikes = (liked, e) => {
+    e.preventDefault();
     userInfo && dispatch(toggleLike({ articleId, liked }));
   };
 
@@ -115,7 +106,7 @@ export const Article = () => {
                     aria-label={ACTION.LIKE}
                     sx={{ p: 0 }}
                     size="large"
-                    onClick={() => toggleLikes(!isLiked)}
+                    onClick={(e) => toggleLikes(!isLiked, e)}
                   >
                     {isLiked ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteBorderIcon />}
                   </IconButton>

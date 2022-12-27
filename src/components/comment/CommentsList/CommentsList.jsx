@@ -44,7 +44,6 @@ export const CommentsList = ({ articleId, type }) => {
   const removeComment = async (id) => {
     try {
       dispatch(deleteComment({ id })).then((comment) => {
-        console.log(comment);
         dispatch(
           toggleComment({
             articleId: comment.payload.data.article,

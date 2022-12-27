@@ -41,8 +41,8 @@ export const ACTION_ROUTES = {
     GET_UNPUBLISHED_ARTICLES: 'news/unpublished',
     TOGGLE_ARTICLE_PUBLISH: 'news/publish/',
     TOGGLE_ARTICLE_LIKE: 'news/like/',
-    DELETE_ARTICLE: 'news/:id',
     UPDATE_ARTICLE: 'news/update/',
+    DELETE_ARTICLE: 'news/delete/',
     ADD_COMMENT: 'news/comment/',
   },
   CATEGORY: {

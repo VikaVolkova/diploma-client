@@ -111,7 +111,7 @@ export const deleteArticle = createAsyncThunk(
   ACTION_ROUTES.ARTICLE.DELETE_ARTICLE,
   async ({ id }, { rejectWithValue }) => {
     try {
-      const data = await api.delete(`${ACTION_ROUTES.ARTICLE.BASE}/${id}`);
+      const data = await api.put(`${ACTION_ROUTES.ARTICLE.DELETE_ARTICLE}${id}`);
 
       return data;
     } catch (error) {
