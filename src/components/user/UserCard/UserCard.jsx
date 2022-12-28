@@ -30,9 +30,11 @@ export const UserCard = ({ user }) => {
         <Typography variant="h6">{`Ім'я: ${user.name}`}</Typography>
         <Typography variant="h6">{`E-mail: ${user.email}`}</Typography>
         <div className={s.buttons}>
-          <Button variant="contained" sx={button} onClick={() => updatePassword()}>
-            Оновити пароль
-          </Button>
+          {!user.googleUser && (
+            <Button variant="contained" sx={button} onClick={() => updatePassword()}>
+              Оновити пароль
+            </Button>
+          )}
           <ActionPanel
             handleEdit={() => navigate(ROUTES.UPDATE_USER)}
             handleDelete={() => removeUser()}
@@ -48,5 +50,6 @@ UserCard.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     image: PropTypes.string,
+    googleUser: PropTypes.bool,
   }).isRequired,
 };

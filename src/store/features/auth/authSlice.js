@@ -11,7 +11,7 @@ import {
   updateRole,
   updateUser,
   deleteUser,
-  signInGoogle,
+  // signInGoogle,
 } from './authMiddlewares';
 import jwtDecode from 'jwt-decode';
 import { TOKENS } from '../../../helpers';
@@ -28,7 +28,6 @@ const initialState = {
   error: null,
   success: false,
   registered: false,
-  registeredGoogle: false,
 };
 
 const setPending = (state) => {
@@ -124,14 +123,6 @@ const authSlice = createSlice({
       state.userInfo = action.payload;
     },
     [getUser.rejected]: setError,
-    [signInGoogle.pending]: setPending,
-    [signInGoogle.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.success = true;
-      state.userInfo = action.payload;
-      state.registeredGoogle = true;
-    },
-    [signInGoogle.rejected]: setError,
     [getAllUsers.pending]: setPending,
     [getAllUsers.fulfilled]: (state, action) => {
       state.users = action.payload;

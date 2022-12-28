@@ -21,7 +21,7 @@ export const ERROR_MESSAGES = {
   SERVER_ERROR: 'Помилка на сервері',
   FAILED_400: 'Request failed with status code 400',
   FAILED_404: 'Request failed with status code 404',
-  USER_NO_EXIST: 'Користувача з таким e-mail не існує',
+  USER_NO_EXIST: 'Користувача з таким e-mail не існує.',
 };
 
 export const HELPER_TEXT = {

@@ -7,14 +7,14 @@ import { useEffect } from 'react';
 import { getUser } from '../../../store/features/auth/authMiddlewares';
 
 export const UserPage = () => {
-  const { userInfo, accessToken } = useSelector((state) => state.auth);
+  const { userInfo, accessToken, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUser({ accessToken }));
   }, [accessToken]);
 
-  if (!userInfo) {
+  if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <CircularProgress />

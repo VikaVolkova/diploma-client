@@ -97,22 +97,24 @@ export const UpdateUser = () => {
           )}
         />
 
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <Box sx={{ mt: '10px' }}>
-              <TextField
-                margin="normal"
-                label="E-mail:"
-                fullWidth
-                {...field}
-                error={!!errors?.email}
-                helperText={!!errors?.email?.message}
-              />
-            </Box>
-          )}
-        />
+        {!userInfo.googleUser && (
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <Box sx={{ mt: '10px' }}>
+                <TextField
+                  margin="normal"
+                  label="E-mail:"
+                  fullWidth
+                  {...field}
+                  error={!!errors?.email}
+                  helperText={!!errors?.email?.message}
+                />
+              </Box>
+            )}
+          />
+        )}
 
         <Controller
           name="image"
