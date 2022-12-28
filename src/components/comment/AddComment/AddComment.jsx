@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../../store/features/comments/commentsMiddlewares';
 import PropTypes from 'prop-types';
 import MDEditor from '@uiw/react-md-editor';
-import { ERROR_MESSAGES, theme } from '../../../helpers';
+import { ERROR_MESSAGES, MESSAGES, theme } from '../../../helpers';
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 
 const validationSchema = yup
@@ -40,6 +40,7 @@ export const AddComment = ({ article }) => {
         toggleComment({ articleId: article, commentId: comment.payload._id, deleted: false }),
       );
       reset();
+      alert(MESSAGES.COMMENT_ADDED);
     });
   };
 
