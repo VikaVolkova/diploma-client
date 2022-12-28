@@ -8,6 +8,7 @@ export const MESSAGES = {
   EMAIL_SENT: 'Письмо було відправлено. Перевірте почту для відновлення паролю',
   PASSWORD_UPDATE: 'Пароль було оновлено',
   PASSWORDS_NOT_MATCH: 'Паролі не збігаються',
+  COMMENT_ADDED: 'Коментар надіслано. Він буде доданий після підтвердження адміністратора.',
 };
 
 export const MESSAGE_TYPE = {
