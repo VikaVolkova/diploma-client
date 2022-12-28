@@ -24,7 +24,7 @@ import { checkRole } from '../../../../helpers/helpers';
 import { anchorOrigin, avatar, transformOrigin } from './AccountMenu.helpers';
 
 export const AccountMenu = () => {
-  const { userInfo, registeredGoogle } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
   const user = userInfo;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -113,16 +113,15 @@ export const AccountMenu = () => {
         )}
 
         <Divider />
-        {!registeredGoogle && (
-          <Link href={ROUTES.USER} underline="none">
-            <MenuItem>
-              <ListItemIcon>
-                <AccountCircleOutlinedIcon fontSize="small" />
-              </ListItemIcon>
-              Мій профіль
-            </MenuItem>
-          </Link>
-        )}
+
+        <Link href={ROUTES.USER} underline="none">
+          <MenuItem>
+            <ListItemIcon>
+              <AccountCircleOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            Мій профіль
+          </MenuItem>
+        </Link>
 
         <Link underline="none" component="button" variant="body1" onClick={() => handleSignOut()}>
           <MenuItem>

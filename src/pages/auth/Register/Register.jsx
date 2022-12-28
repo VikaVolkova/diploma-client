@@ -22,8 +22,9 @@ import {
   HELPER_TEXT,
   theme,
   ROUTES,
+  decodeToken,
 } from '../../../helpers';
-import { register, signInGoogle } from '../../../store/features/auth/authMiddlewares';
+import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -66,10 +67,17 @@ export const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ name, email, password }));
+    dispatch(register({ name, email, password, googleUser: false }));
     setName('');
     setEmail('');
     setPassword('');
+  };
+
+  const googleRegister = (response) => {
+    const googleToken = response.credential;
+    const { email, name, image } = decodeToken(googleToken);
+    dispatch(register({ email, name, image, googleUser: true }));
+    navigate(ROUTES.LOGIN);
   };
 
   if (registered) navigate(ROUTES.LOGIN);
@@ -157,14 +165,7 @@ export const Register = () => {
         text="signup_with"
         width="300px"
         locale="uk"
-        onSuccess={(credentialResponse) => {
-          const googleToken = credentialResponse.credential;
-          dispatch(signInGoogle({ googleToken }));
-          navigate(ROUTES.HOME);
-        }}
-        onError={() => {
-          console.log('Registration Failed');
-        }}
+        onSuccess={(credentialResponse) => googleRegister(credentialResponse)}
       />
 
       <Stack marginBottom="10px">

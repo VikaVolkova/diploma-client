@@ -16,15 +16,17 @@ import {
 import { Link } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import {
+  decodeToken,
   ERROR_MESSAGES,
   HELPER_TEXT,
   ROUTES,
+  selectErrorMessage,
   theme,
   validateEmail,
   validatePassword,
 } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, signInGoogle } from '../../../store/features/auth/authMiddlewares';
+import { login } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -42,12 +44,7 @@ export const Login = () => {
   const { userInfo, loading, error } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const errorMessage =
-    error === ERROR_MESSAGES.FAILED_400
-      ? ERROR_MESSAGES.USER_NO_EXIST
-      : error === ERROR_MESSAGES.FAILED_404
-      ? ERROR_MESSAGES.PASSWORD
-      : '';
+  const errorMessage = selectErrorMessage(error);
 
   const updateLogin = (e) => {
     e.preventDefault();
@@ -84,7 +81,15 @@ export const Login = () => {
     e.preventDefault();
     setEmail('');
     setPassword('');
-    dispatch(login({ email, password }));
+    dispatch(login({ email, password, googleUser: false }));
+  };
+
+  const googleLogin = (response) => {
+    const googleToken = response.credential;
+    const { email } = decodeToken(googleToken);
+    dispatch(login({ email, googleUser: true })).then((res) => {
+      !res.error && navigate(ROUTES.HOME);
+    });
   };
 
   if (userInfo) navigate(ROUTES.HOME);
@@ -142,16 +147,10 @@ export const Login = () => {
         text="signin_with"
         width="300"
         locale="uk"
-        onSuccess={(credentialResponse) => {
-          const googleToken = credentialResponse.credential;
-          dispatch(signInGoogle({ googleToken }));
-          navigate(ROUTES.HOME);
-        }}
-        onError={() => {
-          console.log('Login Failed');
-        }}
+        onSuccess={(credentialResponse) => googleLogin(credentialResponse)}
         useOneTap
       />
+
       <Stack direction="row" spacing={2} sx={{ mb: 2, mt: 2 }}>
         <ThemeProvider theme={theme}>
           <Button type="submit" variant="contained" onClick={onSubmit}>

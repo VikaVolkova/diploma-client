@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 import { api } from '../../../api/interceptor';
 import { ACTION_ROUTES } from '../../../helpers';
 import { setAccessToken } from '../../../helpers/helpers';
@@ -10,9 +10,13 @@ let axiosConfig = {
 
 export const login = createAsyncThunk(
   ACTION_ROUTES.USER.LOGIN,
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, googleUser }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post(ACTION_ROUTES.USER.LOGIN, { email, password }, axiosConfig);
+      const { data } = await api.post(
+        ACTION_ROUTES.USER.LOGIN,
+        { email, password, googleUser },
+        axiosConfig,
+      );
 
       // store user's token in local storage
       setAccessToken(data.accessToken);
@@ -31,9 +35,9 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   ACTION_ROUTES.USER.REGISTER,
-  async ({ name, email, password }, { rejectWithValue }) => {
+  async ({ name, email, image, password, googleUser }, { rejectWithValue }) => {
     try {
-      await api.post(ACTION_ROUTES.USER.REGISTER, { name, email, password });
+      await api.post(ACTION_ROUTES.USER.REGISTER, { name, email, image, password, googleUser });
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -201,23 +205,23 @@ export const deleteUser = createAsyncThunk(
   },
 );
 
-export const signInGoogle = createAsyncThunk(
-  ACTION_ROUTES.USER.SIGNIN_GOOGLE,
-  async ({ googleToken }, { rejectWithValue }) => {
-    try {
-      const user = jwtDecode(googleToken);
-      const { email, name } = user;
-      const image = user.picture;
+// export const signInGoogle = createAsyncThunk(
+//   ACTION_ROUTES.USER.SIGNIN_GOOGLE,
+//   async ({ googleToken }, { rejectWithValue }) => {
+//     try {
+//       const user = jwtDecode(googleToken);
+//       const { email, name } = user;
+//       const image = user.picture;
 
-      setAccessToken(googleToken);
+//       setAccessToken(googleToken);
 
-      return { email, name, image, role: 'USER' };
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  },
-);
+//       return { email, name, image, role: 'USER' };
+//     } catch (error) {
+//       if (error.response && error.response.data.message) {
+//         return rejectWithValue(error.response.data.message);
+//       } else {
+//         return rejectWithValue(error.message);
+//       }
+//     }
+//   },
+// );

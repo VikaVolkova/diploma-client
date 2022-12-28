@@ -1,4 +1,6 @@
+import jwtDecode from 'jwt-decode';
 import { ROLES, TOKENS } from './constants/auth';
+import { ERROR_MESSAGES } from './constants/message';
 
 export const getAccessToken = () => {
   const accessToken = localStorage.getItem(TOKENS.ACCESS_TOKEN) || '';
@@ -23,4 +25,21 @@ export const checkAdmin = (user) => {
 
 export const checkAuthor = (user, author) => {
   return user?._id === author._id;
+};
+
+export const decodeToken = (token) => {
+  const user = jwtDecode(token);
+  const { email, name } = user;
+  const image = user.picture;
+  return { email, name, image };
+};
+
+export const selectErrorMessage = (error) => {
+  const errorMessage =
+    error === ERROR_MESSAGES.FAILED_400
+      ? ERROR_MESSAGES.USER_NO_EXIST
+      : error === ERROR_MESSAGES.FAILED_404
+      ? ERROR_MESSAGES.PASSWORD
+      : '';
+  return errorMessage;
 };
