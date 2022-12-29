@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Preview } from '../Preview/Preview';
 import PropTypes from 'prop-types';
-import { Box, CircularProgress, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getArticles,
@@ -22,16 +22,11 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
   const navigate = useNavigate();
   const { articles, loadingArticles } = useSelector((state) => state.article);
   const { userInfo } = useSelector((state) => state.auth);
-  const [articlesArr, setArticlesArr] = useState([]);
+  const [next, setNext] = useState(4);
 
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-
-  useEffect(() => {
-    if (!loadingArticles) {
-      setArticlesArr(articles);
-    }
-  }, [loadingArticles, articles]);
+  const buttonStyle = { m: !isTablet ? '3% 43% 7%' : '3% 30% 8%' };
 
   const selectDispatch = (page, categoryUrl) => {
     switch (page) {
@@ -63,6 +58,10 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     }
   };
 
+  const handleMoreArticles = () => {
+    setNext(next + 4);
+  };
+
   useEffect(() => {
     selectDispatch(page, categoryUrl);
   }, [dispatch, categoryUrl, page]);
@@ -88,22 +87,35 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     );
   }
 
-  return articlesArr.map((article) => (
-    <Grid item key={article._id} marginBottom={5}>
-      <Preview article={article} type={isTablet ? PREVIEW_TYPE.THUMBNAIL : PREVIEW_TYPE.FULL} />
-      {type === PAGE_TYPE.UNPUBLISHED && (
-        <>
-          {checkRole([ROLES.ADMIN, ROLES.MANAGER], userInfo) && (
-            <ActionPanel
-              handleEdit={() => navigate(`${ROUTES.UPDATE_ARTICLE}${article.url}`)}
-              handlePublish={checkAdmin(userInfo) ? () => publishArticle(article._id) : null}
-              handleDelete={() => removeArticle(article._id)}
+  return (
+    <>
+      {!loadingArticles &&
+        articles.slice(0, next).map((article) => (
+          <Grid item key={article._id} marginBottom={5}>
+            <Preview
+              article={article}
+              type={isTablet ? PREVIEW_TYPE.THUMBNAIL : PREVIEW_TYPE.FULL}
             />
-          )}
-        </>
+            {type === PAGE_TYPE.UNPUBLISHED && (
+              <>
+                {checkRole([ROLES.ADMIN, ROLES.MANAGER], userInfo) && (
+                  <ActionPanel
+                    handleEdit={() => navigate(`${ROUTES.UPDATE_ARTICLE}${article.url}`)}
+                    handlePublish={checkAdmin(userInfo) ? () => publishArticle(article._id) : null}
+                    handleDelete={() => removeArticle(article._id)}
+                  />
+                )}
+              </>
+            )}
+          </Grid>
+        ))}
+      {!loadingArticles && next < articles.length && (
+        <Button variant="contained" onClick={handleMoreArticles} sx={buttonStyle}>
+          Більше новин
+        </Button>
       )}
-    </Grid>
-  ));
+    </>
+  );
 };
 
 ArticleList.propTypes = {
