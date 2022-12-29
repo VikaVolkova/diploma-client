@@ -27,7 +27,7 @@ export const Article = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [articleId, setArticleId] = useState(0);
   const [likes, setLikes] = useState([]);
-  const { article } = useSelector((state) => state.article);
+  const { article, loadingArticles } = useSelector((state) => state.article);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,6 +63,7 @@ export const Article = () => {
   };
 
   return (
+    !loadingArticles &&
     article && (
       <>
         {article.isPublished && <ShareSocial />}

@@ -1,23 +1,5 @@
-.newsItem {
-  list-style: none;
-  margin-bottom: 30px;
-}
-
-.customButton {
+.loadMoreButton {
   display: flex;
-  margin: 0 auto;
+  margin: 5% auto;
   justify-content: center;
-}
-
-.editButtons {
-  display: flex;
-  justify-content: space-between;
-  width: 200px;
-  margin: auto 0 100px auto;
-}
-
-.editButton {
-  display: flex;
-  justify-content: flex-end;
-  margin: auto 0 100px auto;
 }

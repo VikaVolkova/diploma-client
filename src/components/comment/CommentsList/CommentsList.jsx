@@ -1,7 +1,7 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
 import { Comment } from '../Comment/Comment';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { PAGE_TYPE, ROLES, checkAdmin, checkRole, MESSAGES, MESSAGE_TYPE } from '../../../helpers';
@@ -17,11 +17,17 @@ import s from './CommentsList.module.css';
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 import { Message } from '../../notification/Message/Message';
 import { Container } from '../../layout/Container/Container';
+import { useState } from 'react';
 
 export const CommentsList = ({ articleId, type }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const { comments, loadingComments } = useSelector((state) => state.comments);
+  const [next, setNext] = useState(4);
   const dispatch = useDispatch();
+
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const buttonStyle = { m: !isTablet ? '3% 42% 7%' : '3% 28% 8%' };
 
   const selectFunc = () => {
     return type === PAGE_TYPE.UNPUBLISHED
@@ -57,6 +63,10 @@ export const CommentsList = ({ articleId, type }) => {
     }
   };
 
+  const handleMoreComments = () => {
+    setNext(next + 4);
+  };
+
   if (loadingComments) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -73,57 +83,64 @@ export const CommentsList = ({ articleId, type }) => {
   }
 
   return (
-    comments &&
-    comments.map((comment) => (
-      <div key={comment._id}>
-        {type === PAGE_TYPE.UNPUBLISHED ? (
-          <>
-            <Typography
-              sx={{ display: 'inline', mr: '15px' }}
-              component="span"
-              variant="body2"
-              color="text.primary"
-            >
-              Коментар для{' '}
-              <Link
-                to={`/news/${comment.article.url}`}
-                style={{
-                  color: 'royalblue',
-                  textDecoration: 'none',
-                  fontFamily: 'sans-serif',
-                  fontSize: 14,
-                }}
-              >
-                {comment.article.title}
-              </Link>
-              :
-            </Typography>
-            <div className={s.commentStyle}>
-              <Comment comment={comment} />
-              {checkRole([ROLES.ADMIN, ROLES.MANAGER], userInfo) && (
-                <ActionPanel
-                  handlePublish={
-                    checkAdmin(userInfo) &&
-                    !comment.isPublished &&
-                    (() => publishUnpublishedComment(comment._id))
-                  }
-                  handleDelete={checkAdmin(userInfo) && (() => removeComment(comment._id))}
-                />
-              )}
-            </div>
-          </>
-        ) : (
-          <div className={s.commentStyle}>
-            <Comment comment={comment} />
-            {userInfo._id === comment.author._id && (
-              <ActionPanel
-                handleDelete={checkAdmin(userInfo) && (() => removeComment(comment._id))}
-              />
+    <>
+      {!loadingComments &&
+        comments.slice(0, next).map((comment) => (
+          <div key={comment._id}>
+            {type === PAGE_TYPE.UNPUBLISHED ? (
+              <>
+                <Typography
+                  sx={{ display: 'inline', mr: '15px' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  Коментар для{' '}
+                  <Link
+                    to={`/news/${comment.article.url}`}
+                    style={{
+                      color: 'royalblue',
+                      textDecoration: 'none',
+                      fontFamily: 'sans-serif',
+                      fontSize: 14,
+                    }}
+                  >
+                    {comment.article.title}
+                  </Link>
+                  :
+                </Typography>
+                <div className={s.commentStyle}>
+                  <Comment comment={comment} />
+                  {checkRole([ROLES.ADMIN, ROLES.MANAGER], userInfo) && (
+                    <ActionPanel
+                      handlePublish={
+                        checkAdmin(userInfo) &&
+                        !comment.isPublished &&
+                        (() => publishUnpublishedComment(comment._id))
+                      }
+                      handleDelete={checkAdmin(userInfo) && (() => removeComment(comment._id))}
+                    />
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className={s.commentStyle}>
+                <Comment comment={comment} />
+                {userInfo._id === comment.author._id && (
+                  <ActionPanel
+                    handleDelete={checkAdmin(userInfo) && (() => removeComment(comment._id))}
+                  />
+                )}
+              </div>
             )}
           </div>
-        )}
-      </div>
-    ))
+        ))}
+      {!loadingComments && next < comments.length && (
+        <Button variant="contained" onClick={handleMoreComments} sx={buttonStyle}>
+          Більше коментарів
+        </Button>
+      )}
+    </>
   );
 };
 
