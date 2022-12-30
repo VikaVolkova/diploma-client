@@ -161,7 +161,8 @@ export const updateRole = createAsyncThunk(
   ACTION_ROUTES.USER.BASE,
   async ({ email, role }, { rejectWithValue }) => {
     try {
-      await api.put(ACTION_ROUTES.USER.BASE, { email, role });
+      const users = await api.put(ACTION_ROUTES.USER.BASE, { email, role });
+      return users;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -176,8 +177,7 @@ export const updateUser = createAsyncThunk(
   ACTION_ROUTES.USER.UPDATE_USER,
   async ({ name, email, image }, { rejectWithValue }) => {
     try {
-      const response = await api.put(ACTION_ROUTES.USER.UPDATE_USER, { name, email, image });
-      const { data } = response;
+      const { data } = await api.put(ACTION_ROUTES.USER.UPDATE_USER, { name, email, image });
 
       return data;
     } catch (error) {
@@ -205,23 +205,19 @@ export const deleteUser = createAsyncThunk(
   },
 );
 
-// export const signInGoogle = createAsyncThunk(
-//   ACTION_ROUTES.USER.SIGNIN_GOOGLE,
-//   async ({ googleToken }, { rejectWithValue }) => {
-//     try {
-//       const user = jwtDecode(googleToken);
-//       const { email, name } = user;
-//       const image = user.picture;
-
-//       setAccessToken(googleToken);
-
-//       return { email, name, image, role: 'USER' };
-//     } catch (error) {
-//       if (error.response && error.response.data.message) {
-//         return rejectWithValue(error.response.data.message);
-//       } else {
-//         return rejectWithValue(error.message);
-//       }
-//     }
-//   },
-// );
+export const toggleBlockUser = createAsyncThunk(
+  ACTION_ROUTES.USER.TOGGLE_BLOCK_USER,
+  async ({ email, isBlocked }, { rejectWithValue }) => {
+    try {
+      const data = await api.put(ACTION_ROUTES.USER.TOGGLE_BLOCK_USER, { email, isBlocked });
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);

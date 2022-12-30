@@ -6,7 +6,7 @@ import { SelectUserRoles } from '../SelectUserRoles/SelectUserRoles';
 import s from './ItemUserRole.module.css';
 
 export const ItemUserRole = ({ user, updateUser }) => {
-  const { email, role, name } = user;
+  const { email, role, name, isBlocked } = user;
 
   return (
     <>
@@ -17,7 +17,12 @@ export const ItemUserRole = ({ user, updateUser }) => {
             <ListItemText primary={name} secondary={`Роль: ${role}`} />
           </Box>
         </div>
-        <SelectUserRoles email={email} userRole={role} updateUser={updateUser} />
+        <SelectUserRoles
+          email={email}
+          userRole={role}
+          updateUser={updateUser}
+          isBlocked={!isBlocked}
+        />
       </ListItem>
     </>
   );
@@ -28,6 +33,7 @@ ItemUserRole.propTypes = {
     email: PropTypes.string,
     name: PropTypes.string,
     role: PropTypes.string,
+    isBlocked: PropTypes.bool,
   }),
   updateUser: PropTypes.func,
 };
