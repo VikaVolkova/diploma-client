@@ -67,14 +67,13 @@ export const CommentsList = ({ articleId, type }) => {
     setNext(next + 4);
   };
 
-  if (loadingComments) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-  if (!loadingComments && comments.length === 0 && type === PAGE_TYPE.UNPUBLISHED) {
+  loadingComments && (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
+  );
+
+  if (comments.length === 0 && !loadingComments && type === PAGE_TYPE.UNPUBLISHED) {
     return (
       <Container>
         <Message text={MESSAGES.NO_UNPUBLISHED_COMMENTS} type={MESSAGE_TYPE.MAIN} />
