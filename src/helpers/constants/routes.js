@@ -28,6 +28,7 @@ export const ACTION_ROUTES = {
     CHECK_PASSWORD: 'user/check-password',
     UPDATE_USER: 'user/update-user',
     DELETE_USER: 'user/delete-user',
+    TOGGLE_BLOCK_USER: 'user/block-user',
     TOKEN: 'user/token',
     SIGNIN_GOOGLE: 'user/signin-google',
     GET_USER: 'user/me',
