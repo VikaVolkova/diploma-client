@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Preview } from '../Preview/Preview';
 import PropTypes from 'prop-types';
-import { Box, Button, CircularProgress, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getArticles,
@@ -14,18 +14,24 @@ import { ActionPanel } from '../ActionPanel/ActionPanel';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Message } from '../../notification/Message/Message';
-import { MESSAGES, MESSAGE_TYPE, PAGE_TYPE, PREVIEW_TYPE, ROLES, ROUTES } from '../../../helpers';
-import { checkAdmin, checkRole } from '../../../helpers';
+import {
+  MESSAGES,
+  MESSAGE_TYPE,
+  PAGE_TYPE,
+  PREVIEW_TYPE,
+  ROLES,
+  ROUTES,
+  checkAdmin,
+  checkRole,
+} from '../../../helpers';
 
-export const ArticleList = ({ page, categoryUrl, type }) => {
+export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { articles, loadingArticles } = useSelector((state) => state.article);
   const { userInfo } = useSelector((state) => state.auth);
   const [next, setNext] = useState(4);
 
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const buttonStyle = { m: !isTablet ? '3% 43% 7%' : '3% 30% 8%' };
 
   const selectDispatch = (page, categoryUrl) => {
@@ -66,15 +72,13 @@ export const ArticleList = ({ page, categoryUrl, type }) => {
     selectDispatch(page, categoryUrl);
   }, [dispatch, categoryUrl, page]);
 
-  if (loadingArticles) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
+  loadingArticles && (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
+  );
 
-  if (!loadingArticles && articles.length === 0) {
+  if (articles.length === 0 && !loadingArticles) {
     return (
       <Message
         text={
@@ -122,4 +126,5 @@ ArticleList.propTypes = {
   page: PropTypes.oneOf([PAGE_TYPE.CATEGORY, PAGE_TYPE.MAIN, PAGE_TYPE.UNPUBLISHED]),
   categoryUrl: PropTypes.string,
   type: PropTypes.string,
+  isTablet: PropTypes.bool,
 };

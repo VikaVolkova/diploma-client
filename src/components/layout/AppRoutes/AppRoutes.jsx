@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ROUTES } from '../../../helpers';
-import { ROLES } from '../../../helpers';
+import { ROUTES, ROLES } from '../../../helpers';
 import { Layout } from '../Layout/Layout';
 import { Login } from '../../../pages/auth/Login/Login';
 import { Register } from '../../../pages/auth/Register/Register';

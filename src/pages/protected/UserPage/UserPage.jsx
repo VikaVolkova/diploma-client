@@ -14,13 +14,11 @@ export const UserPage = () => {
     dispatch(getUser({ accessToken }));
   }, [accessToken]);
 
-  if (loading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
+  loading && (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
+  );
 
   return (
     userInfo && (

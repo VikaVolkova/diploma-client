@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ItemUserRole } from '../../../components/user/ItemUserRole/ItemUserRole';
-import { List, Container } from '@mui/material';
+import { List, Container, Box, CircularProgress } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../../store/features/auth/authMiddlewares';
 
 export const UpdateRole = () => {
   const [usersArr, setUsersArr] = useState([]);
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.auth);
+  const { users, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -18,6 +18,12 @@ export const UpdateRole = () => {
       setUsersArr(users);
     }
   }, [users]);
+
+  loading && (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
+  );
 
   const updateRole = (userId, newRole) => {
     setUsersArr((prevState) =>
