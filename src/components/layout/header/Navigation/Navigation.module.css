@@ -1,5 +1,6 @@
 .navList {
   display: flex;
+  justify-content: flex-end;
 }
 
 .navItem {
