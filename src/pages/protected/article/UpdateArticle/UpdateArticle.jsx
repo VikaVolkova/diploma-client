@@ -1,119 +1,125 @@
-import React, { useState, useRef, useEffect } from 'react';
-import {
-  Container,
-  Stack,
-  Typography,
-  TextField,
-  Button,
-  FormHelperText,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  CircularProgress,
-} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  Container,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  Box,
+  FormHelperText,
+  Stack,
+  Typography,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
 import { omit } from 'ramda';
-import * as yup from 'yup';
 import MDEditor from '@uiw/react-md-editor';
-import { createArticle } from '../../../store/features/article/articleMiddlewares';
-import { getCategories } from '../../../store/features/category/categoryMiddlewares';
-import { uploadImage } from '../../../store/features/image/imageMiddlewares';
-import { DEFAULT_ARTICLE_IMAGE } from '../../../helpers/constants/constans';
-import { ERROR_MESSAGES, HELPER_TEXT } from '../../../helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
+import { formMargin, ROUTES } from '../../../../helpers';
+import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
+import {
+  getArticleByUrl,
+  updateArticle,
+} from '../../../../store/features/article/articleMiddlewares';
+
+const ArticleDto = (article) => {
+  return {
+    title: article?.title || '',
+    url: article?.url || '',
+    spoiler: article?.spoiler || '',
+    content: article?.content || '',
+    category: article?.category._id || '',
+    coverImage: article?.coverImage || '',
+  };
+};
 
 const validationSchema = yup
   .object({
-    title: yup.string().required().max(255),
-    category: yup.string().required(),
-    url: yup.string().required().max(30),
-    spoiler: yup.string().required().max(100),
-    content: yup.string().required().max(10000),
-    picture: yup.string(),
+    title: yup.string().max(255).required(),
+    url: yup.string().max(255).required(),
+    spoiler: yup.string().max(1000).required(),
+    content: yup.string().max(10000).required(),
   })
   .required();
 
-export const CreateArticle = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
+export const UpdateArticle = () => {
+  const { newsUrl } = useParams();
+  const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
-  const { userInfo } = useSelector((state) => state.auth);
   const formRef = useRef();
+
   const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+  const { article, loadingArticle } = useSelector((state) => state.article);
 
   const {
     handleSubmit,
-    formState: { errors },
-    reset,
     control,
+    reset,
+    formState: { errors },
   } = useForm({
-    defaultValues: {
-      title: '',
-      category: '',
-      url: '',
-      spoiler: '',
-      content: '',
-    },
+    defaultValues: ArticleDto(),
     resolver: yupResolver(validationSchema),
   });
 
   useEffect(() => {
-    if (categories.length === 0) {
-      dispatch(getCategories({ isActive: true })).then((res) => {
-        setCategories(res.payload);
-      });
-    }
-  }, [categories.length, dispatch]);
+    dispatch(getArticleByUrl({ newsUrl }));
+    dispatch(getCategories({ isActive: true }));
+    reset(ArticleDto(article));
+  }, []);
 
   const onSubmit = async (data) => {
     try {
+      setServerError('');
       const formData = new FormData(formRef.current);
-      const image = formData.get('coverImage');
+      const image = formData.get('image');
 
       setServerError('');
-      setIsLoading(true);
       await dispatch(uploadImage({ image })).then((res) => {
         dispatch(
-          createArticle({
+          updateArticle({
+            id: article._id,
             ...data,
-            author: userInfo._id,
-            coverImage: res.payload.data || DEFAULT_ARTICLE_IMAGE,
+            coverImage: res.payload.data || article.coverImage,
           }),
         );
       });
-      reset();
+      navigate(ROUTES.HOME);
     } catch (err) {
-      setServerError(ERROR_MESSAGES.SERVER_ERROR);
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+      setServerError('Server Error');
     }
   };
 
-  const isButtonDisabled = Object.keys(errors).length > 0 || isLoading;
+  const isButtonDisabled = Object.keys(errors).length > 0;
 
   return (
-    <>
+    article &&
+    categories && (
       <Container maxWidth="md">
         <Stack ref={formRef} component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
-            Введіть дані статті
+            Oновіть дані статті
           </Typography>
-          {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
-
           <Controller
             name="title"
             control={control}
             render={({ field }) => (
-              <TextField
-                fullWidth
-                label="Заголовок"
-                error={!!errors.title}
-                helperText={errors.title?.message ? errors.title.message : HELPER_TEXT.TITLE_TIP}
-                {...field}
-              />
+              <Box sx={formMargin}>
+                <TextField
+                  margin="normal"
+                  label="Заголовок:"
+                  fullWidth
+                  {...field}
+                  error={!!errors?.title}
+                  helperText={!!errors.title?.message}
+                />
+              </Box>
             )}
           />
 
@@ -150,34 +156,36 @@ export const CreateArticle = () => {
             name="url"
             control={control}
             render={({ field }) => (
-              <TextField
-                fullWidth
-                label="Url:"
-                error={!!errors.url}
-                helperText={errors.url?.message ? errors.url.message : HELPER_TEXT.URL_TIP}
-                {...field}
-              />
+              <Box sx={formMargin}>
+                <TextField
+                  margin="normal"
+                  label="Url:"
+                  fullWidth
+                  {...field}
+                  error={!!errors?.url}
+                  helperText={!!errors.url?.message}
+                />
+              </Box>
             )}
           />
-
           <Controller
             name="spoiler"
             control={control}
             render={({ field }) => (
-              <TextField
-                fullWidth
-                multiline
-                rows={3}
-                label="Спойлер"
-                error={!!errors.spoiler}
-                helperText={
-                  errors.spoiler?.message ? errors.spoiler.message : HELPER_TEXT.SPOILER_TIP
-                }
-                {...field}
-              />
+              <Box sx={formMargin}>
+                <TextField
+                  multiline
+                  label="Спойлер:"
+                  rows={3}
+                  margin="normal"
+                  fullWidth
+                  {...field}
+                  error={!!errors?.spoiler}
+                  helperText={!!errors.spoiler?.message}
+                />
+              </Box>
             )}
           />
-
           <Controller
             name="content"
             control={control}
@@ -199,7 +207,7 @@ export const CreateArticle = () => {
                 <>
                   <input hidden type="file" accept="image/*" id="coverImage" {...fieldProps} />
                   <Button htmlFor="coverImage" variant="contained" component="label" fullWidth>
-                    Завантажити обкладинку
+                    Завантажити обкладинкy
                   </Button>
                   {errors.coverImage && (
                     <FormHelperText error>{errors.coverImage?.message}</FormHelperText>
@@ -209,16 +217,17 @@ export const CreateArticle = () => {
             }}
           />
 
+          {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
           <Button
             type="submit"
             variant="contained"
             disabled={isButtonDisabled}
-            startIcon={isLoading && <CircularProgress size={20} sx={{ color: 'white' }} />}
+            startIcon={loadingArticle && <CircularProgress size={20} />}
           >
-            Зберегти
+            Зберегти статтю
           </Button>
         </Stack>
       </Container>
-    </>
+    )
   );
 };

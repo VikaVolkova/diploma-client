@@ -16,9 +16,9 @@ import {
 } from '@mui/material';
 import { omit } from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImage } from '../../../store/features/image/imageMiddlewares';
-import { updateUser } from '../../../store/features/auth/authMiddlewares';
-import { ROUTES, theme } from '../../../helpers';
+import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
+import { updateUser } from '../../../../store/features/auth/authMiddlewares';
+import { ROUTES, theme } from '../../../../helpers';
 
 const UserDto = (user) => {
   return {

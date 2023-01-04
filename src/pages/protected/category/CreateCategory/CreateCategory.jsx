@@ -11,9 +11,9 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createCategory } from '../../../store/features/category/categoryMiddlewares';
+import { createCategory } from '../../../../store/features/category/categoryMiddlewares';
 import * as yup from 'yup';
-import { ERROR_MESSAGES, HELPER_TEXT } from '../../../helpers';
+import { ERROR_MESSAGES, HELPER_TEXT } from '../../../../helpers';
 
 const validationSchema = yup
   .object({

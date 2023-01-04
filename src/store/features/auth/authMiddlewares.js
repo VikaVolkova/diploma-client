@@ -210,7 +210,6 @@ export const toggleBlockUser = createAsyncThunk(
   async ({ email, isBlocked }, { rejectWithValue }) => {
     try {
       const data = await api.put(ACTION_ROUTES.USER.TOGGLE_BLOCK_USER, { email, isBlocked });
-      console.log(data);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
