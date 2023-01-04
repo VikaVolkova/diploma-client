@@ -48,3 +48,5 @@ export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
 export const formMargin = { mt: '10px' };
 
 export const categoriesButton = { color: 'gray', cursor: 'pointer' };
+
+export const listStyle = { justifyContent: 'space-between', borderBottom: '1px solid blue ' };

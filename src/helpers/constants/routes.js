@@ -11,6 +11,8 @@ export const ROUTES = {
   NEWS_URL: ':newsUrl',
   UNPUBLISHED_COMMENTS: '/unpublished-comments',
   CREATE_CATEGORY: '/create-category',
+  UPDATE_CATEGORIES: '/edit-categories',
+  UPDATE_CATEGORY: '/update-category/',
   USER: '/user',
   UPDATE_ARTICLE: '/update/',
   UPDATE_ROLE: '/update-role/',
@@ -48,7 +50,9 @@ export const ACTION_ROUTES = {
   },
   CATEGORY: {
     BASE: '/category',
+    GET_ACTIVE_CATEGORIES: '/category/active',
     CREATE: '/category-create',
+    DELETE: 'category/delete-category',
   },
   COMMENT: {
     BASE: 'comments/',

@@ -61,7 +61,7 @@ export const CreateArticle = () => {
 
   useEffect(() => {
     if (categories.length === 0) {
-      dispatch(getCategories()).then((res) => {
+      dispatch(getCategories({ isActive: true })).then((res) => {
         setCategories(res.payload);
       });
     }

@@ -11,7 +11,7 @@ export const CategoriesList = ({ isOpened, close }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getCategories({ isActive: true }));
   }, []);
 
   const openCategoryPage = (url) => {

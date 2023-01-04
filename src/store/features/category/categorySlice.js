@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCategories, createCategory } from './categoryMiddlewares';
+import { getCategories, createCategory, deleteCategory } from './categoryMiddlewares';
 
 const setPending = (state) => {
   state.loadingCategories = true;
@@ -36,6 +36,14 @@ const categorySlice = createSlice({
     [createCategory.rejected]: setError,
     [createCategory.fulfilled]: (state, action) => {
       state.category = action.payload.data;
+      state.loadingCategories = false;
+      state.success = true;
+      state.error = null;
+    },
+    [deleteCategory.pending]: setPending,
+    [deleteCategory.rejected]: setError,
+    [deleteCategory.fulfilled]: (state, action) => {
+      state.categories = action.payload.categories;
       state.loadingCategories = false;
       state.success = true;
       state.error = null;
