@@ -7,19 +7,19 @@ import { Register } from '../../../pages/auth/Register/Register';
 import { ForgotPassword } from '../../../pages/auth/ForgotPassword/ForgotPassword';
 import { RestorePassword } from '../../../pages/auth/RestorePassword/RestorePassword';
 import { UpdatePassword } from '../../../pages/auth/UpdatePassword/UpdatePassword';
-import { CreateArticle } from '../../../pages/protected/CreateArticle/CreateArticle';
+import { CreateArticle } from '../../../pages/protected/article/CreateArticle/CreateArticle';
 import { ProtectedRoute } from '../../layout/auth/ProtectedRoute/ProtectedRoute';
-import { UnpublishedArticles } from '../../../pages/protected/UnpublishedArticles/UnpublishedArticles';
+import { UnpublishedArticles } from '../../../pages/protected/article/UnpublishedArticles/UnpublishedArticles';
 import { Home } from '../../../pages/main/Home/Home';
 import { Category } from '../../../pages/main/Category/Category';
 import { Article } from '../../../pages/main/Article/Article';
-import { CreateCategory } from '../../../pages/protected/CreateCategory/CreateCategory';
-import { UnpublishedComments } from '../../../pages/protected/UnpublishedComments/UnpublishedComments';
-import { UpdateRole } from '../../../pages/protected/UpdateRole/UpdateRole';
-import { UserPage } from '../../../pages/protected/UserPage/UserPage';
-import { UpdateUser } from '../../../pages/protected/UpdateUser/UpdateUser';
-import { UpdateArticle } from '../../../pages/protected/UpdateArticle/UpdateArticle';
-import { UpdateCategories } from '../../../pages/protected/UpdateCategories/UpdateCategories';
+import { CreateCategory } from '../../../pages/protected/category/CreateCategory/CreateCategory';
+import { UnpublishedComments } from '../../../pages/protected/comment/UnpublishedComments/UnpublishedComments';
+import { UpdateRole } from '../../../pages/protected/user/UpdateRole/UpdateRole';
+import { UserPage } from '../../../pages/protected/user/UserPage/UserPage';
+import { UpdateUser } from '../../../pages/protected/user/UpdateUser/UpdateUser';
+import { UpdateArticle } from '../../../pages/protected/article/UpdateArticle/UpdateArticle';
+import { UpdateCategories } from '../../../pages/protected/category/UpdateCategories/UpdateCategories';
 
 export const AppRoutes = () => (
   <Routes>

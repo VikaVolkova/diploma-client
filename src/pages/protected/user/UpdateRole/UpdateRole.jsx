@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ItemUserRole } from '../../../components/user/ItemUserRole/ItemUserRole';
+import { ItemUserRole } from '../../../../components/user/ItemUserRole/ItemUserRole';
 import { List, Container, Box, CircularProgress } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsers } from '../../../store/features/auth/authMiddlewares';
+import { getAllUsers } from '../../../../store/features/auth/authMiddlewares';
 
 export const UpdateRole = () => {
   const [usersArr, setUsersArr] = useState([]);

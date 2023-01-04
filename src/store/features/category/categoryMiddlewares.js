@@ -6,9 +6,11 @@ export const getCategories = createAsyncThunk(
   ACTION_ROUTES.CATEGORY.BASE,
   async ({ isActive }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(
-        isActive ? ACTION_ROUTES.CATEGORY.GET_ACTIVE_CATEGORIES : ACTION_ROUTES.CATEGORY.BASE,
-      );
+      const request = isActive
+        ? ACTION_ROUTES.CATEGORY.GET_ACTIVE_CATEGORIES
+        : ACTION_ROUTES.CATEGORY.BASE;
+
+      const { data } = await api.get(request);
 
       return data;
     } catch (error) {
@@ -43,7 +45,6 @@ export const deleteCategory = createAsyncThunk(
   async ({ id }, { rejectWithValue }) => {
     try {
       const { data } = await api.put(`${ACTION_ROUTES.CATEGORY.DELETE}/${id}`);
-      console.log(data);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
