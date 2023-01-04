@@ -14,9 +14,11 @@ import {
 
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import { logout } from '../../../../store/features/auth/authSlice';
 import { ROUTES, ROLES, paperProps } from '../../../../helpers';
 import { useNavigate } from 'react-router-dom';
@@ -85,19 +87,19 @@ export const AccountMenu = () => {
           <Link href={ROUTES.UNPUBLISHED_COMMENTS} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <NewspaperOutlinedIcon fontSize="small" />
+                <FeedbackOutlinedIcon fontSize="small" />
               </ListItemIcon>
               Неопубліковані коментарі
             </MenuItem>
           </Link>
         )}
         {checkRole([ROLES.ADMIN], user) && (
-          <Link href={ROUTES.CREATE_CATEGORY} underline="none">
+          <Link href={ROUTES.UPDATE_CATEGORIES} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <AddBoxOutlinedIcon fontSize="small" />
+                <CategoryOutlinedIcon fontSize="small" />
               </ListItemIcon>
-              Додати категорію
+              Kатегорії
             </MenuItem>
           </Link>
         )}
@@ -105,9 +107,9 @@ export const AccountMenu = () => {
           <Link href={ROUTES.UPDATE_ROLE} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <NewspaperOutlinedIcon fontSize="small" />
+                <ManageAccountsOutlinedIcon fontSize="small" />
               </ListItemIcon>
-              Оновити ролі користувачів
+              Користувачі
             </MenuItem>
           </Link>
         )}

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import LikeIcon from './LikeIcon.svg';
 
 export const LikesIcon = ({ color, size }) => (
   <svg
@@ -22,7 +21,6 @@ export const LikesIcon = ({ color, size }) => (
 );
 
 LikesIcon.propTypes = {
-  // name: PropTypes.string.isRequired,
   color: PropTypes.string,
   size: PropTypes.number,
 };

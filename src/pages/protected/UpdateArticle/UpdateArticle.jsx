@@ -67,7 +67,7 @@ export const UpdateArticle = () => {
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
-    dispatch(getCategories());
+    dispatch(getCategories({ isActive: true }));
     reset(ArticleDto(article));
   }, []);
 
