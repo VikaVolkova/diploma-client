@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  flex-direction: row;
+  margin: 10px auto auto 10px;
+}
+
+.title {
+  display: inline-block;
+  text-transform: uppercase;
+  font: bold 20px Times, serif;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  color: #000;
+  margin-bottom: 10px;
+  cursor: pointer;
+  width: fit-content;
+  padding: 0;
+}
+
+.title:hover {
+  color: #1976d2;
+}

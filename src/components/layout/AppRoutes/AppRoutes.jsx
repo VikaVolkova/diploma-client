@@ -15,11 +15,11 @@ import { Category } from '../../../pages/main/Category/Category';
 import { Article } from '../../../pages/main/Article/Article';
 import { CreateCategory } from '../../../pages/protected/category/CreateCategory/CreateCategory';
 import { UnpublishedComments } from '../../../pages/protected/comment/UnpublishedComments/UnpublishedComments';
-import { UpdateRole } from '../../../pages/protected/user/UpdateRole/UpdateRole';
+import { Users } from '../../../pages/protected/user/Users/Users';
 import { UserPage } from '../../../pages/protected/user/UserPage/UserPage';
 import { UpdateUser } from '../../../pages/protected/user/UpdateUser/UpdateUser';
 import { UpdateArticle } from '../../../pages/protected/article/UpdateArticle/UpdateArticle';
-import { UpdateCategories } from '../../../pages/protected/category/UpdateCategories/UpdateCategories';
+import { Categories } from '../../../pages/protected/category/Categories/Categories';
 
 export const AppRoutes = () => (
   <Routes>
@@ -65,7 +65,7 @@ export const AppRoutes = () => (
         path={ROUTES.UPDATE_CATEGORIES}
         element={
           <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
-            <UpdateCategories />
+            <Categories />
           </ProtectedRoute>
         }
       />
@@ -81,7 +81,7 @@ export const AppRoutes = () => (
         path={ROUTES.UPDATE_ROLE}
         element={
           <ProtectedRoute roles={[ROLES.ADMIN]}>
-            <UpdateRole />
+            <Users />
           </ProtectedRoute>
         }
       />

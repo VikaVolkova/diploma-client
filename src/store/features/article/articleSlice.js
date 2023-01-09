@@ -26,6 +26,8 @@ const setError = (state, action) => {
 const initialState = {
   loadingArticles: false,
   popularArticles: [],
+  unpublishedArticles: [],
+  articlesByCategory: [],
   articles: [],
   article: null,
   error: null,
@@ -56,7 +58,7 @@ const articleSlice = createSlice({
     [getArticlesByCategoryUrl.pending]: setPending,
     [getArticlesByCategoryUrl.rejected]: setError,
     [getArticlesByCategoryUrl.fulfilled]: (state, action) => {
-      state.articles = action.payload.data;
+      state.articlesByCategory = action.payload.data;
       state.loadingArticles = false;
       state.success = true;
       state.error = null;
@@ -65,7 +67,6 @@ const articleSlice = createSlice({
     [getArticleByUrl.rejected]: setError,
     [getArticleByUrl.fulfilled]: (state, action) => {
       state.article = action.payload.article;
-      state.articles = [];
       state.loadingArticles = false;
       state.success = true;
       state.error = null;
@@ -73,7 +74,7 @@ const articleSlice = createSlice({
     [getUnpublishedArticles.pending]: setPending,
     [getUnpublishedArticles.rejected]: setError,
     [getUnpublishedArticles.fulfilled]: (state, action) => {
-      state.articles = action.payload.data;
+      state.unpublishedArticles = action.payload.data;
       state.loadingArticles = false;
       state.success = true;
       state.error = null;

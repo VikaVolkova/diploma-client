@@ -1,6 +1,6 @@
 .navList {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .navItem {
@@ -18,22 +18,11 @@
   color: black;
 }
 
-.authContainer {
-  margin-left: 10px;
-}
-
 .navContainer {
   display: flex;
   align-items: center;
 }
-.authLink {
-  text-decoration: none;
-}
 
-.authLink:not(:last-child) {
-  margin-right: 15px;
-}
-
-.navContainer {
-  display: flex;
+.searchButton {
+  margin-left: 30px;
 }

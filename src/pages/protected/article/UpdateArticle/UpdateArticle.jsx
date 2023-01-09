@@ -70,7 +70,7 @@ export const UpdateArticle = () => {
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
-    dispatch(getCategories({ isActive: true }));
+    dispatch(getCategories());
     reset(ArticleDto(article));
   }, []);
 

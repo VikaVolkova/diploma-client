@@ -48,7 +48,7 @@ export const AccountMenu = () => {
     <>
       <Box>
         <Tooltip title="Меню користувача">
-          <IconButton onClick={handleClick} sx={{ ml: 2 }}>
+          <IconButton onClick={handleClick}>
             <Avatar sx={avatar} src={user.image} />
           </IconButton>
         </Tooltip>

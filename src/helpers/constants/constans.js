@@ -27,4 +27,6 @@ export const ACTION = {
   BLOCK: 'Заблокувати користувача',
   UNBLOCK: 'Розблокувати користувача',
   RESTORE: 'Відновити',
+  SEARCH: 'Пошук',
+  CLOSE: 'Закрити',
 };

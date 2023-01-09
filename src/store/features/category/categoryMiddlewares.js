@@ -3,14 +3,27 @@ import { api } from '../../../api/interceptor';
 import { ACTION_ROUTES } from '../../../helpers';
 
 export const getCategories = createAsyncThunk(
-  ACTION_ROUTES.CATEGORY.BASE,
-  async ({ isActive }, { rejectWithValue }) => {
+  ACTION_ROUTES.CATEGORY.GET_ACTIVE_CATEGORIES,
+  async (_, { rejectWithValue }) => {
     try {
-      const request = isActive
-        ? ACTION_ROUTES.CATEGORY.GET_ACTIVE_CATEGORIES
-        : ACTION_ROUTES.CATEGORY.BASE;
+      const { data } = await api.get(ACTION_ROUTES.CATEGORY.GET_ACTIVE_CATEGORIES);
 
-      const { data } = await api.get(request);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const getAllCategories = createAsyncThunk(
+  ACTION_ROUTES.CATEGORY.BASE,
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(ACTION_ROUTES.CATEGORY.BASE);
 
       return data;
     } catch (error) {

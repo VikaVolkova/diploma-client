@@ -49,7 +49,7 @@ export const ACTION_ROUTES = {
     ADD_COMMENT: 'news/comment/',
   },
   CATEGORY: {
-    BASE: '/category',
+    BASE: '/category/all',
     GET_ACTIVE_CATEGORIES: '/category/active',
     CREATE: '/category-create',
     DELETE: 'category/delete-category',
