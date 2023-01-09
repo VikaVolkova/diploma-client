@@ -6,7 +6,7 @@ import { getAllCategories } from '../../../../store/features/category/categoryMi
 import { filterData, ROUTES } from '../../../../helpers';
 import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
 import AddIcon from '@mui/icons-material/Add';
-import { List, Container, Button } from '@mui/material';
+import { List, Container, Button, Typography } from '@mui/material';
 import s from './Categories.module.css';
 
 export const Categories = () => {
@@ -33,11 +33,17 @@ export const Categories = () => {
           Додати категорію
         </Button>
       </div>
-      <List>
-        {data.map((category) => (
-          <ItemCategory category={category} key={category._id} />
-        ))}
-      </List>
+      {data.length > 0 ? (
+        <List>
+          {data.map((category) => (
+            <ItemCategory category={category} key={category._id} />
+          ))}
+        </List>
+      ) : (
+        <Typography variant="subtitle1" sx={{ mt: 2 }}>
+          Категорії не знайдено
+        </Typography>
+      )}
     </Container>
   );
 };
