@@ -4,7 +4,7 @@ import { Navigation } from '../Navigation/Navigation';
 import { Container } from '../../../layout/Container/Container';
 import s from './Header.module.css';
 import { categoriesButton, navigation } from '../../../../helpers';
-import { CategoriesList } from '../CategoriesList/CategoriesList';
+import { CategoriesList } from '../../../category/CategoriesList/CategoriesList';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
 

@@ -28,25 +28,33 @@ import {
 export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { articles, loadingArticles } = useSelector((state) => state.article);
+  const { loadingArticles } = useSelector((state) => state.article);
   const { userInfo } = useSelector((state) => state.auth);
   const [next, setNext] = useState(4);
+  const [articlesArray, setArticlesArray] = useState([]);
 
   const buttonStyle = { m: !isTablet ? '3% 43% 7%' : '3% 30% 8%' };
 
   const selectDispatch = (page, categoryUrl) => {
+    let dispatchFunc = () => {};
     switch (page) {
       case PAGE_TYPE.MAIN:
-        dispatch(getArticles());
+        dispatchFunc = getArticles;
         break;
       case PAGE_TYPE.CATEGORY:
-        dispatch(getArticlesByCategoryUrl({ categoryUrl }));
+        dispatchFunc = () => getArticlesByCategoryUrl({ categoryUrl });
         break;
       case PAGE_TYPE.UNPUBLISHED:
-        dispatch(getUnpublishedArticles());
+        dispatchFunc = getUnpublishedArticles;
         break;
     }
+    return dispatchFunc;
   };
+
+  useEffect(() => {
+    dispatch(selectDispatch(page, categoryUrl)()).then((res) => setArticlesArray(res.payload.data));
+    setArticlesArray([]);
+  }, [dispatch, categoryUrl, page]);
 
   const publishArticle = async (id) => {
     try {
@@ -68,17 +76,13 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
     setNext(next + 4);
   };
 
-  useEffect(() => {
-    selectDispatch(page, categoryUrl);
-  }, [dispatch, categoryUrl, page]);
-
   loadingArticles && (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <CircularProgress />
     </Box>
   );
 
-  if (articles.length === 0 && !loadingArticles) {
+  if (articlesArray.length === 0 && !loadingArticles) {
     return (
       <Message
         text={
@@ -94,7 +98,7 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
   return (
     <>
       {!loadingArticles &&
-        articles.slice(0, next).map((article) => (
+        articlesArray.slice(0, next).map((article) => (
           <Grid item key={article._id} marginBottom={5}>
             <Preview
               article={article}
@@ -113,7 +117,7 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
             )}
           </Grid>
         ))}
-      {!loadingArticles && next < articles.length && (
+      {!loadingArticles && next < articlesArray.length && (
         <Button variant="contained" onClick={handleMoreArticles} sx={buttonStyle}>
           Більше новин
         </Button>

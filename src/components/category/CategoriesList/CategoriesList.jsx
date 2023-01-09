@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
+import { getCategories } from '../../../store/features/category/categoryMiddlewares';
 
 export const CategoriesList = ({ isOpened, close }) => {
   const { categories } = useSelector((state) => state.category);
@@ -11,7 +11,7 @@ export const CategoriesList = ({ isOpened, close }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getCategories({ isActive: true }));
+    dispatch(getCategories());
   }, []);
 
   const openCategoryPage = (url) => {

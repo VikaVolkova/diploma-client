@@ -9,7 +9,7 @@ import { ROUTES } from '../../../../helpers';
 export const AuthNavigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
   return (
-    <div className={s.authContainer}>
+    <div>
       {userInfo ? (
         <AccountMenu />
       ) : (

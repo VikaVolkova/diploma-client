@@ -39,7 +39,7 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
   return (
     <div className={s.container}>
       <div>
-        <FormHelperText>Нова роль:</FormHelperText>
+        <FormHelperText>Pоль:</FormHelperText>
         <Select className={s.select} value={role} onChange={updateUserRole} size="small">
           {getRoles.map((role) => (
             <MenuItem key={role} value={role}>

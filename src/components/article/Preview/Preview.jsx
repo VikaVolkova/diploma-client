@@ -4,16 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Likes } from '../Likes/Likes';
 import s from './Preview.module.css';
-import { PREVIEW_TYPE } from '../../../helpers';
-
-const getSpoilerText = (text) => {
-  const MAX_SPOILER_LENGTH = 100;
-  if (text.length <= MAX_SPOILER_LENGTH) return text;
-
-  const spoilerSpaceIndex = text.indexOf(' ', MAX_SPOILER_LENGTH);
-
-  return `${text.substring(0, spoilerSpaceIndex)}... `;
-};
+import { getSpoilerText, PREVIEW_TYPE } from '../../../helpers';
 
 export const Preview = ({ article, type }) => {
   const { spoiler } = article;

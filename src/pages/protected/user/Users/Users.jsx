@@ -3,9 +3,12 @@ import { ItemUserRole } from '../../../../components/user/ItemUserRole/ItemUserR
 import { List, Container, Box, CircularProgress } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../../../store/features/auth/authMiddlewares';
+import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
+import { filterData } from '../../../../helpers';
 
-export const UpdateRole = () => {
+export const Users = () => {
   const [usersArr, setUsersArr] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
   const { users, loading } = useSelector((state) => state.auth);
 
@@ -25,6 +28,8 @@ export const UpdateRole = () => {
     </Box>
   );
 
+  const data = filterData(searchQuery, usersArr, 'user');
+
   const updateRole = (userId, newRole) => {
     setUsersArr((prevState) =>
       prevState.map((item) => {
@@ -38,8 +43,9 @@ export const UpdateRole = () => {
 
   return (
     <Container maxWidth="md">
+      <SearchBar setSearchQuery={setSearchQuery} label="Користувач" />
       <List>
-        {usersArr.map((user) => (
+        {data.map((user) => (
           <ItemUserRole key={user._id} user={user} updateUser={updateRole} />
         ))}
       </List>
