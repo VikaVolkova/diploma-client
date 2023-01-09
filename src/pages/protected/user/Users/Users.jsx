@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ItemUserRole } from '../../../../components/user/ItemUserRole/ItemUserRole';
-import { List, Container, Box, CircularProgress } from '@mui/material';
+import { List, Container, Box, CircularProgress, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../../../store/features/auth/authMiddlewares';
 import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
@@ -44,11 +44,17 @@ export const Users = () => {
   return (
     <Container maxWidth="md">
       <SearchBar setSearchQuery={setSearchQuery} label="Користувач" />
-      <List>
-        {data.map((user) => (
-          <ItemUserRole key={user._id} user={user} updateUser={updateRole} />
-        ))}
-      </List>
+      {data.length > 0 ? (
+        <List>
+          {data.map((user) => (
+            <ItemUserRole key={user._id} user={user} updateUser={updateRole} />
+          ))}
+        </List>
+      ) : (
+        <Typography variant="subtitle1" sx={{ mt: 2 }}>
+          Користувачів не знайдено
+        </Typography>
+      )}
     </Container>
   );
 };
