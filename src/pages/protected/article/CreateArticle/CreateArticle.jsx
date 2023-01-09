@@ -38,6 +38,7 @@ const validationSchema = yup
 export const CreateArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
   const [serverError, setServerError] = useState('');
   const { userInfo } = useSelector((state) => state.auth);
   const formRef = useRef();
@@ -66,6 +67,10 @@ export const CreateArticle = () => {
       });
     }
   }, [categories.length, dispatch]);
+
+  const onUploadImage = (e) => {
+    e.target.name === 'coverImage' && e.target.files[0] && setImgBtnText('Завантажено');
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -97,7 +102,13 @@ export const CreateArticle = () => {
   return (
     <>
       <Container maxWidth="md">
-        <Stack ref={formRef} component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
+        <Stack
+          ref={formRef}
+          component="form"
+          spacing={2}
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={onUploadImage}
+        >
           <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
             Введіть дані статті
           </Typography>
@@ -199,7 +210,7 @@ export const CreateArticle = () => {
                 <>
                   <input hidden type="file" accept="image/*" id="coverImage" {...fieldProps} />
                   <Button htmlFor="coverImage" variant="contained" component="label" fullWidth>
-                    Завантажити обкладинку
+                    {imgBtnText}
                   </Button>
                   {errors.coverImage && (
                     <FormHelperText error>{errors.coverImage?.message}</FormHelperText>

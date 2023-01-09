@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Link,
@@ -32,7 +32,7 @@ export const AccountMenu = () => {
   const navigate = useNavigate();
 
   // automatically authenticate user if token is found
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -125,7 +125,7 @@ export const AccountMenu = () => {
           </MenuItem>
         </Link>
 
-        <Link underline="none" component="button" variant="body1" onClick={() => handleSignOut()}>
+        <Link underline="none" onClick={() => handleSignOut()}>
           <MenuItem>
             <ListItemIcon>
               <LogoutIcon fontSize="small" />

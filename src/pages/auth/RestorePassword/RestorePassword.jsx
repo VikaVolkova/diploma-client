@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import { HELPER_TEXT, MESSAGES, ROUTES, validatePassword } from '../../../helpers';
@@ -18,7 +18,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 function useQuery() {
   const { search } = useLocation();
 
-  return React.useMemo(() => new URLSearchParams(search), [search]);
+  return useMemo(() => new URLSearchParams(search), [search]);
 }
 
 export const RestorePassword = () => {

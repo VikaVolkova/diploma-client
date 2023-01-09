@@ -52,6 +52,7 @@ export const UpdateArticle = () => {
   const { newsUrl } = useParams();
   const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
+  const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
   const formRef = useRef();
 
   const dispatch = useDispatch();
@@ -69,10 +70,13 @@ export const UpdateArticle = () => {
   });
 
   useEffect(() => {
-    dispatch(getArticleByUrl({ newsUrl }));
+    dispatch(getArticleByUrl({ newsUrl })).then((res) => reset(ArticleDto(res.payload.article)));
     dispatch(getCategories());
-    reset(ArticleDto(article));
   }, []);
+
+  const onUploadImage = (e) => {
+    e.target.name === 'coverImage' && e.target.files[0] && setImgBtnText('Завантажено');
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -102,7 +106,13 @@ export const UpdateArticle = () => {
     article &&
     categories && (
       <Container maxWidth="md">
-        <Stack ref={formRef} component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
+        <Stack
+          ref={formRef}
+          component="form"
+          spacing={2}
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={onUploadImage}
+        >
           <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
             Oновіть дані статті
           </Typography>
@@ -207,7 +217,7 @@ export const UpdateArticle = () => {
                 <>
                   <input hidden type="file" accept="image/*" id="coverImage" {...fieldProps} />
                   <Button htmlFor="coverImage" variant="contained" component="label" fullWidth>
-                    Завантажити обкладинкy
+                    {imgBtnText}
                   </Button>
                   {errors.coverImage && (
                     <FormHelperText error>{errors.coverImage?.message}</FormHelperText>

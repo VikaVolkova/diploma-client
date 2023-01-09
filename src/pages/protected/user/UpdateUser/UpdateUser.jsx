@@ -38,6 +38,7 @@ const validationSchema = yup
 export const UpdateUser = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
+  const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
   const formRef = useRef();
   const { userInfo, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -55,6 +56,10 @@ export const UpdateUser = () => {
   useEffect(() => {
     reset(UserDto(userInfo));
   }, []);
+
+  const onUploadImage = (e) => {
+    e.target.name === 'image' && e.target.files[0] && setImgBtnText('Завантажено');
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -76,7 +81,13 @@ export const UpdateUser = () => {
 
   return (
     <Container maxWidth="md">
-      <Stack ref={formRef} component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
+      <Stack
+        ref={formRef}
+        component="form"
+        spacing={2}
+        onSubmit={handleSubmit(onSubmit)}
+        onChange={onUploadImage}
+      >
         <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
           Оновіть дані користувача
         </Typography>
@@ -125,7 +136,7 @@ export const UpdateUser = () => {
               <>
                 <input hidden type="file" accept="image/*" id="image" {...fieldProps} />
                 <Button htmlFor="image" variant="contained" component="label" fullWidth>
-                  Завантажити зображення
+                  {imgBtnText}
                 </Button>
                 {errors.image && <FormHelperText error>{errors.image?.message}</FormHelperText>}
               </>
