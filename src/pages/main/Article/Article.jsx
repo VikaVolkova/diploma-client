@@ -124,10 +124,10 @@ export const Article = () => {
           <Typography variant="h6" sx={{ marginTop: '50px', color: 'primary.main' }}>
             Коментарі
           </Typography>
-          {userInfo ? (
+          {userInfo && !userInfo.isBlocked ? (
             <AddComment article={article._id} />
           ) : (
-            <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
+            !userInfo && <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
           )}
           <CommentsList articleId={article._id} />
         </Container>

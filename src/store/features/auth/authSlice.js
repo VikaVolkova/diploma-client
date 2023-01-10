@@ -65,6 +65,7 @@ const authSlice = createSlice({
             image: user.picture ? user.picture : user.image,
             email: user.email,
             name: user.name,
+            isBlocked: user.isBlocked,
             role: user.role ? user.role : 'USER',
           },
           registeredGoogle: user._id ? false : true,

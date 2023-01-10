@@ -9,6 +9,7 @@ export const MESSAGES = {
   PASSWORD_UPDATE: 'Пароль було оновлено',
   PASSWORDS_NOT_MATCH: 'Паролі не збігаються',
   COMMENT_ADDED: 'Коментар надіслано. Він буде доданий після підтвердження адміністратора.',
+  USER_BLOCKED: 'На жаль, ви заблоковані, і ця дія для вас недоступна.',
 };
 
 export const MESSAGE_TYPE = {

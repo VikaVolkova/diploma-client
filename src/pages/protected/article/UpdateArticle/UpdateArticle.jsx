@@ -52,7 +52,7 @@ export const UpdateArticle = () => {
   const { newsUrl } = useParams();
   const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
-  const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
+  const [imgBtnText, setImgBtnText] = useState('Оновити зображення');
   const formRef = useRef();
 
   const dispatch = useDispatch();
