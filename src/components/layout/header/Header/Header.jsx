@@ -21,7 +21,7 @@ export const Header = () => {
   };
 
   return (
-    <header>
+    <header className={s.header}>
       <Container>
         <div className={s.container}>
           <Logo />
