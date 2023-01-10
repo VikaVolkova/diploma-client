@@ -7,4 +7,5 @@ export const PAGE_TYPE = {
 export const PREVIEW_TYPE = {
   FULL: 'full',
   THUMBNAIL: 'thumbnail',
+  POPULAR: 'popular',
 };

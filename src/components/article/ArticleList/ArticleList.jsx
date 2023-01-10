@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { Preview } from '../Preview/Preview';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Preview } from '../Preview/Preview';
 import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -11,8 +12,6 @@ import {
   deleteArticle,
 } from '../../../store/features/article/articleMiddlewares';
 import { ActionPanel } from '../ActionPanel/ActionPanel';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { Message } from '../../notification/Message/Message';
 import {
   MESSAGES,
@@ -24,8 +23,9 @@ import {
   checkAdmin,
   checkRole,
 } from '../../../helpers';
+import { getButtonStyle, loadingBoxStyle } from './ArticleList.helpers';
 
-export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
+export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loadingArticles } = useSelector((state) => state.article);
@@ -33,7 +33,7 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
   const [next, setNext] = useState(4);
   const [articlesArray, setArticlesArray] = useState([]);
 
-  const buttonStyle = { m: !isTablet ? '3% 43% 7%' : '3% 30% 8%' };
+  const buttonStyle = getButtonStyle(isPhone);
 
   const selectDispatch = (page, categoryUrl) => {
     let dispatchFunc = () => {};
@@ -77,7 +77,7 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
   };
 
   loadingArticles && (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box sx={loadingBoxStyle}>
       <CircularProgress />
     </Box>
   );
@@ -99,10 +99,10 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
     <>
       {!loadingArticles &&
         articlesArray.slice(0, next).map((article) => (
-          <Grid item key={article._id} marginBottom={5}>
+          <Grid item key={article._id} marginY={2}>
             <Preview
               article={article}
-              type={isTablet ? PREVIEW_TYPE.THUMBNAIL : PREVIEW_TYPE.FULL}
+              type={isPhone ? PREVIEW_TYPE.THUMBNAIL : PREVIEW_TYPE.FULL}
             />
             {type === PAGE_TYPE.UNPUBLISHED && (
               <>
@@ -118,9 +118,11 @@ export const ArticleList = ({ page, categoryUrl, type, isTablet }) => {
           </Grid>
         ))}
       {!loadingArticles && next < articlesArray.length && (
-        <Button variant="contained" onClick={handleMoreArticles} sx={buttonStyle}>
-          Більше новин
-        </Button>
+        <Box sx={buttonStyle}>
+          <Button variant="contained" onClick={handleMoreArticles}>
+            Більше новин
+          </Button>
+        </Box>
       )}
     </>
   );
@@ -130,5 +132,5 @@ ArticleList.propTypes = {
   page: PropTypes.oneOf([PAGE_TYPE.CATEGORY, PAGE_TYPE.MAIN, PAGE_TYPE.UNPUBLISHED]),
   categoryUrl: PropTypes.string,
   type: PropTypes.string,
-  isTablet: PropTypes.bool,
+  isPhone: PropTypes.bool,
 };

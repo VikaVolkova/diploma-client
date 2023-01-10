@@ -2,13 +2,12 @@ import jwtDecode from 'jwt-decode';
 import { ROLES, TOKENS } from './constants/auth';
 import { ERROR_MESSAGES } from './constants/message';
 
-export const getSpoilerText = (text) => {
-  const MAX_SPOILER_LENGTH = 100;
-  if (text.length <= MAX_SPOILER_LENGTH) return text;
+export const getShortText = (text, length) => {
+  if (text.length <= length) return text;
 
-  const spoilerSpaceIndex = text.indexOf(' ', MAX_SPOILER_LENGTH);
+  const shortSpaceIndex = text.indexOf(' ', length);
 
-  return `${text.substring(0, spoilerSpaceIndex)}... `;
+  return `${text.substring(0, shortSpaceIndex)}... `;
 };
 
 export const getAccessToken = () => {

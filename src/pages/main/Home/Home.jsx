@@ -8,10 +8,13 @@ import { useMediaQuery, useTheme } from '@mui/material';
 export const Home = () => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isPhone = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Container>
-      {!isTablet && <PopularArticlesList />}
-      <ArticleList page={PAGE_TYPE.MAIN} isTablet={isTablet} />
-    </Container>
+    <>
+      {!isPhone && <PopularArticlesList isTablet={isTablet} />}
+      <Container>
+        <ArticleList page={PAGE_TYPE.MAIN} isPhone={isPhone} />
+      </Container>
+    </>
   );
 };

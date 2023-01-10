@@ -7,6 +7,20 @@
   line-height: 0;
 }
 
-.likesNumber {
+.full {
   margin-left: 5px;
+  font-size: var(--md-font-size);
+}
+
+.thumbnail,
+.popular {
+  margin-left: 3px;
+  font-size: var(--xs-font-size);
+}
+
+@media screen and (max-width: 1200px) {
+  .full {
+    margin-left: 3px;
+    font-size: var(--xs-font-size);
+  }
 }

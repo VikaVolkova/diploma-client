@@ -4,19 +4,21 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Likes } from '../Likes/Likes';
 import s from './Preview.module.css';
-import { getSpoilerText, PREVIEW_TYPE } from '../../../helpers';
+import { getShortText, PREVIEW_TYPE } from '../../../helpers';
 
 export const Preview = ({ article, type }) => {
-  const { spoiler } = article;
+  const { spoiler, title } = article;
 
-  const shortSpoiler = getSpoilerText(spoiler);
+  const shortSpoiler = getShortText(spoiler, 70);
+  const shortTitle = getShortText(title, 20);
   return (
     <div className={cn({ [s[type]]: !!type })}>
       <Link
         to={`/${article?.category?.url}/${article.url}`}
         className={cn(s.pictureWrapper, {
           [s.pictureWrapperFull]: type === PREVIEW_TYPE.FULL,
-          [s.pictureWrappeThumbnail]: type === PREVIEW_TYPE.THUMBNAIL,
+          [s.pictureWrapperThumbnail]: type === PREVIEW_TYPE.THUMBNAIL,
+          [s.pictureWrapperPopular]: type === PREVIEW_TYPE.POPULAR,
         })}
       >
         <img className={s.picture} src={article.coverImage} alt={article.title} id="previewImg" />
@@ -24,14 +26,14 @@ export const Preview = ({ article, type }) => {
       <div className={s.textBlock}>
         <div className={s.textBlockTitle}>
           <Link to={`/${article?.category?.url}`} className={s.link}>
-            {article.category?.title}
+            {article.category?.category}
           </Link>
-          <Link to={`/${article?.category?.url}/${article.url}`} className={s.comment}>
-            <Likes count={article?.likes?.length} />
+          <Link to={`/${article?.category?.url}/${article.url}`} className={s.likes}>
+            <Likes count={article?.likes?.length} type={type} />
           </Link>
         </div>
         <Link to={`/${article?.category.url}/${article.url}`} className={s.title}>
-          {article.title}
+          {type === 'full' ? article.title : shortTitle}
         </Link>
         <p className={s.spoiler}>
           {type === 'full' ? article.spoiler : shortSpoiler}
@@ -56,9 +58,9 @@ Preview.propTypes = {
     likes: PropTypes.array,
     url: PropTypes.string,
   }).isRequired,
-  type: PropTypes.oneOf(['full', 'thumbnail']),
+  type: PropTypes.oneOf([PREVIEW_TYPE.FULL, PREVIEW_TYPE.POPULAR, PREVIEW_TYPE.THUMBNAIL]),
 };
 
 Preview.defaultProps = {
-  type: 'full',
+  type: PREVIEW_TYPE.FULL,
 };
