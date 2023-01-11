@@ -32,7 +32,11 @@ export const Header = () => {
             <Navigation navigationList={navigationList} />
           </div>
         </div>
-        <CategoriesList isOpened={openCategories} close={closeCategories} />
+        <CategoriesList
+          isOpened={openCategories}
+          close={closeCategories}
+          toggleCategories={toggleCategories}
+        />
       </Container>
     </header>
   );
