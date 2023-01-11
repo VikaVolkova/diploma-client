@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Preview } from '../Preview/Preview';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPopularArticles } from '../../../store/features/article/articleMiddlewares';
 import PropTypes from 'prop-types';
 import s from './PopularArticlesList.module.css';
-import {
-  getGridContainerStyle,
-  getTitleStyle,
-  gridItemMargin,
-} from './PopularArticlesList.helpers';
+import { getGridContainerStyle, gridItemMargin } from './PopularArticlesList.helpers';
 
 export const PopularArticlesList = ({ isTablet }) => {
   const dispatch = useDispatch();
   const { popularArticles } = useSelector((state) => state.article);
   const [sortedArticles, setSortedArticles] = useState([]);
-  const titleStyle = getTitleStyle(isTablet);
   const gridContainerStyle = getGridContainerStyle(isTablet);
 
   useEffect(() => {
@@ -31,9 +26,6 @@ export const PopularArticlesList = ({ isTablet }) => {
   return (
     popularArticles && (
       <div className={s.container}>
-        <Typography variant="h6" m={titleStyle}>
-          Популярні статті
-        </Typography>
         <Grid container justifyContent="space-around" sx={gridContainerStyle}>
           {sortedArticles.map((article) => (
             <Grid item key={article._id} xs={12} sm={4} md={3} sx={gridItemMargin}>
