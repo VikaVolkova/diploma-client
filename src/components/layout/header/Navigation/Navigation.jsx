@@ -4,19 +4,15 @@ import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import s from './Navigation.module.css';
 import { AuthNavigation } from '../../auth/AuthNavigation/AuthNavigation';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
 import { IconButton, Tooltip } from '@mui/material';
-import { ACTION } from '../../../../helpers';
+import { ACTION, getDeviceSize } from '../../../../helpers';
 import SearchIcon from '@mui/icons-material/Search';
 import { SearchArticleModal } from '../../../article/SearchArticleModal/SearchArticleModal';
 import { useSelector } from 'react-redux';
 
 export const Navigation = ({ navigationList }) => {
-  const theme = useTheme();
-
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const { isLaptop, isTablet } = getDeviceSize();
   const [isOpen, setIsOpen] = useState(false);
 
   const { articles } = useSelector((state) => state.article);
@@ -25,14 +21,21 @@ export const Navigation = ({ navigationList }) => {
 
   return (
     <>
-      {isDesktop ? (
+      {!isTablet ? (
         <>
           <nav className={s.navContainer}>
             <ul className={s.navList}>
               {navigationList.map(({ label, url, id }) => (
                 <li className={s.navItem} key={`${label}-${id}`}>
                   <NavLink
-                    className={({ isActive }) => cn(s.navItemLink, { [s.navItemActive]: isActive })}
+                    className={({ isActive }) =>
+                      cn(
+                        s.navItemLink,
+                        { [s.navItemActive]: isActive },
+                        { [s.navItemSmall]: isLaptop },
+                        { [s.navItemBig]: !isLaptop },
+                      )
+                    }
                     to={('/', url)}
                   >
                     {label}
