@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import s from './PopularArticlesList.module.css';
 import { getGridContainerStyle, gridItemMargin } from './PopularArticlesList.helpers';
 
-export const PopularArticlesList = ({ isTablet }) => {
+export const PopularArticlesList = ({ isLaptop }) => {
   const dispatch = useDispatch();
   const { popularArticles } = useSelector((state) => state.article);
   const [sortedArticles, setSortedArticles] = useState([]);
-  const gridContainerStyle = getGridContainerStyle(isTablet);
+  const gridContainerStyle = getGridContainerStyle(isLaptop);
 
   useEffect(() => {
     dispatch(getPopularArticles());
@@ -20,16 +20,16 @@ export const PopularArticlesList = ({ isTablet }) => {
   useEffect(() => {
     popularArticles.length > 0 &&
       setSortedArticles(popularArticles.slice().sort((a, b) => b.likes.length - a.likes.length));
-    isTablet && setSortedArticles((prev) => prev.slice(0, 3));
-  }, [popularArticles, isTablet]);
+    isLaptop && setSortedArticles((prev) => prev.slice(0, 3));
+  }, [popularArticles, isLaptop]);
 
   return (
     popularArticles && (
       <div className={s.container}>
         <Grid container justifyContent="space-around" sx={gridContainerStyle}>
           {sortedArticles.map((article) => (
-            <Grid item key={article._id} xs={12} sm={4} md={3} sx={gridItemMargin}>
-              <Preview article={article} type="popular" isTablet={!!isTablet} />
+            <Grid item key={article._id} xs={12} sm={4} lg={3} sx={gridItemMargin}>
+              <Preview article={article} type="popular" />
             </Grid>
           ))}
         </Grid>
@@ -39,5 +39,5 @@ export const PopularArticlesList = ({ isTablet }) => {
 };
 
 PopularArticlesList.propTypes = {
-  isTablet: PropTypes.bool,
+  isLaptop: PropTypes.bool,
 };

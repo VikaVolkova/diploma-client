@@ -1,10 +1,18 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
 import { Comment } from '../Comment/Comment';
-import { Box, Button, CircularProgress, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { PAGE_TYPE, ROLES, checkAdmin, checkRole, MESSAGES, MESSAGE_TYPE } from '../../../helpers';
+import {
+  PAGE_TYPE,
+  ROLES,
+  checkAdmin,
+  checkRole,
+  MESSAGES,
+  MESSAGE_TYPE,
+  getDeviceSize,
+} from '../../../helpers';
 import { ActionPanel } from '../../article/ActionPanel/ActionPanel';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -25,8 +33,7 @@ export const CommentsList = ({ articleId, type }) => {
   const [next, setNext] = useState(4);
   const dispatch = useDispatch();
 
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const { isTablet } = getDeviceSize();
   const buttonStyle = { m: !isTablet ? '3% 42% 7%' : '3% 28% 8%' };
 
   const selectFunc = () => {
