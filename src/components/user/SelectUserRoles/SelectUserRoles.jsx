@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, FormHelperText, Select, MenuItem, IconButton, Tooltip } from '@mui/material';
 import { ConfirmDialog } from '../../notification/ConfirmDialog/ConfirmDialog';
 import s from './SelectUserRoles.module.css';
-import { ACTION, CONFIRM_MESSAGE, ROLES } from '../../../helpers';
+import { ACTION, CONFIRM_MESSAGE, ROLES, SIZE_TYPES } from '../../../helpers';
 import { useDispatch } from 'react-redux';
 import { toggleBlockUser, updateRole } from '../../../store/features/auth/authMiddlewares';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
@@ -40,7 +40,7 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
     <div className={s.container}>
       <div>
         <FormHelperText>Pоль:</FormHelperText>
-        <Select className={s.select} value={role} onChange={updateUserRole} size="small">
+        <Select className={s.select} value={role} onChange={updateUserRole} size={SIZE_TYPES.SMALL}>
           {getRoles.map((role) => (
             <MenuItem key={role} value={role}>
               {role}

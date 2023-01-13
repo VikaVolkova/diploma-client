@@ -11,6 +11,9 @@ export const Preview = ({ article, type }) => {
 
   const shortSpoiler = getShortText(spoiler, 70);
   const shortTitle = getShortText(title, 20);
+
+  const articleTitle = type === PREVIEW_TYPE.FULL ? article.title : shortTitle;
+  const articleSpoiler = type === PREVIEW_TYPE.FULL ? article.spoiler : shortSpoiler;
   return (
     <div className={cn({ [s[type]]: !!type })}>
       <Link
@@ -33,11 +36,11 @@ export const Preview = ({ article, type }) => {
           </Link>
         </div>
         <Link to={`/${article?.category.url}/${article.url}`} className={s.title}>
-          {type === 'full' ? article.title : shortTitle}
+          {articleTitle}
         </Link>
         <p className={s.spoiler}>
-          {type === 'full' ? article.spoiler : shortSpoiler}
-          {type === 'full' && (
+          {articleSpoiler}
+          {type === PREVIEW_TYPE.FULL && (
             <Link to={`/${article?.category.url}/${article.url}`} className={s.articleLink}>
               [Читати далі...]
             </Link>

@@ -57,11 +57,10 @@ export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
 
 export const formMargin = { mt: '10px' };
 
-export const getCategoriesButton = (isLaptop) => ({
+export const categoriesButton = {
   color: 'gray',
   cursor: 'pointer',
-  fontSize: isLaptop ? 'var(--xs-font-size)' : 'var(--sm-font-size)',
   padding: 0,
-});
+};
 
 export const listStyle = { justifyContent: 'space-between', borderBottom: '1px solid blue ' };

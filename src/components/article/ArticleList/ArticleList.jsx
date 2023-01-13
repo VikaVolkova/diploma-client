@@ -22,6 +22,7 @@ import {
   ROUTES,
   checkAdmin,
   checkRole,
+  SIZE_TYPES,
 } from '../../../helpers';
 import { getButtonStyle, loadingBoxStyle } from './ArticleList.helpers';
 
@@ -34,6 +35,7 @@ export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
   const [articlesArray, setArticlesArray] = useState([]);
 
   const buttonStyle = getButtonStyle(isPhone);
+  const buttonSize = isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM;
 
   const selectDispatch = (page, categoryUrl) => {
     let dispatchFunc = () => {};
@@ -119,7 +121,7 @@ export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
         ))}
       {!loadingArticles && next < articlesArray.length && (
         <Box sx={buttonStyle}>
-          <Button variant="contained" onClick={handleMoreArticles}>
+          <Button variant="contained" onClick={handleMoreArticles} size={buttonSize}>
             Більше новин
           </Button>
         </Box>

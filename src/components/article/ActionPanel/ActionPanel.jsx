@@ -6,13 +6,14 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { ConfirmDialog } from '../../notification/ConfirmDialog/ConfirmDialog';
-import { ACTION, CONFIRM_MESSAGE } from '../../../helpers';
+import { ACTION, CONFIRM_MESSAGE, getDeviceSize, SIZE_TYPES } from '../../../helpers';
 
 export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnpublish }) => {
   const [openPublish, setOpenPublish] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openUnpublish, setOpenUnpublish] = useState(false);
-  const large = 'large';
+  const { isPhone } = getDeviceSize();
+  const size = isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM;
 
   return (
     <>
@@ -20,8 +21,8 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
         <Stack direction="row" justifyContent="flex-end">
           {!!handleEdit && (
             <Tooltip title={ACTION.EDIT}>
-              <IconButton aria-label={ACTION.EDIT} size={large} onClick={handleEdit}>
-                <EditOutlinedIcon />
+              <IconButton aria-label={ACTION.EDIT} size={size} onClick={handleEdit}>
+                <EditOutlinedIcon fontSize={size} />
               </IconButton>
             </Tooltip>
           )}
@@ -31,10 +32,10 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
               <Tooltip title={ACTION.PUBLISH}>
                 <IconButton
                   aria-label={ACTION.PUBLISH}
-                  size={large}
+                  size={size}
                   onClick={() => setOpenPublish(true)}
                 >
-                  <AddBoxOutlinedIcon />
+                  <AddBoxOutlinedIcon fontSize={size} />
                 </IconButton>
               </Tooltip>
               <ConfirmDialog
@@ -50,10 +51,10 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
               <Tooltip title={ACTION.UNPUBLISH}>
                 <IconButton
                   aria-label={ACTION.UNPUBLISH}
-                  size={large}
+                  size={size}
                   onClick={() => setOpenUnpublish(true)}
                 >
-                  <IndeterminateCheckBoxOutlinedIcon />
+                  <IndeterminateCheckBoxOutlinedIcon fontSize={size} />
                 </IconButton>
               </Tooltip>
               <ConfirmDialog
@@ -69,10 +70,10 @@ export const ActionPanel = ({ handleEdit, handlePublish, handleDelete, handleUnp
               <Tooltip title={ACTION.DELETE}>
                 <IconButton
                   aria-label={ACTION.DELETE}
-                  size={large}
+                  size={size}
                   onClick={() => setOpenDelete(true)}
                 >
-                  <DeleteOutlineOutlinedIcon />
+                  <DeleteOutlineOutlinedIcon fontSize={size} />
                 </IconButton>
               </Tooltip>
               <ConfirmDialog

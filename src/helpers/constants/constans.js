@@ -30,3 +30,9 @@ export const ACTION = {
   SEARCH: 'Пошук',
   CLOSE: 'Закрити',
 };
+
+export const SIZE_TYPES = {
+  SMALL: 'small',
+  MEDIUM: 'nedium',
+  LARGE: 'large',
+};

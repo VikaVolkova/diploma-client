@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
 import { Container } from '../../../layout/Container/Container';
 import s from './Header.module.css';
-import { getCategoriesButton, getDeviceSize, navigation } from '../../../../helpers';
+import { categoriesButton, getDeviceSize, navigation } from '../../../../helpers';
 import { CategoriesList } from '../../../category/CategoriesList/CategoriesList';
 import { Typography } from '@mui/material';
-import { useState } from 'react';
 
 export const Header = () => {
   const navigationList = Object.values(navigation);
   const [openCategories, setOpenCategories] = useState(false);
 
   const { isLaptop, isTablet } = getDeviceSize();
-  const categoriesButton = getCategoriesButton(isLaptop);
 
   const toggleCategories = () => {
     setOpenCategories(!openCategories);
@@ -32,7 +30,7 @@ export const Header = () => {
             {!isTablet && (
               <Typography
                 onClick={toggleCategories}
-                variant={isLaptop ? 'body1' : 'h6'}
+                variant={isLaptop ? 'body2' : 'subtitle1'}
                 sx={categoriesButton}
                 type="text"
               >

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCategories } from '../../../store/features/category/categoryMiddlewares';
 import s from './CategoriesList.module.css';
 import cn from 'classnames';
-import { ACTION, getDeviceSize } from '../../../helpers';
+import { ACTION, getDeviceSize, SIZE_TYPES } from '../../../helpers';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { iconBtnStyle, imageListStyle, selectContainerClass } from './CategoriesList.helpers';
 import { useState } from 'react';
@@ -17,10 +17,10 @@ export const CategoriesList = ({ isOpened, close }) => {
   const navigate = useNavigate();
   const { isLaptop } = getDeviceSize();
   const containerClass = selectContainerClass(isLaptop);
+  const btnSize = isLaptop ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE;
 
   useEffect(() => {
     dispatch(getCategories()).then((res) => {
-      console.log(res);
       setCategories(res.payload);
     });
   }, []);
@@ -44,7 +44,7 @@ export const CategoriesList = ({ isOpened, close }) => {
               <Button
                 key={category._id}
                 variant="text"
-                size={isLaptop ? 'small' : 'large'}
+                size={btnSize}
                 onClick={() => openCategoryPage(category.url)}
               >
                 {category.category}
