@@ -57,7 +57,7 @@ const categorySlice = createSlice({
     [deleteCategory.pending]: setPending,
     [deleteCategory.rejected]: setError,
     [deleteCategory.fulfilled]: (state, action) => {
-      state.categories = action.payload.categories;
+      state.allCategories = action.payload.categories;
       state.loadingCategories = false;
       state.success = true;
       state.error = null;

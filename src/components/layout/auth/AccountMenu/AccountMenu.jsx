@@ -20,7 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import { logout } from '../../../../store/features/auth/authSlice';
-import { ROUTES, ROLES, paperProps } from '../../../../helpers';
+import { ROUTES, ROLES, paperProps, SIZE_TYPES } from '../../../../helpers';
 import { useNavigate } from 'react-router-dom';
 import { checkRole } from '../../../../helpers/helpers';
 import { anchorOrigin, avatar, transformOrigin } from './AccountMenu.helpers';
@@ -67,7 +67,7 @@ export const AccountMenu = () => {
           <Link href={ROUTES.CREATE_ARTICLE} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <NoteAddOutlinedIcon fontSize="small" />
+                <NoteAddOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
               </ListItemIcon>
               Додати статтю
             </MenuItem>
@@ -77,7 +77,7 @@ export const AccountMenu = () => {
           <Link href={ROUTES.UNPUBLISHED} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <NewspaperOutlinedIcon fontSize="small" />
+                <NewspaperOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
               </ListItemIcon>
               Неопубліковані статті
             </MenuItem>
@@ -87,7 +87,7 @@ export const AccountMenu = () => {
           <Link href={ROUTES.UNPUBLISHED_COMMENTS} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <FeedbackOutlinedIcon fontSize="small" />
+                <FeedbackOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
               </ListItemIcon>
               Неопубліковані коментарі
             </MenuItem>
@@ -97,7 +97,7 @@ export const AccountMenu = () => {
           <Link href={ROUTES.UPDATE_CATEGORIES} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <CategoryOutlinedIcon fontSize="small" />
+                <CategoryOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
               </ListItemIcon>
               Kатегорії
             </MenuItem>
@@ -107,7 +107,7 @@ export const AccountMenu = () => {
           <Link href={ROUTES.UPDATE_ROLE} underline="none">
             <MenuItem>
               <ListItemIcon>
-                <ManageAccountsOutlinedIcon fontSize="small" />
+                <ManageAccountsOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
               </ListItemIcon>
               Користувачі
             </MenuItem>
@@ -119,7 +119,7 @@ export const AccountMenu = () => {
         <Link href={ROUTES.USER} underline="none">
           <MenuItem>
             <ListItemIcon>
-              <AccountCircleOutlinedIcon fontSize="small" />
+              <AccountCircleOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
             </ListItemIcon>
             Мій профіль
           </MenuItem>
@@ -128,7 +128,7 @@ export const AccountMenu = () => {
         <Link underline="none" onClick={() => handleSignOut()}>
           <MenuItem>
             <ListItemIcon>
-              <LogoutIcon fontSize="small" />
+              <LogoutIcon fontSize={SIZE_TYPES.SMALL} />
             </ListItemIcon>
             Вийти
           </MenuItem>

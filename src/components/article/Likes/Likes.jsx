@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import s from './Likes.module.css';
 import cn from 'classnames';
 import { LikesIcon } from '../../../assets/svg/LikesIcon.jsx';
-import { PREVIEW_TYPE } from '../../../helpers';
+import { getDeviceSize, PREVIEW_TYPE } from '../../../helpers';
 
-export const Likes = ({ count, type, isTablet }) => {
-  const size = type === PREVIEW_TYPE.THUMBNAIL || !!isTablet ? 16 : 20;
+export const Likes = ({ count, type }) => {
+  const { isTablet } = getDeviceSize();
+  const size = type === PREVIEW_TYPE.THUMBNAIL || isTablet ? 16 : 20;
   return (
     <div className={s.likes}>
       <LikesIcon size={size} color="#000" />
@@ -17,7 +18,6 @@ export const Likes = ({ count, type, isTablet }) => {
 
 Likes.propTypes = {
   count: PropTypes.number,
-  isTablet: PropTypes.bool,
   type: PropTypes.oneOf([PREVIEW_TYPE.FULL, PREVIEW_TYPE.THUMBNAIL, PREVIEW_TYPE.POPULAR]),
 };
 

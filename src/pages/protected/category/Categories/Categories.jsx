@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ItemCategory } from '../../../../components/category/ItemCategory/ItemCategory';
 import { getAllCategories } from '../../../../store/features/category/categoryMiddlewares';
-import { filterData, ROUTES } from '../../../../helpers';
+import { filterData, getDeviceSize, ROUTES } from '../../../../helpers';
 import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
 import AddIcon from '@mui/icons-material/Add';
-import { List, Container, Button, Typography } from '@mui/material';
+import { List, Button, Typography, Container } from '@mui/material';
 import s from './Categories.module.css';
+import cn from 'classnames';
 
 export const Categories = () => {
   const { allCategories } = useSelector((state) => state.category);
   const [searchQuery, setSearchQuery] = useState('');
+  const { isPhone } = getDeviceSize();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,13 +24,20 @@ export const Categories = () => {
   const data = filterData(searchQuery, allCategories, 'category');
 
   return (
-    <Container maxWidth="md">
-      <div className={s.actionsBar}>
+    <Container maxWidth={isPhone ? 'sm' : 'md'}>
+      <div
+        className={cn({
+          [s.actionsBarPhone]: isPhone,
+          [s.actionsBar]: !isPhone,
+        })}
+      >
         <SearchBar setSearchQuery={setSearchQuery} label="Пошук категорії" />
+
         <Button
           variant="contained"
           endIcon={<AddIcon />}
           onClick={() => navigate(ROUTES.CREATE_CATEGORY)}
+          sx={{ mt: isPhone ? 2 : 0, width: isPhone ? '100%' : 'auto' }}
         >
           Додати категорію
         </Button>
