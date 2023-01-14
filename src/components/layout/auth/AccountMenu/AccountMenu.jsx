@@ -94,7 +94,7 @@ export const AccountMenu = () => {
           </Link>
         )}
         {checkRole([ROLES.ADMIN], user) && (
-          <Link href={ROUTES.UPDATE_CATEGORIES} underline="none">
+          <Link href={ROUTES.EDIT_CATEGORIES} underline="none">
             <MenuItem>
               <ListItemIcon>
                 <CategoryOutlinedIcon fontSize={SIZE_TYPES.SMALL} />
