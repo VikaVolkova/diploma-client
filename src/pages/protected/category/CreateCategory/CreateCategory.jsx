@@ -17,7 +17,7 @@ import { ERROR_MESSAGES, HELPER_TEXT } from '../../../../helpers';
 
 const validationSchema = yup
   .object({
-    category: yup.string().required(),
+    name: yup.string().required(),
     url: yup.string().required(),
   })
   .required();
@@ -34,7 +34,7 @@ export const CreateCategory = () => {
     control,
   } = useForm({
     defaultValues: {
-      category: '',
+      name: '',
       url: '',
     },
     resolver: yupResolver(validationSchema),
@@ -61,7 +61,7 @@ export const CreateCategory = () => {
         </Typography>
         {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
         <Controller
-          name="category"
+          name="name"
           control={control}
           render={({ field }) => (
             <TextField

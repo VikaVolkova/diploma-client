@@ -4,6 +4,8 @@ import {
   getAllCategories,
   createCategory,
   deleteCategory,
+  updateCategory,
+  getCategoryByUrl,
 } from './categoryMiddlewares';
 
 const setPending = (state) => {
@@ -46,10 +48,26 @@ const categorySlice = createSlice({
       state.success = true;
       state.error = null;
     },
+    [getCategoryByUrl.pending]: setPending,
+    [getCategoryByUrl.rejected]: setError,
+    [getCategoryByUrl.fulfilled]: (state, action) => {
+      state.category = action.payload;
+      state.loadingCategories = false;
+      state.success = true;
+      state.error = null;
+    },
     [createCategory.pending]: setPending,
     [createCategory.rejected]: setError,
     [createCategory.fulfilled]: (state, action) => {
       state.category = action.payload.data;
+      state.loadingCategories = false;
+      state.success = true;
+      state.error = null;
+    },
+    [updateCategory.pending]: setPending,
+    [updateCategory.rejected]: setError,
+    [updateCategory.fulfilled]: (state, action) => {
+      state.allCategories = action.payload.categories;
       state.loadingCategories = false;
       state.success = true;
       state.error = null;

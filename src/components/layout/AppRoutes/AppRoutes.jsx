@@ -20,6 +20,7 @@ import { UserPage } from '../../../pages/protected/user/UserPage/UserPage';
 import { UpdateUser } from '../../../pages/protected/user/UpdateUser/UpdateUser';
 import { UpdateArticle } from '../../../pages/protected/article/UpdateArticle/UpdateArticle';
 import { Categories } from '../../../pages/protected/category/Categories/Categories';
+import { UpdateCategory } from '../../../pages/protected/category/UpdateCategory/UpdateCategory';
 
 export const AppRoutes = () => (
   <Routes>
@@ -62,10 +63,18 @@ export const AppRoutes = () => (
         }
       />
       <Route
-        path={ROUTES.UPDATE_CATEGORIES}
+        path={ROUTES.EDIT_CATEGORIES}
         element={
           <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
             <Categories />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/update-category/:categoryUrl"
+        element={
+          <ProtectedRoute roles={[ROLES.ADMIN, ROLES.MANAGER]}>
+            <UpdateCategory />
           </ProtectedRoute>
         }
       />

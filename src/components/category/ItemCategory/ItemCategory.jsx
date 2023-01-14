@@ -44,7 +44,7 @@ export const ItemCategory = ({ category }) => {
       ) : (
         <ActionPanel
           handleEdit={
-            category.isEditable && (() => navigate(`${ROUTES.UPDATE_CATEGORY}${category.id}`))
+            category.isEditable ? () => navigate(`${ROUTES.UPDATE_CATEGORY}${category.url}`) : null
           }
           handleDelete={() => toggleCategoryActive(category._id)}
         />
