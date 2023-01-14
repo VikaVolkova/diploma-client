@@ -16,9 +16,13 @@ import {
 import { Link } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import {
+  BUTTON_TYPE,
+  BUTTON_VARIANT,
   decodeToken,
   ERROR_MESSAGES,
   HELPER_TEXT,
+  INPUT_TYPE,
+  NAME_TYPE,
   ROUTES,
   selectErrorMessage,
   theme,
@@ -66,10 +70,10 @@ export const Login = () => {
   const hundleBlur = (e) => {
     e.preventDefault();
     switch (e.target.name) {
-      case 'email':
+      case NAME_TYPE.EMAIL:
         setEmailDirty(true);
         break;
-      case 'password':
+      case NAME_TYPE.PASSWORD:
         setPasswordDirty(true);
         break;
       default:
@@ -104,7 +108,7 @@ export const Login = () => {
           margin="normal"
           id="outlined-basic"
           label="E-mail"
-          type="email"
+          type={INPUT_TYPE.EMAIL}
           variant="outlined"
           value={email}
           onBlur={hundleBlur}
@@ -112,15 +116,15 @@ export const Login = () => {
           placeholder={HELPER_TEXT.EMAIL_PLACEHOLDER}
           error={emailDirty && emailError}
           helperText={emailError && ERROR_MESSAGES.EMAIL}
-          name="email"
+          name={NAME_TYPE.EMAIL}
         />
 
         <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-          <InputLabel htmlFor="password">Пароль</InputLabel>
+          <InputLabel htmlFor={NAME_TYPE.PASSWORD}>Пароль</InputLabel>
           <OutlinedInput
-            id="password"
+            id={NAME_TYPE.PASSWORD}
             label="Пароль"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
             value={password}
             onChange={updatePassword}
             onBlur={hundleBlur}
@@ -153,10 +157,10 @@ export const Login = () => {
 
       <Stack direction="row" spacing={2} sx={{ mb: 2, mt: 2 }}>
         <ThemeProvider theme={theme}>
-          <Button type="submit" variant="contained" onClick={onSubmit}>
+          <Button type={BUTTON_TYPE.SUBMIT} variant={BUTTON_VARIANT.CONTAINED} onClick={onSubmit}>
             {loading ? <CircularProgress size={20} color="white" /> : 'Увійти'}
           </Button>
-          <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant="outlined">
+          <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant={BUTTON_VARIANT.OUTLINED}>
             Забув пароль
           </Button>
         </ThemeProvider>

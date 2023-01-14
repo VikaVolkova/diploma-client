@@ -7,7 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../../store/features/comments/commentsMiddlewares';
 import PropTypes from 'prop-types';
 import MDEditor from '@uiw/react-md-editor';
-import { ERROR_MESSAGES, MESSAGES, theme } from '../../../helpers';
+import {
+  BUTTON_VARIANT,
+  ERROR_MESSAGES,
+  MESSAGES,
+  theme,
+  SIZE_TYPES,
+  BUTTON_TYPE,
+} from '../../../helpers';
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 
 const validationSchema = yup
@@ -62,9 +69,9 @@ export const AddComment = ({ article }) => {
       />
       <ThemeProvider theme={theme}>
         <Button
-          type="submit"
-          variant="contained"
-          size="medium"
+          type={BUTTON_TYPE.SUBMIT}
+          variant={BUTTON_VARIANT.CONTAINED}
+          size={SIZE_TYPES.MEDIUM}
           sx={{ mt: '15px' }}
           disabled={isButtonDisabled}
         >

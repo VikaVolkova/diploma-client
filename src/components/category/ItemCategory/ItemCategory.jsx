@@ -21,7 +21,7 @@ export const ItemCategory = ({ category }) => {
   return (
     <ListItem sx={listStyle}>
       <ListItemText
-        primary={category.category}
+        primary={category.name}
         primaryTypographyProps={{ color: 'primary', fontSize: fontSize }}
         secondary={`URL: ${category.url}`}
         secondaryTypographyProps={{ fontSize: fontSize }}
@@ -43,7 +43,9 @@ export const ItemCategory = ({ category }) => {
         </>
       ) : (
         <ActionPanel
-          handleEdit={() => navigate(`${ROUTES.UPDATE_CATEGORY}${category.url}`)}
+          handleEdit={
+            category.isEditable && (() => navigate(`${ROUTES.UPDATE_CATEGORY}${category.id}`))
+          }
           handleDelete={() => toggleCategoryActive(category._id)}
         />
       )}

@@ -5,7 +5,7 @@ import s from './UserCard.module.css';
 import { avatar, button } from './UserCard.helpers';
 import PropTypes from 'prop-types';
 import { ActionPanel } from '../../article/ActionPanel/ActionPanel';
-import { ROUTES } from '../../../helpers';
+import { BUTTON_VARIANT, ROUTES } from '../../../helpers';
 import { useDispatch } from 'react-redux';
 import { deleteUser } from '../../../store/features/auth/authMiddlewares';
 
@@ -31,7 +31,7 @@ export const UserCard = ({ user }) => {
         <Typography variant="h6">{`E-mail: ${user.email}`}</Typography>
         <div className={s.buttons}>
           {!user.googleUser && (
-            <Button variant="contained" sx={button} onClick={() => updatePassword()}>
+            <Button variant={BUTTON_VARIANT.CONTAINED} sx={button} onClick={() => updatePassword()}>
               Оновити пароль
             </Button>
           )}

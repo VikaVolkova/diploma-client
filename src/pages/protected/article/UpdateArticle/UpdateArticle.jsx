@@ -21,7 +21,7 @@ import { omit } from 'ramda';
 import MDEditor from '@uiw/react-md-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
-import { formMargin, ROUTES } from '../../../../helpers';
+import { BUTTON_VARIANT, formMargin, ROUTES } from '../../../../helpers';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
 import {
   getArticleByUrl,
@@ -216,7 +216,12 @@ export const UpdateArticle = () => {
               return (
                 <>
                   <input hidden type="file" accept="image/*" id="coverImage" {...fieldProps} />
-                  <Button htmlFor="coverImage" variant="contained" component="label" fullWidth>
+                  <Button
+                    htmlFor="coverImage"
+                    variant={BUTTON_VARIANT.CONTAINED}
+                    component="label"
+                    fullWidth
+                  >
                     {imgBtnText}
                   </Button>
                   {errors.coverImage && (

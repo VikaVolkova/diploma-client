@@ -23,6 +23,7 @@ import {
   checkAdmin,
   checkRole,
   SIZE_TYPES,
+  BUTTON_VARIANT,
 } from '../../../helpers';
 import { getButtonStyle, loadingBoxStyle } from './ArticleList.helpers';
 
@@ -121,7 +122,7 @@ export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
         ))}
       {!loadingArticles && next < articlesArray.length && (
         <Box sx={buttonStyle}>
-          <Button variant="contained" onClick={handleMoreArticles} size={buttonSize}>
+          <Button variant={BUTTON_VARIANT.CONTAINED} onClick={handleMoreArticles} size={buttonSize}>
             Більше новин
           </Button>
         </Box>

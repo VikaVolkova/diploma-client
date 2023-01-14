@@ -1,7 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
-import { HELPER_TEXT, MESSAGES, ROUTES, validatePassword } from '../../../helpers';
+import {
+  BUTTON_VARIANT,
+  HELPER_TEXT,
+  INPUT_TYPE,
+  MESSAGES,
+  NAME_TYPE,
+  ROUTES,
+  validatePassword,
+} from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { restorePassword } from '../../../store/features/auth/authMiddlewares';
 import {
@@ -36,7 +44,9 @@ export const RestorePassword = () => {
   const { error } = useSelector((state) => state.auth);
 
   const handleClickShowPassword = (password) => {
-    password === 'password1' ? setShowPassword1(!showPassword1) : setShowPassword2(!showPassword2);
+    password === NAME_TYPE.PASSWORD1
+      ? setShowPassword1(!showPassword1)
+      : setShowPassword2(!showPassword2);
   };
 
   const handleMouseDownPassword = (e) => {
@@ -80,11 +90,11 @@ export const RestorePassword = () => {
       <h2>Введіть ваш новий пароль</h2>
       <h3>{!!error}</h3>
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-        <InputLabel htmlFor="password1">Новий пароль</InputLabel>
+        <InputLabel htmlFor={NAME_TYPE.PASSWORD1}>Новий пароль</InputLabel>
         <OutlinedInput
-          id="password1"
+          id={NAME_TYPE.PASSWORD1}
           label="Новий пароль"
-          type={showPassword1 ? 'text' : 'password'}
+          type={showPassword1 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password1}
           onChange={changePassword}
           onBlur={hundleBlur}
@@ -94,7 +104,7 @@ export const RestorePassword = () => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
-                onClick={() => handleClickShowPassword('password1')}
+                onClick={() => handleClickShowPassword(NAME_TYPE.PASSWORD1)}
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
@@ -106,11 +116,11 @@ export const RestorePassword = () => {
       </FormControl>
 
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-        <InputLabel htmlFor="password2">Підтвердіть новий пароль</InputLabel>
+        <InputLabel htmlFor={NAME_TYPE.PASSWORD2}>Підтвердіть новий пароль</InputLabel>
         <OutlinedInput
-          id="password2"
+          id={NAME_TYPE.PASSWORD2}
           label="Підтвердіть новий пароль"
-          type={showPassword2 ? 'text' : 'password'}
+          type={showPassword2 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password2}
           onChange={changeDoublePassword}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
@@ -118,7 +128,7 @@ export const RestorePassword = () => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
-                onClick={() => handleClickShowPassword('password2')}
+                onClick={() => handleClickShowPassword(NAME_TYPE.PASSWORD2)}
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
@@ -129,8 +139,8 @@ export const RestorePassword = () => {
         />
       </FormControl>
 
-      <Stack marginBottom="10px">
-        <Button onClick={onSubmit} variant="contained" sx={{ mb: 2 }}>
+      <Stack mb="10px">
+        <Button onClick={onSubmit} variant={BUTTON_VARIANT.CONTAINED} sx={{ mb: 2 }}>
           Оновити пароль
         </Button>
       </Stack>

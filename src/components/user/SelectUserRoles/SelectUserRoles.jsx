@@ -3,10 +3,21 @@ import PropTypes from 'prop-types';
 import { Button, FormHelperText, Select, MenuItem, IconButton, Tooltip } from '@mui/material';
 import { ConfirmDialog } from '../../notification/ConfirmDialog/ConfirmDialog';
 import s from './SelectUserRoles.module.css';
-import { ACTION, CONFIRM_MESSAGE, ROLES, SIZE_TYPES } from '../../../helpers';
+import {
+  ACTION,
+  BUTTON_TYPE,
+  BUTTON_VARIANT,
+  CONFIRM_MESSAGE,
+  getDeviceSize,
+  ROLES,
+  SIZE_TYPES,
+} from '../../../helpers';
 import { useDispatch } from 'react-redux';
+import cn from 'classnames';
 import { toggleBlockUser, updateRole } from '../../../store/features/auth/authMiddlewares';
 import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import { ACTION_TYPE } from './SelectUserRoles.helpers';
 
 const getRoles = Object.values(ROLES);
 
@@ -14,7 +25,9 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
   const [role, setUserRole] = useState(userRole);
   const [action, setAction] = useState();
   const [block, setBlock] = useState(isBlocked);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [open, setOpen] = useState(false);
+  const { isTablet, isPhone } = getDeviceSize();
   const dispatch = useDispatch();
 
   const toggleAlert = (actionType) => {
@@ -24,6 +37,7 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
 
   const updateUserRole = (e) => {
     setUserRole(e.target.value);
+    setIsUpdated(true);
   };
 
   const onSubmitUpdate = () => {
@@ -37,10 +51,16 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
   };
 
   return (
-    <div className={s.container}>
+    <div className={cn(s.container, { [s.small]: isPhone })}>
       <div>
         <FormHelperText>Pоль:</FormHelperText>
-        <Select className={s.select} value={role} onChange={updateUserRole} size={SIZE_TYPES.SMALL}>
+        <Select
+          className={s.select}
+          value={role}
+          onChange={updateUserRole}
+          size={SIZE_TYPES.SMALL}
+          sx={{ fontSize: isTablet ? 14 : 20 }}
+        >
           {getRoles.map((role) => (
             <MenuItem key={role} value={role}>
               {role}
@@ -49,13 +69,29 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
         </Select>
       </div>
       <div>
-        <Button type="button" onClick={() => toggleAlert('update')} variant="contained">
-          оновити
-        </Button>
+        {isPhone ? (
+          <IconButton
+            color="success"
+            onClick={() => toggleAlert(ACTION_TYPE.UPDATE)}
+            aria-label={block ? ACTION.BLOCK : ACTION.UNBLOCK}
+            component="label"
+            disabled={!isUpdated}
+          >
+            <CheckOutlinedIcon />
+          </IconButton>
+        ) : (
+          <Button
+            type={BUTTON_TYPE.BUTTON}
+            onClick={() => toggleAlert(ACTION_TYPE.UPDATE)}
+            variant={BUTTON_VARIANT.CONTAINED}
+          >
+            оновити
+          </Button>
+        )}
         <Tooltip title={block ? ACTION.BLOCK : ACTION.UNBLOCK}>
           <IconButton
             color={block ? 'error' : 'primary'}
-            onClick={() => toggleAlert('block')}
+            onClick={() => toggleAlert(ACTION_TYPE.BLOCK)}
             aria-label={block ? ACTION.BLOCK : ACTION.UNBLOCK}
             component="label"
           >
@@ -66,9 +102,11 @@ export const SelectUserRoles = ({ userRole, email, updateUser, isBlocked }) => {
 
       <ConfirmDialog
         open={open}
-        title={action === 'update' ? CONFIRM_MESSAGE.UPDATE_ROLE : CONFIRM_MESSAGE.BLOCK_USER}
+        title={
+          action === ACTION_TYPE.UPDATE ? CONFIRM_MESSAGE.UPDATE_ROLE : CONFIRM_MESSAGE.BLOCK_USER
+        }
         onClose={toggleAlert}
-        handleConfirm={action === 'update' ? onSubmitUpdate : onSubmitBlock}
+        handleConfirm={action === ACTION_TYPE.UPDATE ? onSubmitUpdate : onSubmitBlock}
       />
     </div>
   );

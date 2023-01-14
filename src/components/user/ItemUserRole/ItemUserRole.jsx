@@ -4,17 +4,20 @@ import { Avatar, ListItem, ListItemText, Box } from '@mui/material';
 import { SelectUserRoles } from '../SelectUserRoles/SelectUserRoles';
 
 import s from './ItemUserRole.module.css';
-import { listStyle } from '../../../helpers';
+import { getDeviceSize, listStyle } from '../../../helpers';
+import { avatarStyle, boxStyle, listStylePhone } from './ItemUserRole.helpers';
 
 export const ItemUserRole = ({ user, updateUser }) => {
   const { email, role, name, isBlocked, image } = user;
+  const { isPhone } = getDeviceSize();
+  const listItemStyle = isPhone ? listStylePhone : listStyle;
 
   return (
     <>
-      <ListItem sx={listStyle}>
+      <ListItem sx={listItemStyle}>
         <div className={s.sectionAvatar}>
-          <Avatar sx={{ width: 32, height: 32 }} src={image} />
-          <Box sx={{ display: 'flex', ml: '25px', flexDirection: 'column' }}>
+          <Avatar sx={avatarStyle} src={image} />
+          <Box sx={boxStyle}>
             <ListItemText primary={name} secondary={`E-mail: ${email}`} />
           </Box>
         </div>
