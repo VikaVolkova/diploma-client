@@ -29,7 +29,7 @@ export const Preview = ({ article, type }) => {
       <div className={s.textBlock}>
         <div className={s.textBlockTitle}>
           <Link to={`/${article?.category?.url}`} className={s.link}>
-            {article.category?.category}
+            {article.category?.name}
           </Link>
           <Link to={`/${article?.category?.url}/${article.url}`} className={s.likes}>
             <Likes count={article?.likes?.length} type={type} />

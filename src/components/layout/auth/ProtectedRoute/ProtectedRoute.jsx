@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Message } from '../../../notification/Message/Message';
 import { Container } from '../../Container/Container';
-import { MESSAGES, MESSAGE_TYPE, ROLES, ROUTES } from '../../../../helpers';
+import { loadingBoxStyle, MESSAGES, MESSAGE_TYPE, ROLES, ROUTES } from '../../../../helpers';
 import { Box, CircularProgress } from '@mui/material';
 
 export const ProtectedRoute = ({ roles, children }) => {
@@ -11,7 +11,7 @@ export const ProtectedRoute = ({ roles, children }) => {
   const isAllowed = !!userInfo && roles.includes(userInfo.role);
 
   loading && (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box sx={loadingBoxStyle}>
       <CircularProgress />
     </Box>
   );

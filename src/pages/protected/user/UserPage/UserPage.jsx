@@ -5,6 +5,7 @@ import { UserCard } from '../../../../components/user/UserCard/UserCard';
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect } from 'react';
 import { getUser } from '../../../../store/features/auth/authMiddlewares';
+import { loadingBoxStyle } from '../../../../helpers';
 
 export const UserPage = () => {
   const { userInfo, accessToken, loading } = useSelector((state) => state.auth);
@@ -15,7 +16,7 @@ export const UserPage = () => {
   }, [accessToken]);
 
   loading && (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box sx={loadingBoxStyle}>
       <CircularProgress />
     </Box>
   );

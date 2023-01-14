@@ -4,7 +4,7 @@ import { List, Container, Box, CircularProgress, Typography } from '@mui/materia
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../../../store/features/auth/authMiddlewares';
 import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
-import { filterData } from '../../../../helpers';
+import { filterData, loadingBoxStyle } from '../../../../helpers';
 
 export const Users = () => {
   const [usersArr, setUsersArr] = useState([]);
@@ -23,7 +23,7 @@ export const Users = () => {
   }, [users]);
 
   loading && (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box sx={loadingBoxStyle}>
       <CircularProgress />
     </Box>
   );

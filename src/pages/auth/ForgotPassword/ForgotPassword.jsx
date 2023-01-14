@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { TextField, Stack, Button } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
-import { ERROR_MESSAGES, HELPER_TEXT, MESSAGES, validateEmail } from '../../../helpers';
+import {
+  BUTTON_VARIANT,
+  ERROR_MESSAGES,
+  HELPER_TEXT,
+  MESSAGES,
+  validateEmail,
+} from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword } from '../../../store/features/auth/authMiddlewares';
 
@@ -51,7 +57,7 @@ export const ForgotPassword = () => {
       />
 
       <Stack marginBottom="10px">
-        <Button onClick={onSubmit} variant="contained" sx={{ mb: 2 }}>
+        <Button onClick={onSubmit} variant={BUTTON_VARIANT.CONTAINED} sx={{ mb: 2 }}>
           Відправити листа
         </Button>
       </Stack>

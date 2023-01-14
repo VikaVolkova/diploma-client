@@ -36,3 +36,31 @@ export const SIZE_TYPES = {
   MEDIUM: 'nedium',
   LARGE: 'large',
 };
+
+export const BUTTON_TYPE = {
+  BUTTON: 'button',
+  SUBMIT: 'submit',
+};
+
+export const BUTTON_VARIANT = {
+  CONTAINED: 'contained',
+  TEXT: 'text',
+  OUTLINED: 'outlined',
+};
+
+export const INPUT_TYPE = {
+  TEXT: 'text',
+  NAME: 'name',
+  PASSWORD: 'password',
+  EMAIL: 'email',
+};
+
+export const NAME_TYPE = {
+  TEXT: 'text',
+  NAME: 'name',
+  PASSWORD: 'password',
+  PASSWORD1: 'password1',
+  PASSWORD2: 'password2',
+  OLD_PASSWORD: 'oldPassword',
+  EMAIL: 'email',
+};

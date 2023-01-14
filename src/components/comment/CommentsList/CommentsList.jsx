@@ -12,6 +12,8 @@ import {
   MESSAGES,
   MESSAGE_TYPE,
   getDeviceSize,
+  loadingBoxStyle,
+  BUTTON_VARIANT,
 } from '../../../helpers';
 import { ActionPanel } from '../../article/ActionPanel/ActionPanel';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,7 +77,7 @@ export const CommentsList = ({ articleId, type }) => {
   };
 
   loadingComments && (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box sx={loadingBoxStyle}>
       <CircularProgress />
     </Box>
   );
@@ -142,7 +144,7 @@ export const CommentsList = ({ articleId, type }) => {
           </div>
         ))}
       {!loadingComments && next < comments.length && (
-        <Button variant="contained" onClick={handleMoreComments} sx={buttonStyle}>
+        <Button variant={BUTTON_VARIANT.CONTAINED} onClick={handleMoreComments} sx={buttonStyle}>
           Більше коментарів
         </Button>
       )}

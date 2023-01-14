@@ -18,7 +18,7 @@ import { omit } from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
 import { updateUser } from '../../../../store/features/auth/authMiddlewares';
-import { ROUTES, theme } from '../../../../helpers';
+import { BUTTON_TYPE, BUTTON_VARIANT, ROUTES, theme } from '../../../../helpers';
 
 const UserDto = (user) => {
   return {
@@ -135,7 +135,12 @@ export const UpdateUser = () => {
             return (
               <>
                 <input hidden type="file" accept="image/*" id="image" {...fieldProps} />
-                <Button htmlFor="image" variant="contained" component="label" fullWidth>
+                <Button
+                  htmlFor="image"
+                  variant={BUTTON_VARIANT.CONTAINED}
+                  component="label"
+                  fullWidth
+                >
                   {imgBtnText}
                 </Button>
                 {errors.image && <FormHelperText error>{errors.image?.message}</FormHelperText>}
@@ -146,7 +151,11 @@ export const UpdateUser = () => {
 
         {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
         <ThemeProvider theme={theme}>
-          <Button type="submit" variant="contained" disabled={isButtonDisabled}>
+          <Button
+            type={BUTTON_TYPE.SUBMIT}
+            variant={BUTTON_VARIANT.CONTAINED}
+            disabled={isButtonDisabled}
+          >
             {loading ? <CircularProgress size={20} color="white" /> : 'Зберегти'}
           </Button>
         </ThemeProvider>

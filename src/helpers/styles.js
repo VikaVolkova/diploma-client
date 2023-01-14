@@ -1,20 +1,10 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 export let theme = createTheme({
   palette: {
     white: 'white',
   },
 });
-theme = responsiveFontSizes(theme);
-// theme.link = {
-//   fontSize: '1.2rem',
-//   [theme.breakpoints.up('md')]: {
-//     fontSize: '2.4rem',
-//   },
-//   [theme.breakpoints.up('sm')]: {
-//     fontSize: '1.5rem',
-//   },
-// };
 
 export const paperProps = {
   elevation: 0,
@@ -64,3 +54,5 @@ export const categoriesButton = {
 };
 
 export const listStyle = { justifyContent: 'space-between', borderBottom: '1px solid blue ' };
+
+export const loadingBoxStyle = { display: 'flex', justifyContent: 'center' };

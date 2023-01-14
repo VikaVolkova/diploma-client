@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { getDeviceSize, SIZE_TYPES } from '../../../helpers';
+import { BUTTON_VARIANT, getDeviceSize, SIZE_TYPES } from '../../../helpers';
 
 export const ConfirmDialog = ({ open, onClose, title, content, handleConfirm }) => {
   const confirm = () => {
@@ -17,7 +17,7 @@ export const ConfirmDialog = ({ open, onClose, title, content, handleConfirm }) 
       <DialogTitle sx={titleSize}>{title}</DialogTitle>
       {content && <DialogContent>{content}</DialogContent>}
       <DialogActions>
-        <Button variant="contained" onClick={confirm} color="primary" size={btnSize}>
+        <Button variant={BUTTON_VARIANT.CONTAINED} onClick={confirm} color="primary" size={btnSize}>
           Підтвердити
         </Button>
       </DialogActions>

@@ -21,7 +21,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { createArticle } from '../../../../store/features/article/articleMiddlewares';
 import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
-import { DEFAULT_ARTICLE_IMAGE } from '../../../../helpers/constants/constans';
+import { BUTTON_VARIANT, DEFAULT_ARTICLE_IMAGE } from '../../../../helpers/constants/constans';
 import { ERROR_MESSAGES, getDeviceSize, HELPER_TEXT } from '../../../../helpers';
 
 const validationSchema = yup
@@ -214,7 +214,12 @@ export const CreateArticle = () => {
               return (
                 <>
                   <input hidden type="file" accept="image/*" id="coverImage" {...fieldProps} />
-                  <Button htmlFor="coverImage" variant="contained" component="label" fullWidth>
+                  <Button
+                    htmlFor="coverImage"
+                    variant={BUTTON_VARIANT.CONTAINED}
+                    component="label"
+                    fullWidth
+                  >
                     {imgBtnText}
                   </Button>
                   {errors.coverImage && (

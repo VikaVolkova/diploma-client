@@ -4,6 +4,9 @@
   align-items: center;
   justify-content: space-between;
 }
+.small {
+  width: 100%;
+}
 
 .select {
   width: 150px;

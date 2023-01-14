@@ -23,6 +23,9 @@ import {
   theme,
   ROUTES,
   decodeToken,
+  BUTTON_VARIANT,
+  INPUT_TYPE,
+  NAME_TYPE,
 } from '../../../helpers';
 import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -84,13 +87,13 @@ export const Register = () => {
 
   const hundleBlur = (e) => {
     switch (e.target.name) {
-      case 'name':
+      case NAME_TYPE.NAME:
         setNameDirty(true);
         break;
-      case 'email':
+      case NAME_TYPE.EMAIL:
         setEmailDirty(true);
         break;
-      case 'password':
+      case NAME_TYPE.PASSWORD:
         setPasswordDirty(true);
         break;
       default:
@@ -108,8 +111,8 @@ export const Register = () => {
         margin="normal"
         id="outlined-basic"
         label="Ім'я"
-        type="text"
-        name="name"
+        type={INPUT_TYPE.TEXT}
+        name={NAME_TYPE.NAME}
         variant="outlined"
         value={name}
         onChange={updateName}
@@ -123,8 +126,8 @@ export const Register = () => {
         margin="normal"
         id="outlined-basic"
         label="E-mail"
-        type="email"
-        name="email"
+        type={INPUT_TYPE.EMAIL}
+        name={NAME_TYPE.EMAIL}
         variant="outlined"
         value={email}
         onChange={updateEmail}
@@ -135,11 +138,11 @@ export const Register = () => {
       />
 
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-        <InputLabel htmlFor="password">Пароль</InputLabel>
+        <InputLabel htmlFor={NAME_TYPE.PASSWORD}>Пароль</InputLabel>
         <OutlinedInput
-          id="password"
+          id={NAME_TYPE.PASSWORD}
           label="Пароль"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password}
           onChange={updatePassword}
           onBlur={hundleBlur}
@@ -168,9 +171,9 @@ export const Register = () => {
         onSuccess={(credentialResponse) => googleRegister(credentialResponse)}
       />
 
-      <Stack marginBottom="10px">
+      <Stack mb="10px">
         <ThemeProvider theme={theme}>
-          <Button variant="contained" onClick={onSubmit} sx={{ mb: 2, mt: 2 }}>
+          <Button variant={BUTTON_VARIANT.CONTAINED} onClick={onSubmit} sx={{ mb: 2, mt: 2 }}>
             {loading ? <CircularProgress size={20} color="white" /> : 'Зареєструвати'}
           </Button>
         </ThemeProvider>

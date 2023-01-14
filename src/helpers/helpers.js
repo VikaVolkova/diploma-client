@@ -4,6 +4,16 @@ import jwtDecode from 'jwt-decode';
 import { ROLES, TOKENS } from './constants/auth';
 import { ERROR_MESSAGES } from './constants/message';
 
+export const getDeviceSize = () => {
+  const theme = useTheme();
+
+  const isLaptop = useMediaQuery(theme.breakpoints.down('lg'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isPhone = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return { isLaptop, isTablet, isPhone };
+};
+
 export const getShortText = (text, length) => {
   if (text.length <= length) return text;
 
@@ -77,14 +87,4 @@ export const filterData = (query, data, type) => {
       `${d[property1]} ${d[property2]}`.toLowerCase().includes(query.toLowerCase()),
     );
   }
-};
-
-export const getDeviceSize = () => {
-  const theme = useTheme();
-
-  const isLaptop = useMediaQuery(theme.breakpoints.down('lg'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  const isPhone = useMediaQuery(theme.breakpoints.down('sm'));
-
-  return { isLaptop, isTablet, isPhone };
 };

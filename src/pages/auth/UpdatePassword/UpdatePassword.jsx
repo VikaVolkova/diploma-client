@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
-import { HELPER_TEXT, MESSAGES, ROUTES, validatePassword } from '../../../helpers';
+import {
+  BUTTON_VARIANT,
+  HELPER_TEXT,
+  INPUT_TYPE,
+  MESSAGES,
+  NAME_TYPE,
+  ROUTES,
+  validatePassword,
+} from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePassword } from '../../../store/features/auth/authMiddlewares';
 import {
@@ -35,13 +43,13 @@ export const UpdatePassword = () => {
 
   const handleClickShowPassword = (password) => {
     switch (password) {
-      case 'password1':
+      case NAME_TYPE.PASSWORD1:
         setShowPassword1(!showPassword1);
         break;
-      case 'password2':
+      case NAME_TYPE.PASSWORD2:
         setShowPassword2(!showPassword2);
         break;
-      case 'oldPassword':
+      case NAME_TYPE.OLD_PASSWORD:
         setShowOldPassword(!showOldPassword);
         break;
     }
@@ -96,11 +104,11 @@ export const UpdatePassword = () => {
       <h2>Введіть ваш новий пароль</h2>
       <h3>{badPassword && 'Неправильний старий пароль'}</h3>
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-        <InputLabel htmlFor="oldPassword">Старий пароль</InputLabel>
+        <InputLabel htmlFor={NAME_TYPE.OLD_PASSWORD}>Старий пароль</InputLabel>
         <OutlinedInput
-          id="oldPassword"
+          id={NAME_TYPE.OLD_PASSWORD}
           label="Старий пароль"
-          type={showOldPassword ? 'text' : 'password'}
+          type={showOldPassword ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={oldPassword}
           onChange={changeOldPassword}
           onBlur={hundleBlur}
@@ -121,11 +129,11 @@ export const UpdatePassword = () => {
       </FormControl>
 
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-        <InputLabel htmlFor="password1">Новий пароль</InputLabel>
+        <InputLabel htmlFor={NAME_TYPE.PASSWORD1}>Новий пароль</InputLabel>
         <OutlinedInput
-          id="password1"
+          id={NAME_TYPE.PASSWORD1}
           label="Новий пароль"
-          type={showPassword1 ? 'text' : 'password'}
+          type={showPassword1 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password1}
           onChange={changePassword}
           onBlur={hundleBlur}
@@ -135,7 +143,7 @@ export const UpdatePassword = () => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
-                onClick={() => handleClickShowPassword('password1')}
+                onClick={() => handleClickShowPassword(NAME_TYPE.PASSWORD1)}
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
@@ -147,11 +155,11 @@ export const UpdatePassword = () => {
       </FormControl>
 
       <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
-        <InputLabel htmlFor="password2">Підтвердіть новий пароль</InputLabel>
+        <InputLabel htmlFor={NAME_TYPE.PASSWORD2}>Підтвердіть новий пароль</InputLabel>
         <OutlinedInput
-          id="password2"
+          id={NAME_TYPE.PASSWORD2}
           label="Підтвердіть новий пароль"
-          type={showPassword2 ? 'text' : 'password'}
+          type={showPassword2 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password2}
           onChange={changeSecondPassword}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
@@ -159,7 +167,7 @@ export const UpdatePassword = () => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
-                onClick={() => handleClickShowPassword('password2')}
+                onClick={() => handleClickShowPassword(NAME_TYPE.PASSWORD2)}
                 onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
@@ -171,10 +179,10 @@ export const UpdatePassword = () => {
       </FormControl>
 
       <Stack marginBottom="10px">
-        <Button onClick={onSubmit} variant="contained" sx={{ mb: 2 }}>
+        <Button onClick={onSubmit} variant={BUTTON_VARIANT.CONTAINED} sx={{ mb: 2 }}>
           Оновити пароль
         </Button>
-        <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant="outlined">
+        <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant={BUTTON_VARIANT.OUTLINED}>
           Забув пароль
         </Button>
       </Stack>

@@ -47,7 +47,7 @@ export const CategoriesList = ({ isOpened, close }) => {
                 size={btnSize}
                 onClick={() => openCategoryPage(category.url)}
               >
-                {category.category}
+                {category.name}
               </Button>
             ))}
           </ImageList>
