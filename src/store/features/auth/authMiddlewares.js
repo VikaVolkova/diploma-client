@@ -85,6 +85,20 @@ export const restorePassword = createAsyncThunk(
   },
 );
 
+export const checkOldPassword = createAsyncThunk(
+  ACTION_ROUTES.USER.CHECK_PASSWORD,
+  async ({ oldPassword, token }, { rejectWithValue }) => {
+    try {
+      await api.post(ACTION_ROUTES.USER.CHECK_PASSWORD, { oldPassword, token });
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  },
+);
 export const updatePassword = createAsyncThunk(
   ACTION_ROUTES.USER.CHECK_PASSWORD,
   async ({ oldPassword, password1, password2, token }, { rejectWithValue }) => {

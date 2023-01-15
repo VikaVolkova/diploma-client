@@ -11,7 +11,7 @@ import {
   validatePassword,
 } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePassword } from '../../../store/features/auth/authMiddlewares';
+import { checkOldPassword, updatePassword } from '../../../store/features/auth/authMiddlewares';
 import {
   Stack,
   Button,
@@ -36,10 +36,11 @@ export const UpdatePassword = () => {
   const [validationError, setValidationError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [badPassword, setBadPassword] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.accessToken);
-  const { success, error, loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
 
   const handleClickShowPassword = (password) => {
     switch (password) {
@@ -79,7 +80,13 @@ export const UpdatePassword = () => {
       return;
     }
 
-    dispatch(updatePassword({ oldPassword, password1, password2, token }));
+    dispatch(checkOldPassword({ oldPassword, token }))
+      .then((res) =>
+        res.error
+          ? setBadPassword(true)
+          : dispatch(updatePassword({ oldPassword, password1, password2, token })),
+      )
+      .then((res) => !res.error && setIsUpdated(true));
 
     setPassword1('');
     setPassword2('');
@@ -87,13 +94,12 @@ export const UpdatePassword = () => {
   };
 
   useEffect(() => {
-    !!error && !loading && setBadPassword(true);
-    if (success) {
+    if (isUpdated) {
       alert(MESSAGES.PASSWORD_UPDATE);
       setBadPassword(false);
       navigate(ROUTES.LOGIN);
     }
-  }, [success, error, loading]);
+  }, [isUpdated, loading]);
 
   const hundleBlur = () => {
     setPasswordDirty(true);
