@@ -7,11 +7,12 @@ import { ERROR_MESSAGES } from './constants/message';
 export const getDeviceSize = () => {
   const theme = useTheme();
 
+  const isMonitor = useMediaQuery(theme.breakpoints.up('lg'));
   const isLaptop = useMediaQuery(theme.breakpoints.down('lg'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isPhone = useMediaQuery(theme.breakpoints.down('sm'));
 
-  return { isLaptop, isTablet, isPhone };
+  return { isMonitor, isLaptop, isTablet, isPhone };
 };
 
 export const getShortText = (text, length) => {
@@ -54,10 +55,12 @@ export const decodeToken = (token) => {
   return { email, name, image };
 };
 
-export const selectErrorMessage = (error) => {
+export const selectErrorMessage = (error, type) => {
   const errorMessage =
-    error === ERROR_MESSAGES.FAILED_400
+    error === ERROR_MESSAGES.FAILED_400 && type === 'login'
       ? ERROR_MESSAGES.USER_NO_EXIST
+      : error === ERROR_MESSAGES.FAILED_400 && type === 'register'
+      ? ERROR_MESSAGES.EMAIL_EXIST
       : error === ERROR_MESSAGES.FAILED_404
       ? ERROR_MESSAGES.PASSWORD
       : '';
@@ -88,3 +91,6 @@ export const filterData = (query, data, type) => {
     );
   }
 };
+
+export const getGoogleLoginWidth = (isPhone, isMonitor) =>
+  isPhone ? '240' : isMonitor ? '300' : '335';

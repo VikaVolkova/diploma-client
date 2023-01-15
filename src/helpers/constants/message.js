@@ -19,6 +19,7 @@ export const MESSAGE_TYPE = {
 
 export const ERROR_MESSAGES = {
   EMAIL: 'Hевірний e-mail',
+  EMAIL_EXIST: 'Користувач з таким e-mail вже існує',
   PASSWORD: 'Hевірний пароль',
   SERVER_ERROR: 'Помилка на сервері',
   FAILED_400: 'Request failed with status code 400',

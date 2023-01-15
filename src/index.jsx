@@ -7,7 +7,8 @@ import { App } from './App';
 import { store } from './store/store';
 import { reportWebVitals } from './reportWebVitals';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { OAUTH_CLIENT_ID } from './helpers';
+import { OAUTH_CLIENT_ID, theme } from './helpers';
+import { ThemeProvider } from '@emotion/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,9 @@ root.render(
     <GoogleOAuthProvider clientId={OAUTH_CLIENT_ID}>
       <Provider store={store}>
         <Router>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </Router>
       </Provider>
     </GoogleOAuthProvider>

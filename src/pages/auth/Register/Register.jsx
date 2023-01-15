@@ -11,6 +11,7 @@ import {
   FormControl,
   CircularProgress,
   ThemeProvider,
+  Typography,
 } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +27,12 @@ import {
   BUTTON_VARIANT,
   INPUT_TYPE,
   NAME_TYPE,
+  TYPOGRAPHY_VARIANTS,
+  SIZE_TYPES,
+  getDeviceSize,
+  selectErrorMessage,
+  controlMargin,
+  getGoogleLoginWidth,
 } from '../../../helpers';
 import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -44,6 +51,9 @@ export const Register = () => {
   const [showPassword, setShowPassword] = useState('');
 
   const { registered, loading, error } = useSelector((state) => state.auth);
+  const { isPhone, isMonitor } = getDeviceSize();
+  const googleLoginWidth = getGoogleLoginWidth(isPhone, isMonitor);
+  const errorMessage = selectErrorMessage(error, 'register');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -103,32 +113,33 @@ export const Register = () => {
 
   return (
     <FormContainer>
-      <h2>Зареєструвати новий аккаунт</h2>
-      <h3>{!!error}</h3>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H6} sx={controlMargin}>
+        Зареєструвати новий аккаунт
+      </Typography>
+      <Typography variant={TYPOGRAPHY_VARIANTS.BODY1}>{errorMessage}</Typography>
 
       <TextField
         fullWidth
-        margin="normal"
-        id="outlined-basic"
+        id={NAME_TYPE.NAME}
         label="Ім'я"
         type={INPUT_TYPE.TEXT}
         name={NAME_TYPE.NAME}
-        variant="outlined"
+        variant={BUTTON_VARIANT.OUTLINED}
         value={name}
         onChange={updateName}
         onBlur={hundleBlur}
         placeholder="Ім'я"
         error={nameDirty && nameError}
+        sx={controlMargin}
       />
 
       <TextField
         fullWidth
-        margin="normal"
-        id="outlined-basic"
+        id={NAME_TYPE.EMAIL}
         label="E-mail"
         type={INPUT_TYPE.EMAIL}
         name={NAME_TYPE.EMAIL}
-        variant="outlined"
+        variant={BUTTON_VARIANT.OUTLINED}
         value={email}
         onChange={updateEmail}
         onBlur={hundleBlur}
@@ -137,7 +148,7 @@ export const Register = () => {
         helperText={emailError && ERROR_MESSAGES.EMAIL}
       />
 
-      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+      <FormControl fullWidth sx={controlMargin} variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD}>Пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.PASSWORD}
@@ -164,16 +175,16 @@ export const Register = () => {
       </FormControl>
       <GoogleLogin
         theme="outline"
-        size="medium"
+        size={SIZE_TYPES.MEDIUM}
         text="signup_with"
-        width="300px"
+        width={googleLoginWidth}
         locale="uk"
         onSuccess={(credentialResponse) => googleRegister(credentialResponse)}
       />
 
       <Stack mb="10px">
         <ThemeProvider theme={theme}>
-          <Button variant={BUTTON_VARIANT.CONTAINED} onClick={onSubmit} sx={{ mb: 2, mt: 2 }}>
+          <Button variant={BUTTON_VARIANT.CONTAINED} onClick={onSubmit} sx={controlMargin}>
             {loading ? <CircularProgress size={20} color="white" /> : 'Зареєструвати'}
           </Button>
         </ThemeProvider>

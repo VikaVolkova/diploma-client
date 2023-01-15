@@ -6,6 +6,32 @@ export let theme = createTheme({
   },
 });
 
+theme.typography.h6 = {
+  fontWeight: 500,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.4rem',
+    fontWeight: 600,
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '1.3rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.25rem',
+  },
+};
+theme.typography.body1 = {
+  fontWeight: 400,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1rem',
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '0.9rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.8rem',
+  },
+};
+
 export const paperProps = {
   elevation: 0,
   sx: {
@@ -46,6 +72,7 @@ export const shareSocials = {
 export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
 
 export const formMargin = { mt: '10px' };
+export const controlMargin = { m: '20px 0' };
 
 export const categoriesButton = {
   color: 'gray',
