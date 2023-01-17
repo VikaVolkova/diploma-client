@@ -4,6 +4,7 @@ import { Box, CardContent, CardMedia, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import s from './ArticleSearchItem.module.css';
 import { cardContentStyle, cardMediaStyle, getShortSpoiler } from './ArticleSearchItem.helpers';
+import { COLORS, TYPOGRAPHY_VARIANTS } from '../../../helpers';
 
 export const ArticleSearchItem = ({ article, handleClose }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const ArticleSearchItem = ({ article, handleClose }) => {
           <button className={s.title} onClick={showArticle}>
             {article.title}
           </button>
-          <Typography variant="subtitle1" color="text.secondary">
+          <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} color={COLORS.GREY}>
             {shortSpoiler}...
           </Typography>
         </CardContent>

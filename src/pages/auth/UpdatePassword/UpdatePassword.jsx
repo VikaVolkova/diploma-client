@@ -3,11 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import {
   BUTTON_VARIANT,
+  controlMargin,
+  formMargin,
+  getDeviceSize,
   HELPER_TEXT,
   INPUT_TYPE,
   MESSAGES,
   NAME_TYPE,
   ROUTES,
+  SIZE_TYPES,
+  TYPOGRAPHY_VARIANTS,
   validatePassword,
 } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +25,7 @@ import {
   OutlinedInput,
   InputLabel,
   FormControl,
+  Typography,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useEffect } from 'react';
@@ -37,6 +43,8 @@ export const UpdatePassword = () => {
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [badPassword, setBadPassword] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+
+  const { isPhone } = getDeviceSize();
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.accessToken);
@@ -107,9 +115,11 @@ export const UpdatePassword = () => {
 
   return (
     <FormContainer>
-      <h2>Введіть ваш новий пароль</h2>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
+        Введіть ваш новий пароль
+      </Typography>
       <h3>{badPassword && 'Неправильний старий пароль'}</h3>
-      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+      <FormControl fullWidth variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.OLD_PASSWORD}>Старий пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.OLD_PASSWORD}
@@ -118,6 +128,7 @@ export const UpdatePassword = () => {
           value={oldPassword}
           onChange={changeOldPassword}
           onBlur={hundleBlur}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           endAdornment={
             <InputAdornment position="end">
@@ -134,7 +145,7 @@ export const UpdatePassword = () => {
         />
       </FormControl>
 
-      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+      <FormControl fullWidth variant={BUTTON_VARIANT.OUTLINED} sx={formMargin}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD1}>Новий пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.PASSWORD1}
@@ -143,6 +154,7 @@ export const UpdatePassword = () => {
           value={password1}
           onChange={changePassword}
           onBlur={hundleBlur}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           error={passwordDirty && validationError}
           endAdornment={
@@ -160,13 +172,14 @@ export const UpdatePassword = () => {
         />
       </FormControl>
 
-      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+      <FormControl fullWidth variant={BUTTON_VARIANT.OUTLINED} sx={formMargin}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD2}>Підтвердіть новий пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.PASSWORD2}
           label="Підтвердіть новий пароль"
           type={showPassword2 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password2}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           onChange={changeSecondPassword}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           endAdornment={
@@ -184,11 +197,20 @@ export const UpdatePassword = () => {
         />
       </FormControl>
 
-      <Stack marginBottom="10px">
-        <Button onClick={onSubmit} variant={BUTTON_VARIANT.CONTAINED} sx={{ mb: 2 }}>
+      <Stack sx={controlMargin} spacing={2}>
+        <Button
+          onClick={onSubmit}
+          variant={BUTTON_VARIANT.CONTAINED}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE}
+        >
           Оновити пароль
         </Button>
-        <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant={BUTTON_VARIANT.OUTLINED}>
+        <Button
+          component={Link}
+          to={ROUTES.FORGOT_PASSWORD}
+          variant={BUTTON_VARIANT.OUTLINED}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE}
+        >
           Забув пароль
         </Button>
       </Stack>

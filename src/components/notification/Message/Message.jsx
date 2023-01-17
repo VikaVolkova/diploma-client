@@ -1,12 +1,18 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { React } from 'react';
 import PropTypes from 'prop-types';
-import { BUTTON_VARIANT, MESSAGE_TYPE, PAGE_TYPE, ROUTES } from '../../../helpers';
+import {
+  BUTTON_VARIANT,
+  MESSAGE_TYPE,
+  PAGE_TYPE,
+  ROUTES,
+  TYPOGRAPHY_VARIANTS,
+} from '../../../helpers';
 
 export const Message = ({ text, type }) => (
   <Card>
     <CardContent>
-      <Typography variant="subtitle1">{text}</Typography>
+      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE2}>{text}</Typography>
     </CardContent>
     <CardActions sx={{ marginLeft: '8px' }}>
       {type === PAGE_TYPE.LOGIN && (

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Avatar, Button, Typography } from '@mui/material';
 import s from './UserCard.module.css';
-import { button, getAvatarStyle, getButtonSize, getTypographyVariant } from './UserCard.helpers';
+import { button, getAvatarStyle, getButtonSize } from './UserCard.helpers';
 import PropTypes from 'prop-types';
 import { ActionPanel } from '../../article/ActionPanel/ActionPanel';
-import { BUTTON_VARIANT, getDeviceSize, ROUTES } from '../../../helpers';
+import { BUTTON_VARIANT, getDeviceSize, ROUTES, TYPOGRAPHY_VARIANTS } from '../../../helpers';
 import cn from 'classnames';
 import { deleteUser } from '../../../store/features/auth/authMiddlewares';
 
@@ -16,7 +16,6 @@ export const UserCard = ({ user }) => {
   const { isTablet, isPhone } = getDeviceSize();
 
   const avatarStyle = getAvatarStyle(isPhone);
-  const typographyVariant = getTypographyVariant(isPhone, isTablet);
   const buttonSize = getButtonSize(isTablet);
 
   const updatePassword = () => {
@@ -36,8 +35,8 @@ export const UserCard = ({ user }) => {
         <Avatar sx={avatarStyle} src={user.image} />
       </div>
       <div className={s.userData}>
-        <Typography variant={typographyVariant}>{`Ім'я: ${user.name}`}</Typography>
-        <Typography variant={typographyVariant}>{`E-mail: ${user.email}`}</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1}>{`Ім'я: ${user.name}`}</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1}>{`E-mail: ${user.email}`}</Typography>
         <div className={s.buttons}>
           {!user.googleUser && (
             <Button

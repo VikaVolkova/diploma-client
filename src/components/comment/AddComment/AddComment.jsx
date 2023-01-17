@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, CircularProgress, FormHelperText, Stack, ThemeProvider } from '@mui/material';
+import { Button, CircularProgress, FormHelperText, Stack } from '@mui/material';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
@@ -11,7 +11,6 @@ import {
   BUTTON_VARIANT,
   ERROR_MESSAGES,
   MESSAGES,
-  theme,
   SIZE_TYPES,
   BUTTON_TYPE,
 } from '../../../helpers';
@@ -67,17 +66,15 @@ export const AddComment = ({ article }) => {
           </div>
         )}
       />
-      <ThemeProvider theme={theme}>
-        <Button
-          type={BUTTON_TYPE.SUBMIT}
-          variant={BUTTON_VARIANT.CONTAINED}
-          size={SIZE_TYPES.MEDIUM}
-          sx={{ mt: '15px' }}
-          disabled={isButtonDisabled}
-        >
-          {loadingComments ? <CircularProgress size={20} color="white" /> : 'Додати коментар'}
-        </Button>
-      </ThemeProvider>
+      <Button
+        type={BUTTON_TYPE.SUBMIT}
+        variant={BUTTON_VARIANT.CONTAINED}
+        size={SIZE_TYPES.MEDIUM}
+        sx={{ mt: '15px' }}
+        disabled={isButtonDisabled}
+      >
+        {loadingComments ? <CircularProgress size={20} color="white" /> : 'Додати коментар'}
+      </Button>
     </Stack>
   );
 };

@@ -4,7 +4,7 @@ import { List, Container, Box, CircularProgress, Typography } from '@mui/materia
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from '../../../../store/features/auth/authMiddlewares';
 import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
-import { filterData, loadingBoxStyle } from '../../../../helpers';
+import { filterData, loadingBoxStyle, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
 
 export const Users = () => {
   const [usersArr, setUsersArr] = useState([]);
@@ -51,7 +51,7 @@ export const Users = () => {
           ))}
         </List>
       ) : (
-        <Typography variant="subtitle1" sx={{ mt: 2 }}>
+        <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={{ mt: 2 }}>
           Користувачів не знайдено
         </Typography>
       )}

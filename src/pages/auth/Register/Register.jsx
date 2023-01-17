@@ -10,7 +10,6 @@ import {
   InputLabel,
   FormControl,
   CircularProgress,
-  ThemeProvider,
   Typography,
 } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
@@ -21,7 +20,6 @@ import {
   validatePassword,
   ERROR_MESSAGES,
   HELPER_TEXT,
-  theme,
   ROUTES,
   decodeToken,
   BUTTON_VARIANT,
@@ -33,6 +31,8 @@ import {
   selectErrorMessage,
   controlMargin,
   getGoogleLoginWidth,
+  formMargin,
+  formBottomMargin,
 } from '../../../helpers';
 import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -113,7 +113,7 @@ export const Register = () => {
 
   return (
     <FormContainer>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H6} sx={controlMargin}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
         Зареєструвати новий аккаунт
       </Typography>
       <Typography variant={TYPOGRAPHY_VARIANTS.BODY1}>{errorMessage}</Typography>
@@ -126,11 +126,11 @@ export const Register = () => {
         name={NAME_TYPE.NAME}
         variant={BUTTON_VARIANT.OUTLINED}
         value={name}
+        size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
         onChange={updateName}
         onBlur={hundleBlur}
         placeholder="Ім'я"
         error={nameDirty && nameError}
-        sx={controlMargin}
       />
 
       <TextField
@@ -141,14 +141,16 @@ export const Register = () => {
         name={NAME_TYPE.EMAIL}
         variant={BUTTON_VARIANT.OUTLINED}
         value={email}
+        sx={formMargin}
         onChange={updateEmail}
         onBlur={hundleBlur}
+        size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
         placeholder={HELPER_TEXT.EMAIL_PLACEHOLDER}
         error={emailDirty && emailError}
         helperText={emailError && ERROR_MESSAGES.EMAIL}
       />
 
-      <FormControl fullWidth sx={controlMargin} variant={BUTTON_VARIANT.OUTLINED}>
+      <FormControl fullWidth sx={[formMargin, formBottomMargin]} variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD}>Пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.PASSWORD}
@@ -157,6 +159,7 @@ export const Register = () => {
           value={password}
           onChange={updatePassword}
           onBlur={hundleBlur}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           error={passwordDirty && passwordError}
           endAdornment={
@@ -182,12 +185,14 @@ export const Register = () => {
         onSuccess={(credentialResponse) => googleRegister(credentialResponse)}
       />
 
-      <Stack mb="10px">
-        <ThemeProvider theme={theme}>
-          <Button variant={BUTTON_VARIANT.CONTAINED} onClick={onSubmit} sx={controlMargin}>
-            {loading ? <CircularProgress size={20} color="white" /> : 'Зареєструвати'}
-          </Button>
-        </ThemeProvider>
+      <Stack sx={controlMargin}>
+        <Button
+          variant={BUTTON_VARIANT.CONTAINED}
+          onClick={onSubmit}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE}
+        >
+          {loading ? <CircularProgress size={20} color="white" /> : 'Зареєструвати'}
+        </Button>
       </Stack>
     </FormContainer>
   );

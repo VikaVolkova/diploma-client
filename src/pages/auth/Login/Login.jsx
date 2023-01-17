@@ -11,7 +11,6 @@ import {
   InputLabel,
   FormControl,
   CircularProgress,
-  ThemeProvider,
   Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -22,6 +21,8 @@ import {
   controlMargin,
   decodeToken,
   ERROR_MESSAGES,
+  formBottomMargin,
+  formMargin,
   getDeviceSize,
   getGoogleLoginWidth,
   HELPER_TEXT,
@@ -30,7 +31,6 @@ import {
   ROUTES,
   selectErrorMessage,
   SIZE_TYPES,
-  theme,
   TYPOGRAPHY_VARIANTS,
   validateEmail,
   validatePassword,
@@ -39,12 +39,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { GoogleLogin } from '@react-oauth/google';
-import {
-  formContainerStyle,
-  getStackDirection,
-  typographyH6Style,
-  typographySub1Style,
-} from './Login.helpers';
+import { formContainerStyle, typographyH6Style, typographySub1Style } from './Login.helpers';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -63,7 +58,6 @@ export const Login = () => {
   const dispatch = useDispatch();
   const errorMessage = selectErrorMessage(error, 'login');
   const googleLoginWidth = getGoogleLoginWidth(isPhone, isMonitor);
-  const stackDirection = getStackDirection(isPhone);
 
   const updateLogin = (e) => {
     e.preventDefault();
@@ -115,7 +109,7 @@ export const Login = () => {
 
   return (
     <FormContainer sx={formContainerStyle}>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H6} sx={typographyH6Style}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={typographyH6Style}>
         Увійти в обліковий запис
       </Typography>
 
@@ -139,7 +133,11 @@ export const Login = () => {
           name={NAME_TYPE.EMAIL}
         />
 
-        <FormControl fullWidth sx={controlMargin} variant={BUTTON_VARIANT.OUTLINED}>
+        <FormControl
+          fullWidth
+          sx={[formMargin, formBottomMargin]}
+          variant={BUTTON_VARIANT.OUTLINED}
+        >
           <InputLabel htmlFor={NAME_TYPE.PASSWORD}>Пароль</InputLabel>
           <OutlinedInput
             id={NAME_TYPE.PASSWORD}
@@ -176,15 +174,23 @@ export const Login = () => {
         useOneTap
       />
 
-      <Stack direction={stackDirection} spacing={2} sx={controlMargin}>
-        <ThemeProvider theme={theme}>
-          <Button type={BUTTON_TYPE.SUBMIT} variant={BUTTON_VARIANT.CONTAINED} onClick={onSubmit}>
-            {loading ? <CircularProgress size={20} color="white" /> : 'Увійти'}
-          </Button>
-          <Button component={Link} to={ROUTES.FORGOT_PASSWORD} variant={BUTTON_VARIANT.OUTLINED}>
-            Забув пароль
-          </Button>
-        </ThemeProvider>
+      <Stack spacing={2} sx={controlMargin}>
+        <Button
+          type={BUTTON_TYPE.SUBMIT}
+          variant={BUTTON_VARIANT.CONTAINED}
+          onClick={onSubmit}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE}
+        >
+          {loading ? <CircularProgress size={20} color="white" /> : 'Увійти'}
+        </Button>
+        <Button
+          component={Link}
+          to={ROUTES.FORGOT_PASSWORD}
+          variant={BUTTON_VARIANT.OUTLINED}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE}
+        >
+          Забув пароль
+        </Button>
       </Stack>
     </FormContainer>
   );

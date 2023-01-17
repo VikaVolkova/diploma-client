@@ -35,6 +35,7 @@ export const SIZE_TYPES = {
   SMALL: 'small',
   MEDIUM: 'nedium',
   LARGE: 'large',
+  LG: 'lg',
 };
 
 export const BUTTON_TYPE = {
@@ -76,4 +77,11 @@ export const TYPOGRAPHY_VARIANTS = {
   SUBTITLE2: 'subtitle2',
   BODY1: 'body1',
   BODY2: 'body2',
+};
+
+export const COLORS = {
+  WHITE: 'white',
+  GREY: 'grey',
+  ERROR: 'error',
+  PRIMARY: 'primary',
 };

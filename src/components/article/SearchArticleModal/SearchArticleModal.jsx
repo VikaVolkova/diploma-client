@@ -4,7 +4,7 @@ import { SearchBar } from '../../layout/SearchBar/SearchBar';
 import { Box, ImageList, ImageListItem, Modal, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterData } from '../../../helpers';
+import { COLORS, filterData, TYPOGRAPHY_VARIANTS } from '../../../helpers';
 import { ArticleSearchItem } from '../ArticleSearchItem/ArticleSearchItem';
 import {
   boxStyle,
@@ -50,7 +50,11 @@ export const SearchArticleModal = ({ isOpen, setIsOpen }) => {
                     </ImageListItem>
                   ))
                 ) : (
-                  <Typography sx={typographyStyle} variant="subtitle1">
+                  <Typography
+                    sx={typographyStyle}
+                    variant={TYPOGRAPHY_VARIANTS.SUBTITLE1}
+                    color={COLORS.GREY}
+                  >
                     Статей не знайдено
                   </Typography>
                 )}

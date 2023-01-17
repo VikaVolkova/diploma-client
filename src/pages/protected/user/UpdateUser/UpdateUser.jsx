@@ -12,13 +12,12 @@ import {
   Stack,
   Typography,
   CircularProgress,
-  ThemeProvider,
 } from '@mui/material';
 import { omit } from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
 import { updateUser } from '../../../../store/features/auth/authMiddlewares';
-import { BUTTON_TYPE, BUTTON_VARIANT, ROUTES, theme } from '../../../../helpers';
+import { BUTTON_TYPE, BUTTON_VARIANT, ROUTES, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
 
 const UserDto = (user) => {
   return {
@@ -88,7 +87,7 @@ export const UpdateUser = () => {
         onSubmit={handleSubmit(onSubmit)}
         onChange={onUploadImage}
       >
-        <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
+        <Typography variant={TYPOGRAPHY_VARIANTS.H5} gutterBottom>
           Оновіть дані користувача
         </Typography>
         <Controller
@@ -150,15 +149,13 @@ export const UpdateUser = () => {
         />
 
         {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
-        <ThemeProvider theme={theme}>
-          <Button
-            type={BUTTON_TYPE.SUBMIT}
-            variant={BUTTON_VARIANT.CONTAINED}
-            disabled={isButtonDisabled}
-          >
-            {loading ? <CircularProgress size={20} color="white" /> : 'Зберегти'}
-          </Button>
-        </ThemeProvider>
+        <Button
+          type={BUTTON_TYPE.SUBMIT}
+          variant={BUTTON_VARIANT.CONTAINED}
+          disabled={isButtonDisabled}
+        >
+          {loading ? <CircularProgress size={20} color="white" /> : 'Зберегти'}
+        </Button>
       </Stack>
     </Container>
   );

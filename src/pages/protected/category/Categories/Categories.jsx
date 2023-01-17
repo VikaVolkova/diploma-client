@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ItemCategory } from '../../../../components/category/ItemCategory/ItemCategory';
 import { getAllCategories } from '../../../../store/features/category/categoryMiddlewares';
-import { filterData, getDeviceSize, ROUTES } from '../../../../helpers';
+import { filterData, getDeviceSize, ROUTES, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
 import { SearchBar } from '../../../../components/layout/SearchBar/SearchBar';
 import AddIcon from '@mui/icons-material/Add';
 import { List, Button, Typography, Container } from '@mui/material';
@@ -49,7 +49,7 @@ export const Categories = () => {
           ))}
         </List>
       ) : (
-        <Typography variant="subtitle1" sx={{ mt: 2 }}>
+        <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={{ mt: 2 }}>
           Категорії не знайдено
         </Typography>
       )}

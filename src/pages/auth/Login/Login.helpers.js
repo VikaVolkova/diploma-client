@@ -7,5 +7,3 @@ export const formContainerStyle = {
 export const typographyH6Style = { m: '20px auto 0' };
 
 export const typographySub1Style = { m: '10px auto' };
-
-export const getStackDirection = (isPhone) => (isPhone ? 'column' : 'row');
