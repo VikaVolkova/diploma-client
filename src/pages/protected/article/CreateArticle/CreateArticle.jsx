@@ -21,8 +21,12 @@ import MDEditor from '@uiw/react-md-editor';
 import { createArticle } from '../../../../store/features/article/articleMiddlewares';
 import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
-import { BUTTON_VARIANT, DEFAULT_ARTICLE_IMAGE } from '../../../../helpers/constants/constans';
-import { ERROR_MESSAGES, getDeviceSize, HELPER_TEXT } from '../../../../helpers';
+import {
+  BUTTON_VARIANT,
+  DEFAULT_ARTICLE_IMAGE,
+  TYPOGRAPHY_VARIANTS,
+} from '../../../../helpers/constants/constans';
+import { ERROR_MESSAGES, HELPER_TEXT } from '../../../../helpers';
 
 const validationSchema = yup
   .object({
@@ -41,7 +45,6 @@ export const CreateArticle = () => {
   const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
   const [serverError, setServerError] = useState('');
   const { userInfo } = useSelector((state) => state.auth);
-  const { isTablet } = getDeviceSize();
   const formRef = useRef();
   const dispatch = useDispatch();
 
@@ -110,11 +113,7 @@ export const CreateArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           onChange={onUploadImage}
         >
-          <Typography
-            variant={isTablet ? 'subtitle1' : 'h5'}
-            variantMapping={{ h4: 'h1' }}
-            gutterBottom
-          >
+          <Typography variant={TYPOGRAPHY_VARIANTS.H5} gutterBottom>
             Введіть дані статті
           </Typography>
           {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}

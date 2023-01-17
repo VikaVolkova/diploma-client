@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, ListItem, ListItemText, Tooltip, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { ACTION, getDeviceSize, listStyle, ROUTES, SIZE_TYPES } from '../../../helpers';
+import {
+  ACTION,
+  COLORS,
+  getDeviceSize,
+  listStyle,
+  ROUTES,
+  SIZE_TYPES,
+  TYPOGRAPHY_VARIANTS,
+} from '../../../helpers';
 import { ActionPanel } from '../../article/ActionPanel/ActionPanel';
 import { useNavigate } from 'react-router-dom';
 import { deleteCategory } from '../../../store/features/category/categoryMiddlewares';
@@ -22,13 +30,13 @@ export const ItemCategory = ({ category }) => {
     <ListItem sx={listStyle}>
       <ListItemText
         primary={category.name}
-        primaryTypographyProps={{ color: 'primary', fontSize: fontSize }}
+        primaryTypographyProps={{ color: COLORS.PRIMARY, fontSize: fontSize }}
         secondary={`URL: ${category.url}`}
         secondaryTypographyProps={{ fontSize: fontSize }}
       />
       {category.isDeleted ? (
         <>
-          <Typography color="error" variant={isPhone ? 'caption' : 'subtitle1'}>
+          <Typography color={COLORS.ERROR} variant={TYPOGRAPHY_VARIANTS.SUBTITLE2}>
             Видалено
           </Typography>
           <Tooltip title={ACTION.RESTORE}>

@@ -18,7 +18,13 @@ import {
   getCategoryByUrl,
   updateCategory,
 } from '../../../../store/features/category/categoryMiddlewares';
-import { BUTTON_TYPE, BUTTON_VARIANT, formMargin, ROUTES } from '../../../../helpers';
+import {
+  BUTTON_TYPE,
+  BUTTON_VARIANT,
+  formMargin,
+  ROUTES,
+  TYPOGRAPHY_VARIANTS,
+} from '../../../../helpers';
 
 const CategoryDto = (category) => {
   return {
@@ -80,7 +86,7 @@ export const UpdateCategory = () => {
     category && (
       <Container maxWidth="md">
         <Stack ref={formRef} component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
+          <Typography variant={TYPOGRAPHY_VARIANTS.H5} gutterBottom>
             Oновіть дані статті
           </Typography>
           <Controller

@@ -21,7 +21,7 @@ import { omit } from 'ramda';
 import MDEditor from '@uiw/react-md-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
-import { BUTTON_VARIANT, formMargin, ROUTES } from '../../../../helpers';
+import { BUTTON_VARIANT, formMargin, ROUTES, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
 import {
   getArticleByUrl,
@@ -113,7 +113,7 @@ export const UpdateArticle = () => {
           onSubmit={handleSubmit(onSubmit)}
           onChange={onUploadImage}
         >
-          <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
+          <Typography variant={TYPOGRAPHY_VARIANTS.H5} gutterBottom>
             Oновіть дані статті
           </Typography>
           <Controller

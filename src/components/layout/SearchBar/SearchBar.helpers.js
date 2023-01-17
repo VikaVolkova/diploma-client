@@ -2,7 +2,7 @@ import { PREVIEW_TYPE } from '../../../helpers';
 
 export const textFieldStyle = (type, isPhone) => ({
   width: type === PREVIEW_TYPE.FULL ? 800 : isPhone ? '100%' : '90%',
-  backgroundColor: 'white',
+  backgroundColor: '#fff',
   border: 'none',
   borderRadius: 2,
 });

@@ -14,6 +14,8 @@ import {
   getDeviceSize,
   loadingBoxStyle,
   BUTTON_VARIANT,
+  COLORS,
+  TYPOGRAPHY_VARIANTS,
 } from '../../../helpers';
 import { ActionPanel } from '../../article/ActionPanel/ActionPanel';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +30,7 @@ import { toggleComment } from '../../../store/features/article/articleMiddleware
 import { Message } from '../../notification/Message/Message';
 import { Container } from '../../layout/Container/Container';
 import { useState } from 'react';
+import { getArticleLinkStyle, typographyStyle } from './CommentsList.helpers';
 
 export const CommentsList = ({ articleId, type }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -35,8 +38,9 @@ export const CommentsList = ({ articleId, type }) => {
   const [next, setNext] = useState(4);
   const dispatch = useDispatch();
 
-  const { isTablet } = getDeviceSize();
+  const { isTablet, isPhone } = getDeviceSize();
   const buttonStyle = { m: !isTablet ? '3% 42% 7%' : '3% 28% 8%' };
+  const articleLinkStyle = getArticleLinkStyle(isPhone);
 
   const selectFunc = () => {
     return type === PAGE_TYPE.UNPUBLISHED
@@ -98,21 +102,12 @@ export const CommentsList = ({ articleId, type }) => {
             {type === PAGE_TYPE.UNPUBLISHED ? (
               <>
                 <Typography
-                  sx={{ display: 'inline', mr: '15px' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
+                  sx={typographyStyle}
+                  variant={TYPOGRAPHY_VARIANTS.BODY2}
+                  color={COLORS.PRIMARY}
                 >
                   Коментар для{' '}
-                  <Link
-                    to={`/news/${comment.article.url}`}
-                    style={{
-                      color: 'royalblue',
-                      textDecoration: 'none',
-                      fontFamily: 'sans-serif',
-                      fontSize: 14,
-                    }}
-                  >
+                  <Link to={`/news/${comment.article.url}`} style={articleLinkStyle}>
                     {comment.article.title}
                   </Link>
                   :

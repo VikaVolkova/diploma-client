@@ -3,11 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import {
   BUTTON_VARIANT,
+  controlMargin,
+  formBottomMargin,
+  getDeviceSize,
   HELPER_TEXT,
   INPUT_TYPE,
   MESSAGES,
   NAME_TYPE,
   ROUTES,
+  SIZE_TYPES,
+  TYPOGRAPHY_VARIANTS,
   validatePassword,
 } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +25,7 @@ import {
   OutlinedInput,
   InputLabel,
   FormControl,
+  Typography,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -39,6 +45,7 @@ export const RestorePassword = () => {
   const [showPassword2, setShowPassword2] = useState('');
   const [validationError, setValidationError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
+  const { isPhone } = getDeviceSize();
 
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
@@ -87,15 +94,18 @@ export const RestorePassword = () => {
 
   return (
     <FormContainer>
-      <h2>Введіть ваш новий пароль</h2>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
+        Введіть ваш новий пароль
+      </Typography>
       <h3>{!!error}</h3>
-      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+      <FormControl fullWidth variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD1}>Новий пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.PASSWORD1}
           label="Новий пароль"
           type={showPassword1 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password1}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           onChange={changePassword}
           onBlur={hundleBlur}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
@@ -115,13 +125,14 @@ export const RestorePassword = () => {
         />
       </FormControl>
 
-      <FormControl fullWidth sx={{ mt: 1, mb: 2 }} variant="outlined">
+      <FormControl fullWidth sx={controlMargin} variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD2}>Підтвердіть новий пароль</InputLabel>
         <OutlinedInput
           id={NAME_TYPE.PASSWORD2}
           label="Підтвердіть новий пароль"
           type={showPassword2 ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD}
           value={password2}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           onChange={changeDoublePassword}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
           endAdornment={
@@ -139,8 +150,12 @@ export const RestorePassword = () => {
         />
       </FormControl>
 
-      <Stack mb="10px">
-        <Button onClick={onSubmit} variant={BUTTON_VARIANT.CONTAINED} sx={{ mb: 2 }}>
+      <Stack sx={formBottomMargin}>
+        <Button
+          onClick={onSubmit}
+          variant={BUTTON_VARIANT.CONTAINED}
+          size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.LARGE}
+        >
           Оновити пароль
         </Button>
       </Stack>

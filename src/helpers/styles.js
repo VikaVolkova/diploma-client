@@ -2,34 +2,59 @@ import { createTheme } from '@mui/material/styles';
 
 export let theme = createTheme({
   palette: {
-    white: 'white',
+    primary: {
+      main: '#1976d2',
+    },
+    white: {
+      main: 'white',
+    },
+    grey: {
+      main: 'grey',
+    },
   },
 });
 
-theme.typography.h6 = {
-  fontWeight: 500,
+theme.typography.h5 = {
+  fontWeight: 600,
   [theme.breakpoints.up('md')]: {
-    fontSize: '1.4rem',
-    fontWeight: 600,
-  },
-  [theme.breakpoints.down('md')]: {
     fontSize: '1.3rem',
   },
+  '@media (max-width:1200px)': {
+    fontSize: '1.2rem',
+  },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '1.25rem',
+    fontSize: '1.1rem',
   },
 };
+
+theme.typography.subtitle2 = {
+  fontWeight: 400,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.9rem',
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '0.8rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.7rem',
+  },
+};
+
 theme.typography.body1 = {
   fontWeight: 400,
   [theme.breakpoints.up('md')]: {
     fontSize: '1rem',
   },
-  [theme.breakpoints.down('md')]: {
+  '@media (max-width:1200px)': {
     fontSize: '0.9rem',
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '0.8rem',
   },
+};
+
+theme.typography.body2 = {
+  fontSize: '0.8rem',
 };
 
 export const paperProps = {
@@ -72,6 +97,7 @@ export const shareSocials = {
 export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
 
 export const formMargin = { mt: '10px' };
+export const formBottomMargin = { mb: '20px' };
 export const controlMargin = { m: '20px 0' };
 
 export const categoriesButton = {

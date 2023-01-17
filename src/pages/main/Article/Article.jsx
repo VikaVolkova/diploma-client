@@ -15,7 +15,16 @@ import { CommentsList } from '../../../components/comment/CommentsList/CommentsL
 import { AddComment } from '../../../components/comment/AddComment/AddComment';
 import { Message } from '../../../components/notification/Message/Message';
 import { ActionPanel } from '../../../components/article/ActionPanel/ActionPanel';
-import { ACTION, MESSAGES, MESSAGE_TYPE, ROLES, ROUTES } from '../../../helpers';
+import {
+  ACTION,
+  COLORS,
+  MESSAGES,
+  MESSAGE_TYPE,
+  ROLES,
+  ROUTES,
+  SIZE_TYPES,
+  TYPOGRAPHY_VARIANTS,
+} from '../../../helpers';
 import { checkAdmin, checkAuthor, checkRole } from '../../../helpers/helpers';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -67,7 +76,7 @@ export const Article = () => {
     article && (
       <>
         {article.isPublished && <ShareSocial />}
-        <Container size="lg">
+        <Container size={SIZE_TYPES.LG}>
           <div className={s.containerBaner}>
             <div
               className={s.baner}
@@ -106,7 +115,7 @@ export const Article = () => {
                   <IconButton
                     aria-label={ACTION.LIKE}
                     sx={{ p: 0 }}
-                    size="large"
+                    size={SIZE_TYPES.LARGE}
                     onClick={(e) => toggleLikes(!isLiked, e)}
                   >
                     {isLiked ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteBorderIcon />}
@@ -121,7 +130,11 @@ export const Article = () => {
           <Markdown>{article.content}</Markdown>
         </Container>
         <Container>
-          <Typography variant="h6" sx={{ marginTop: '50px', color: 'primary.main' }}>
+          <Typography
+            variant={TYPOGRAPHY_VARIANTS.H6}
+            color={COLORS.PRIMARY}
+            sx={{ m: '50px auto 10px' }}
+          >
             Коментарі
           </Typography>
           {userInfo && !userInfo.isBlocked ? (

@@ -3,7 +3,12 @@ import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
 import { Container } from '../../../layout/Container/Container';
 import s from './Header.module.css';
-import { categoriesButton, getDeviceSize, navigation } from '../../../../helpers';
+import {
+  categoriesButton,
+  getDeviceSize,
+  navigation,
+  TYPOGRAPHY_VARIANTS,
+} from '../../../../helpers';
 import { CategoriesList } from '../../../category/CategoriesList/CategoriesList';
 import { Typography } from '@mui/material';
 
@@ -11,7 +16,8 @@ export const Header = () => {
   const navigationList = Object.values(navigation);
   const [openCategories, setOpenCategories] = useState(false);
 
-  const { isLaptop, isTablet } = getDeviceSize();
+  const { isTablet } = getDeviceSize();
+  // const { isLaptop, isTablet } = getDeviceSize();
 
   const toggleCategories = () => {
     setOpenCategories(!openCategories);
@@ -30,9 +36,8 @@ export const Header = () => {
             {!isTablet && (
               <Typography
                 onClick={toggleCategories}
-                variant={isLaptop ? 'body2' : 'subtitle1'}
+                variant={TYPOGRAPHY_VARIANTS.BODY1}
                 sx={categoriesButton}
-                type="text"
               >
                 Всі категорії
               </Typography>

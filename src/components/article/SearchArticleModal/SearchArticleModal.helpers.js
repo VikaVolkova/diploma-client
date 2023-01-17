@@ -7,7 +7,7 @@ export const typographyStyle = { m: 'auto' };
 export const imageListStyle = {
   width: 800,
   height: 500,
-  backgroundColor: 'white',
+  backgroundColor: '#fff',
   mt: 2,
   borderRadius: 2,
   display: 'flex',

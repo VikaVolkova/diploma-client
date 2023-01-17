@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createCategory } from '../../../../store/features/category/categoryMiddlewares';
 import * as yup from 'yup';
-import { ERROR_MESSAGES, HELPER_TEXT } from '../../../../helpers';
+import { ERROR_MESSAGES, HELPER_TEXT, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
 
 const validationSchema = yup
   .object({
@@ -56,7 +56,7 @@ export const CreateCategory = () => {
   return (
     <Container maxWidth="md">
       <Stack component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h4" variantMapping={{ h4: 'h1' }} gutterBottom>
+        <Typography variant={TYPOGRAPHY_VARIANTS.H5} gutterBottom>
           Будь ласка введіть дані нової категорії
         </Typography>
         {!!serverError && <FormHelperText error>{serverError}</FormHelperText>}
