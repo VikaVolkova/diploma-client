@@ -21,6 +21,7 @@ import { UpdateUser } from '../../../pages/protected/user/UpdateUser/UpdateUser'
 import { UpdateArticle } from '../../../pages/protected/article/UpdateArticle/UpdateArticle';
 import { Categories } from '../../../pages/protected/category/Categories/Categories';
 import { UpdateCategory } from '../../../pages/protected/category/UpdateCategory/UpdateCategory';
+import { NotFound } from '../../../pages/main/NotFound/NotFound';
 
 export const AppRoutes = () => (
   <Routes>
@@ -30,6 +31,7 @@ export const AppRoutes = () => (
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path={ROUTES.RESTORE_PASSWORD} element={<RestorePassword />} />
       <Route path={ROUTES.UPDATE_PASSWORD} element={<UpdatePassword />} />
+      <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
       <Route
         path={ROUTES.CREATE_ARTICLE}
         element={
