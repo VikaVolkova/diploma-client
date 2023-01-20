@@ -55,7 +55,9 @@ export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
   };
 
   useEffect(() => {
-    dispatch(selectDispatch(page, categoryUrl)()).then((res) => setArticlesArray(res.payload.data));
+    dispatch(selectDispatch(page, categoryUrl)()).then((res) => {
+      !res.payload.data ? navigate(ROUTES.NOT_FOUND) : setArticlesArray(res.payload.data);
+    });
     setArticlesArray([]);
   }, [dispatch, categoryUrl, page]);
 

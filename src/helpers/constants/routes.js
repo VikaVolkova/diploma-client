@@ -18,6 +18,7 @@ export const ROUTES = {
   UPDATE_ROLE: '/update-role/',
   UPDATE_USER: '/update-user',
   DELETE_USER: '/delete-user',
+  NOT_FOUND: '/404',
 };
 
 export const ACTION_ROUTES = {

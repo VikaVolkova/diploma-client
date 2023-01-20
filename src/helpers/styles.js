@@ -26,6 +26,18 @@ theme.typography.h5 = {
     fontSize: '1.1rem',
   },
 };
+theme.typography.h6 = {
+  fontWeight: 500,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.2rem',
+  },
+  '@media (max-width:1200px)': {
+    fontSize: '1rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.85rem',
+  },
+};
 
 theme.typography.subtitle2 = {
   fontWeight: 400,

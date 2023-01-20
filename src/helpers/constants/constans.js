@@ -2,6 +2,9 @@ export const DEFAULT_ARTICLE_IMAGE =
   'https://thetechswing.com/wp-content/uploads/2022/03/Web-Dev-Blog.png';
 export const DEFAULT_USER_IMAGE =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png';
+export const NOT_FOUND_ILLUSTRATION =
+  'https://res.cloudinary.com/dtrtjvdfj/image/upload/v1674228988/3828537_ryra6w.jpg';
+export const NOT_FOUND_ALT = "The page doesn't exist";
 export const BASE_URL = 'http://localhost:5000/api';
 export const WEBSITE_URL = 'http://localhost:3000';
 export const REGISTER_URL = 'http://localhost:5000/api/users/register';
@@ -36,6 +39,7 @@ export const SIZE_TYPES = {
   MEDIUM: 'nedium',
   LARGE: 'large',
   LG: 'lg',
+  MD: 'md',
 };
 
 export const BUTTON_TYPE = {
