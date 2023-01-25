@@ -1,5 +1,5 @@
 export function validateName(str) {
-  return str.length > 1;
+  return str.length > 2;
 }
 
 export function validatePassword(str) {

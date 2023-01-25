@@ -4,7 +4,10 @@ import { FormContainer } from '../../../shared/components/FormContainer/FormCont
 import {
   BUTTON_VARIANT,
   controlMargin,
+  errorStyle,
+  ERROR_MESSAGES,
   formBottomMargin,
+  formContainerStyle,
   getDeviceSize,
   HELPER_TEXT,
   INPUT_TYPE,
@@ -12,10 +15,11 @@ import {
   NAME_TYPE,
   ROUTES,
   SIZE_TYPES,
+  titleMargin,
   TYPOGRAPHY_VARIANTS,
   validatePassword,
 } from '../../../helpers';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { restorePassword } from '../../../store/features/auth/authMiddlewares';
 import {
   Stack,
@@ -45,10 +49,10 @@ export const RestorePassword = () => {
   const [showPassword2, setShowPassword2] = useState('');
   const [validationError, setValidationError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const { isPhone } = getDeviceSize();
 
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
 
   const handleClickShowPassword = (password) => {
     password === NAME_TYPE.PASSWORD1
@@ -69,23 +73,28 @@ export const RestorePassword = () => {
     setPassword2(e.target.value);
   };
 
+  const onSuccess = () => {
+    alert(MESSAGES.PASSWORD_UPDATE);
+    navigate(ROUTES.LOGIN);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      alert('fields do not match');
+      setErrorMessage(ERROR_MESSAGES.DOES_NOT_MATCH);
+      return;
+    }
+    if (password1.length == 0 && password2.length == 0) {
+      setErrorMessage(ERROR_MESSAGES.REQUIRED_FIELDS);
       return;
     }
     const token = query.get('token');
 
-    dispatch(restorePassword({ password1, password2, token }));
+    dispatch(restorePassword({ password1, password2, token })).then(
+      (res) => !res.error && onSuccess(),
+    );
     setPassword1('');
     setPassword2('');
-    if (!error) {
-      alert(MESSAGES.PASSWORD_UPDATE);
-      navigate(ROUTES.LOGIN);
-    } else {
-      alert(error);
-    }
   };
 
   const hundleBlur = () => {
@@ -93,11 +102,13 @@ export const RestorePassword = () => {
   };
 
   return (
-    <FormContainer>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
+    <FormContainer sx={formContainerStyle}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={titleMargin}>
         Введіть ваш новий пароль
       </Typography>
-      <h3>{!!error}</h3>
+      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={errorStyle}>
+        {errorMessage}
+      </Typography>
       <FormControl fullWidth variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.PASSWORD1}>Новий пароль</InputLabel>
         <OutlinedInput

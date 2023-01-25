@@ -4,49 +4,60 @@ import { FormContainer } from '../../../shared/components/FormContainer/FormCont
 import {
   BUTTON_VARIANT,
   controlMargin,
+  errorStyle,
   ERROR_MESSAGES,
+  formContainerStyle,
   getDeviceSize,
   HELPER_TEXT,
   MESSAGES,
   NAME_TYPE,
   SIZE_TYPES,
+  titleMargin,
   TYPOGRAPHY_VARIANTS,
   validateEmail,
 } from '../../../helpers';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { forgotPassword } from '../../../store/features/auth/authMiddlewares';
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const { isPhone } = getDeviceSize();
 
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
     setEmailError(!validateEmail(e.target.value));
   };
 
+  const onSuccess = () => {
+    setErrorMessage('');
+    alert(MESSAGES.EMAIL_SENT);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(forgotPassword({ email }));
+    dispatch(forgotPassword({ email })).then((res) =>
+      !res.error ? onSuccess() : setErrorMessage(ERROR_MESSAGES.USER_NO_EXIST),
+    );
     setEmail('');
-    alert(MESSAGES.EMAIL_SENT);
   };
   const hundleBlur = () => {
     setEmailDirty(true);
   };
 
   return (
-    <FormContainer>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
+    <FormContainer sx={formContainerStyle}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={titleMargin}>
         Забули пароль?
       </Typography>
-      <h3>{!!error}</h3>
+      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={errorStyle}>
+        {errorMessage}
+      </Typography>
 
       <TextField
         fullWidth

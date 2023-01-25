@@ -78,7 +78,7 @@ const authSlice = createSlice({
     [login.pending]: setPending,
     [login.fulfilled]: (state, action) => {
       state.loading = false;
-      state.userInfo = action.payload.user;
+      state.userInfo = action.payload.userData;
       state.accessToken = action.payload.accessToken;
       state.success = true;
     },

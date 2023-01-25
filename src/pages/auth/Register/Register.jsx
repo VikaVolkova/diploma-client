@@ -11,6 +11,7 @@ import {
   FormControl,
   CircularProgress,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,10 +34,15 @@ import {
   getGoogleLoginWidth,
   formMargin,
   formBottomMargin,
+  AUTH_ACTION_TYPE,
+  titleMargin,
+  formContainerStyle,
+  errorStyle,
 } from '../../../helpers';
 import { register } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { GoogleLogin } from '@react-oauth/google';
+import { useEffect } from 'react';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -49,11 +55,12 @@ export const Register = () => {
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isDirty, setIsDirty] = useState(false);
 
-  const { registered, loading, error } = useSelector((state) => state.auth);
+  const { registered, loading } = useSelector((state) => state.auth);
   const { isPhone, isMonitor } = getDeviceSize();
   const googleLoginWidth = getGoogleLoginWidth(isPhone, isMonitor);
-  const errorMessage = selectErrorMessage(error, 'register');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -80,10 +87,18 @@ export const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ name, email, password, googleUser: false }));
-    setName('');
-    setEmail('');
-    setPassword('');
+    dispatch(register({ name, email, password, googleUser: false })).then(
+      (res) =>
+        res.error &&
+        setErrorMessage(
+          selectErrorMessage(
+            res.payload,
+            AUTH_ACTION_TYPE.REGISTER,
+            passwordError ? true : false,
+            isDirty,
+          ),
+        ),
+    );
   };
 
   const googleRegister = (response) => {
@@ -111,12 +126,18 @@ export const Register = () => {
     }
   };
 
+  useEffect(() => {
+    email && password && name && setIsDirty(true);
+  }, [name, password, email]);
+
   return (
-    <FormContainer>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
+    <FormContainer sx={formContainerStyle}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={titleMargin}>
         Зареєструвати новий аккаунт
       </Typography>
-      <Typography variant={TYPOGRAPHY_VARIANTS.BODY1}>{errorMessage}</Typography>
+      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={errorStyle}>
+        {errorMessage}
+      </Typography>
 
       <TextField
         fullWidth
@@ -131,6 +152,7 @@ export const Register = () => {
         onBlur={hundleBlur}
         placeholder="Ім'я"
         error={nameDirty && nameError}
+        helperText={nameError && HELPER_TEXT.NAME_PLACEHOLDER}
       />
 
       <TextField
@@ -161,7 +183,6 @@ export const Register = () => {
           onBlur={hundleBlur}
           size={isPhone ? SIZE_TYPES.SMALL : SIZE_TYPES.MEDIUM}
           placeholder={HELPER_TEXT.PASS_PLACEHOLDER}
-          error={passwordDirty && passwordError}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -175,6 +196,11 @@ export const Register = () => {
             </InputAdornment>
           }
         />
+        {(passwordDirty || passwordError) && (
+          <FormHelperText error id={NAME_TYPE.PASSWORD}>
+            {HELPER_TEXT.PASS_PLACEHOLDER}
+          </FormHelperText>
+        )}
       </FormControl>
       <GoogleLogin
         theme="outline"

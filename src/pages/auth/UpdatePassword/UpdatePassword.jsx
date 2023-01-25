@@ -4,6 +4,9 @@ import { FormContainer } from '../../../shared/components/FormContainer/FormCont
 import {
   BUTTON_VARIANT,
   controlMargin,
+  errorStyle,
+  ERROR_MESSAGES,
+  formContainerStyle,
   formMargin,
   getDeviceSize,
   HELPER_TEXT,
@@ -12,11 +15,13 @@ import {
   NAME_TYPE,
   ROUTES,
   SIZE_TYPES,
+  titleMargin,
   TYPOGRAPHY_VARIANTS,
   validatePassword,
 } from '../../../helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkOldPassword, updatePassword } from '../../../store/features/auth/authMiddlewares';
+
 import {
   Stack,
   Button,
@@ -28,7 +33,6 @@ import {
   Typography,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useEffect } from 'react';
 
 export const UpdatePassword = () => {
   const navigate = useNavigate();
@@ -41,14 +45,12 @@ export const UpdatePassword = () => {
   const [showOldPassword, setShowOldPassword] = useState('');
   const [validationError, setValidationError] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
-  const [badPassword, setBadPassword] = useState(false);
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { isPhone } = getDeviceSize();
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.accessToken);
-  const { loading } = useSelector((state) => state.auth);
 
   const handleClickShowPassword = (password) => {
     switch (password) {
@@ -81,44 +83,43 @@ export const UpdatePassword = () => {
     setPassword2(e.target.value);
   };
 
+  const onSuccess = () => {
+    alert(MESSAGES.PASSWORD_UPDATE);
+    navigate(ROUTES.USER);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (password1 !== password2) {
-      alert(MESSAGES.PASSWORDS_NOT_MATCH);
+      setErrorMessage(ERROR_MESSAGES.DOES_NOT_MATCH);
+      return;
+    }
+    if (password1.length == 0 && password2.length == 0) {
+      setErrorMessage(ERROR_MESSAGES.REQUIRED_FIELDS);
       return;
     }
 
     dispatch(checkOldPassword({ oldPassword, token }))
       .then((res) =>
         res.error
-          ? setBadPassword(true)
+          ? setErrorMessage(ERROR_MESSAGES.PASSWORD)
           : dispatch(updatePassword({ oldPassword, password1, password2, token })),
       )
-      .then((res) => !res.error && setIsUpdated(true));
-
-    setPassword1('');
-    setPassword2('');
-    setOldPassword('');
+      .then((res) => !res.error && onSuccess());
   };
-
-  useEffect(() => {
-    if (isUpdated) {
-      alert(MESSAGES.PASSWORD_UPDATE);
-      setBadPassword(false);
-      navigate(ROUTES.LOGIN);
-    }
-  }, [isUpdated, loading]);
 
   const hundleBlur = () => {
     setPasswordDirty(true);
   };
 
   return (
-    <FormContainer>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={controlMargin}>
+    <FormContainer sx={formContainerStyle}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={titleMargin}>
         Введіть ваш новий пароль
       </Typography>
-      <h3>{badPassword && 'Неправильний старий пароль'}</h3>
+      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={errorStyle}>
+        {errorMessage}
+      </Typography>
       <FormControl fullWidth variant={BUTTON_VARIANT.OUTLINED}>
         <InputLabel htmlFor={NAME_TYPE.OLD_PASSWORD}>Старий пароль</InputLabel>
         <OutlinedInput

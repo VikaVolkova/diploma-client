@@ -12,16 +12,20 @@ import {
   FormControl,
   CircularProgress,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FormContainer } from '../../../shared/components/FormContainer/FormContainer';
 import {
+  AUTH_ACTION_TYPE,
   BUTTON_TYPE,
   BUTTON_VARIANT,
   controlMargin,
   decodeToken,
+  errorStyle,
   ERROR_MESSAGES,
   formBottomMargin,
+  formContainerStyle,
   formMargin,
   getDeviceSize,
   getGoogleLoginWidth,
@@ -31,6 +35,7 @@ import {
   ROUTES,
   selectErrorMessage,
   SIZE_TYPES,
+  titleMargin,
   TYPOGRAPHY_VARIANTS,
   validateEmail,
   validatePassword,
@@ -39,7 +44,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../store/features/auth/authMiddlewares';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { GoogleLogin } from '@react-oauth/google';
-import { formContainerStyle, typographyH6Style, typographySub1Style } from './Login.helpers';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -49,14 +53,14 @@ export const Login = () => {
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
   const { isPhone, isMonitor } = getDeviceSize();
 
-  const { userInfo, loading, error } = useSelector((state) => state.auth);
+  const { userInfo, loading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const errorMessage = selectErrorMessage(error, 'login');
   const googleLoginWidth = getGoogleLoginWidth(isPhone, isMonitor);
 
   const updateLogin = (e) => {
@@ -92,9 +96,13 @@ export const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setEmail('');
-    setPassword('');
-    dispatch(login({ email, password, googleUser: false }));
+    dispatch(login({ email, password, googleUser: false })).then(
+      (res) =>
+        res.error &&
+        setErrorMessage(
+          selectErrorMessage(res.payload, AUTH_ACTION_TYPE.LOGIN, passwordError ? true : false),
+        ),
+    );
   };
 
   const googleLogin = (response) => {
@@ -109,11 +117,11 @@ export const Login = () => {
 
   return (
     <FormContainer sx={formContainerStyle}>
-      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={typographyH6Style}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.H5} sx={titleMargin}>
         Увійти в обліковий запис
       </Typography>
 
-      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={typographySub1Style}>
+      <Typography variant={TYPOGRAPHY_VARIANTS.SUBTITLE1} sx={errorStyle}>
         {errorMessage}
       </Typography>
       <Box>
@@ -162,6 +170,11 @@ export const Login = () => {
               </InputAdornment>
             }
           />
+          {(passwordDirty || passwordError) && (
+            <FormHelperText error id={NAME_TYPE.PASSWORD}>
+              {HELPER_TEXT.PASS_PLACEHOLDER}
+            </FormHelperText>
+          )}
         </FormControl>
       </Box>
       <GoogleLogin
