@@ -1,7 +1,7 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
 import { Comment } from '../Comment/Comment';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Container, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import {
@@ -28,7 +28,6 @@ import {
 import s from './CommentsList.module.css';
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 import { Message } from '../../notification/Message/Message';
-import { Container } from '../../layout/Container/Container';
 import { useState } from 'react';
 import { getArticleLinkStyle, typographyStyle } from './CommentsList.helpers';
 

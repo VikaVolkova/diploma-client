@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '../../../../components/layout/Container/Container';
+import { Container } from '@mui/material';
 import { ArticleList } from '../../../../components/article/ArticleList/ArticleList';
 import { getDeviceSize, PAGE_TYPE } from '../../../../helpers';
 

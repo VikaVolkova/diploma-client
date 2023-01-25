@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container } from '../../../components/layout/Container/Container';
 import { ArticleList } from '../../../components/article/ArticleList/ArticleList';
 import { getDeviceSize, PAGE_TYPE } from '../../../helpers';
 import { PopularArticlesList } from '../../../components/article/PopularArticlesList/PopularArticlesList';
+import { Container } from '@mui/material';
 
 export const Home = () => {
   const { isLaptop, isPhone } = getDeviceSize();

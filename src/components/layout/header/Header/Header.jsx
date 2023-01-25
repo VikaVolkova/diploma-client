@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
-import { Container } from '../../../layout/Container/Container';
 import s from './Header.module.css';
 import {
   categoriesButton,
@@ -10,14 +9,13 @@ import {
   TYPOGRAPHY_VARIANTS,
 } from '../../../../helpers';
 import { CategoriesList } from '../../../category/CategoriesList/CategoriesList';
-import { Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 export const Header = () => {
   const navigationList = Object.values(navigation);
   const [openCategories, setOpenCategories] = useState(false);
 
   const { isTablet } = getDeviceSize();
-  // const { isLaptop, isTablet } = getDeviceSize();
 
   const toggleCategories = () => {
     setOpenCategories(!openCategories);

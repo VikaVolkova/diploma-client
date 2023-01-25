@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Markdown from 'markdown-to-jsx';
-import { Container } from '../../../components/layout/Container/Container';
 import s from './Article.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,13 +9,14 @@ import {
   deleteArticle,
   toggleLike,
 } from '../../../store/features/article/articleMiddlewares';
-import { IconButton, Tooltip, Typography } from '@mui/material';
+import { Container, IconButton, Tooltip, Typography } from '@mui/material';
 import { CommentsList } from '../../../components/comment/CommentsList/CommentsList';
 import { AddComment } from '../../../components/comment/AddComment/AddComment';
 import { Message } from '../../../components/notification/Message/Message';
 import { ActionPanel } from '../../../components/article/ActionPanel/ActionPanel';
 import {
   ACTION,
+  articleMargin,
   COLORS,
   MESSAGES,
   MESSAGE_TYPE,
@@ -76,7 +76,7 @@ export const Article = () => {
     article && (
       <>
         {article.isPublished && <ShareSocial />}
-        <Container size={SIZE_TYPES.LG}>
+        <Container>
           <div className={s.containerBaner}>
             <div
               className={s.baner}
@@ -126,7 +126,7 @@ export const Article = () => {
             </div>
           )}
         </Container>
-        <Container>
+        <Container sx={articleMargin}>
           <Markdown>{article.content}</Markdown>
         </Container>
         <Container>
