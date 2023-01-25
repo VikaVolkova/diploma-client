@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container } from '../../../../components/layout/Container/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserCard } from '../../../../components/user/UserCard/UserCard';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Container } from '@mui/material';
 import { useEffect } from 'react';
 import { getUser } from '../../../../store/features/auth/authMiddlewares';
 import { loadingBoxStyle } from '../../../../helpers';

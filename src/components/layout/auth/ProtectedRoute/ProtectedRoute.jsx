@@ -2,9 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Message } from '../../../notification/Message/Message';
-import { Container } from '../../Container/Container';
 import { loadingBoxStyle, MESSAGES, MESSAGE_TYPE, ROLES, ROUTES } from '../../../../helpers';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Container } from '@mui/material';
 
 export const ProtectedRoute = ({ roles, children }) => {
   const { userInfo, loading } = useSelector((state) => state.auth);

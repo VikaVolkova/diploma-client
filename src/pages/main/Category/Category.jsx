@@ -1,6 +1,6 @@
+import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container } from '../../../components/layout/Container/Container';
 import { ArticleList } from '../../../components/article/ArticleList/ArticleList';
 import { getDeviceSize, PAGE_TYPE } from '../../../helpers';
 
