@@ -70,6 +70,11 @@ export const NAME_TYPE = {
   EMAIL: 'email',
 };
 
+export const AUTH_ACTION_TYPE = {
+  LOGIN: 'login',
+  REGISTER: 'register',
+};
+
 export const TYPOGRAPHY_VARIANTS = {
   H1: 'h1',
   H2: 'h2',

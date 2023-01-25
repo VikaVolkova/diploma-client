@@ -111,6 +111,14 @@ export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
 export const formMargin = { mt: '10px' };
 export const formBottomMargin = { mb: '20px' };
 export const controlMargin = { m: '20px 0' };
+export const errorStyle = { m: '10px auto', color: '#d32f2f' };
+export const titleMargin = { m: '20px auto 0' };
+
+export const formContainerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+};
 
 export const categoriesButton = {
   color: 'gray',

@@ -55,13 +55,15 @@ export const decodeToken = (token) => {
   return { email, name, image };
 };
 
-export const selectErrorMessage = (error, type) => {
+export const selectErrorMessage = (error, type, isPassword, isDirty) => {
   const errorMessage =
-    error === ERROR_MESSAGES.FAILED_400 && type === 'login'
+    isDirty === false
+      ? ERROR_MESSAGES.REQUIRED_FIELDS
+      : error === ERROR_MESSAGES.FAILED_400 && type === 'login' && !isPassword
       ? ERROR_MESSAGES.USER_NO_EXIST
-      : error === ERROR_MESSAGES.FAILED_400 && type === 'register'
+      : error === ERROR_MESSAGES.FAILED_400 && type === 'register' && !isPassword
       ? ERROR_MESSAGES.EMAIL_EXIST
-      : error === ERROR_MESSAGES.FAILED_404
+      : error === ERROR_MESSAGES.FAILED_400 && !!isPassword
       ? ERROR_MESSAGES.PASSWORD
       : '';
   return errorMessage;
