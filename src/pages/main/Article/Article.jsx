@@ -18,6 +18,8 @@ import {
   ACTION,
   articleMargin,
   COLORS,
+  commentsBottomMargin,
+  commentsMargin,
   MESSAGES,
   MESSAGE_TYPE,
   ROLES,
@@ -43,7 +45,7 @@ export const Article = () => {
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
-  }, [dispatch, newsUrl]);
+  }, [newsUrl]);
 
   useEffect(() => {
     if (article && userInfo) {
@@ -121,7 +123,7 @@ export const Article = () => {
                     {isLiked ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteBorderIcon />}
                   </IconButton>
                 </Tooltip>
-                <span className={s.likesCount}>{article?.likes?.length}</span>
+                <span className={s.likesCount}>{article.likes?.length}</span>
               </div>
             </div>
           )}
@@ -129,12 +131,8 @@ export const Article = () => {
         <Container sx={articleMargin}>
           <Markdown>{article.content}</Markdown>
         </Container>
-        <Container>
-          <Typography
-            variant={TYPOGRAPHY_VARIANTS.H6}
-            color={COLORS.PRIMARY}
-            sx={{ m: '50px auto 10px' }}
-          >
+        <Container sx={commentsBottomMargin}>
+          <Typography variant={TYPOGRAPHY_VARIANTS.H6} color={COLORS.PRIMARY} sx={commentsMargin}>
             Коментарі
           </Typography>
           {userInfo && !userInfo.isBlocked ? (
