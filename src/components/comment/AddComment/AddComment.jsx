@@ -61,7 +61,11 @@ export const AddComment = ({ article }) => {
         rules={{ required: true }}
         render={({ field }) => (
           <div data-color-mode="light">
-            <MDEditor {...field} preview="edit" />
+            <MDEditor
+              {...field}
+              preview="edit"
+              commandsFilter={(cmd) => (cmd && /(link)/.test(cmd.name) ? false : cmd)}
+            />
             {errors.text && <FormHelperText error>{errors.text?.message}</FormHelperText>}
           </div>
         )}
