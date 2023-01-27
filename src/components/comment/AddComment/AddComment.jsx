@@ -17,6 +17,7 @@ import {
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Box } from '@mui/system';
+import { boxStyle, buttonMargin } from './AddComment.helpers';
 
 const validationSchema = yup
   .object({
@@ -60,7 +61,7 @@ export const AddComment = ({ article }) => {
   const isButtonDisabled = Object.keys(errors).length > 0 || loadingComments || !recaptchaToken;
 
   return (
-    <Stack component="form" spacing={2} onSubmit={recaptchaToken && handleSubmit(onSubmit)}>
+    <Stack component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
       {!!error && <FormHelperText error>{ERROR_MESSAGES.SERVER_ERROR}</FormHelperText>}
       <Controller
         name="text"
@@ -77,14 +78,7 @@ export const AddComment = ({ article }) => {
           </div>
         )}
       />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <Box sx={boxStyle}>
         <ReCAPTCHA
           // eslint-disable-next-line no-undef
           sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
@@ -95,7 +89,7 @@ export const AddComment = ({ article }) => {
           type={BUTTON_TYPE.SUBMIT}
           variant={BUTTON_VARIANT.CONTAINED}
           size={SIZE_TYPES.MEDIUM}
-          sx={{ ml: '15px' }}
+          sx={buttonMargin}
           disabled={isButtonDisabled}
           fullWidth
         >
