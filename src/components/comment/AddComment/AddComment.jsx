@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, CircularProgress, FormHelperText, Stack } from '@mui/material';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,6 +15,9 @@ import {
   BUTTON_TYPE,
 } from '../../../helpers';
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { Box } from '@mui/system';
+import { boxStyle, buttonMargin } from './AddComment.helpers';
 
 const validationSchema = yup
   .object({
@@ -26,6 +29,7 @@ export const AddComment = ({ article }) => {
   const dispatch = useDispatch();
   const { loadingComments, error } = useSelector((state) => state.comments);
   const { userInfo } = useSelector((state) => state.auth);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
   const author = userInfo._id;
 
   const {
@@ -40,6 +44,10 @@ export const AddComment = ({ article }) => {
     resolver: yupResolver(validationSchema),
   });
 
+  const recaptchaOnChange = (value) => {
+    setRecaptchaToken(value);
+  };
+
   const onSubmit = ({ text }) => {
     dispatch(createComment({ text, article, author })).then((comment) => {
       dispatch(
@@ -50,7 +58,7 @@ export const AddComment = ({ article }) => {
     });
   };
 
-  const isButtonDisabled = Object.keys(errors).length > 0 || loadingComments;
+  const isButtonDisabled = Object.keys(errors).length > 0 || loadingComments || !recaptchaToken;
 
   return (
     <Stack component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
@@ -70,15 +78,24 @@ export const AddComment = ({ article }) => {
           </div>
         )}
       />
-      <Button
-        type={BUTTON_TYPE.SUBMIT}
-        variant={BUTTON_VARIANT.CONTAINED}
-        size={SIZE_TYPES.MEDIUM}
-        sx={{ mt: '15px' }}
-        disabled={isButtonDisabled}
-      >
-        {loadingComments ? <CircularProgress size={20} color="white" /> : 'Додати коментар'}
-      </Button>
+      <Box sx={boxStyle}>
+        <ReCAPTCHA
+          // eslint-disable-next-line no-undef
+          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+          onChange={recaptchaOnChange}
+          hl="uk"
+        />
+        <Button
+          type={BUTTON_TYPE.SUBMIT}
+          variant={BUTTON_VARIANT.CONTAINED}
+          size={SIZE_TYPES.MEDIUM}
+          sx={buttonMargin}
+          disabled={isButtonDisabled}
+          fullWidth
+        >
+          {loadingComments ? <CircularProgress size={20} color="white" /> : 'Додати коментар'}
+        </Button>
+      </Box>
     </Stack>
   );
 };
