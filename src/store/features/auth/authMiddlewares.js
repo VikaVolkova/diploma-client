@@ -6,6 +6,7 @@ import { setAccessToken } from '../../../helpers/helpers';
 
 let axiosConfig = {
   withCredentials: true,
+  credentials: 'include',
 };
 
 export const login = createAsyncThunk(
@@ -124,8 +125,7 @@ export const fetchToken = createAsyncThunk(
   ACTION_ROUTES.USER.TOKEN,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get(ACTION_ROUTES.USER.TOKEN);
-      const data = await response.data;
+      const { data } = await api.get(ACTION_ROUTES.USER.TOKEN);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

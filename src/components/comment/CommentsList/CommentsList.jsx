@@ -38,7 +38,7 @@ export const CommentsList = ({ articleId, type }) => {
   const dispatch = useDispatch();
 
   const { isTablet, isPhone } = getDeviceSize();
-  const buttonStyle = { m: !isTablet ? '3% 42% 7%' : '3% 28% 8%' };
+  const buttonStyle = { m: !isTablet ? '3% 40% 7%' : '3% 35% 8%' };
   const articleLinkStyle = getArticleLinkStyle(isPhone);
 
   const selectFunc = () => {
