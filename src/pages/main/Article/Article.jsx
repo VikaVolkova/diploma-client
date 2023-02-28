@@ -112,19 +112,25 @@ export const Article = () => {
                     : null
                 }
               />
-              <div className={s.interactions}>
-                <Tooltip title={isLiked ? ACTION.NO_LIKE : ACTION.LIKE}>
-                  <IconButton
-                    aria-label={ACTION.LIKE}
-                    sx={{ p: 0 }}
-                    size={SIZE_TYPES.LARGE}
-                    onClick={(e) => toggleLikes(!isLiked, e)}
-                  >
-                    {isLiked ? <FavoriteIcon sx={{ color: pink[500] }} /> : <FavoriteBorderIcon />}
-                  </IconButton>
-                </Tooltip>
-                <span className={s.likesCount}>{article.likes?.length}</span>
-              </div>
+              {article.isPublished && (
+                <div className={s.interactions}>
+                  <Tooltip title={isLiked ? ACTION.NO_LIKE : ACTION.LIKE}>
+                    <IconButton
+                      aria-label={ACTION.LIKE}
+                      sx={{ p: 0 }}
+                      size={SIZE_TYPES.LARGE}
+                      onClick={(e) => toggleLikes(!isLiked, e)}
+                    >
+                      {isLiked ? (
+                        <FavoriteIcon sx={{ color: pink[500] }} />
+                      ) : (
+                        <FavoriteBorderIcon />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                  <span className={s.likesCount}>{article.likes?.length}</span>
+                </div>
+              )}
             </div>
           )}
         </Container>
