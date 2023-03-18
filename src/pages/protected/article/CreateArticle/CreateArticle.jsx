@@ -33,7 +33,7 @@ const validationSchema = yup
     title: yup.string().required().max(50),
     category: yup.string().required(),
     url: yup.string().required().max(30),
-    spoiler: yup.string().required().min(30).max(100),
+    spoiler: yup.string().required().min(30).max(150),
     content: yup.string().required().min(100).max(10000),
     picture: yup.string(),
   })
@@ -52,6 +52,7 @@ export const CreateArticle = () => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm({
     defaultValues: {
       title: '',
@@ -78,15 +79,17 @@ export const CreateArticle = () => {
 
       setServerError('');
       setIsLoading(true);
-      await dispatch(uploadImage({ image })).then((res) => {
-        dispatch(
-          createArticle({
-            ...data,
-            author: userInfo._id,
-            coverImage: res.payload.data || DEFAULT_ARTICLE_IMAGE,
-          }),
-        );
-      });
+      await dispatch(uploadImage({ image }))
+        .then((res) => {
+          dispatch(
+            createArticle({
+              ...data,
+              author: userInfo._id,
+              coverImage: res.payload.data || DEFAULT_ARTICLE_IMAGE,
+            }),
+          );
+        })
+        .then(reset());
     } catch (err) {
       setServerError(ERROR_MESSAGES.SERVER_ERROR);
       console.log(err);

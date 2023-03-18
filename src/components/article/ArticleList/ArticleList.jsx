@@ -73,6 +73,7 @@ export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
   const removeArticle = async (id) => {
     try {
       dispatch(deleteArticle({ id }));
+      setArticlesArray(articlesArray.filter((article) => article._id !== id));
     } catch (err) {
       console.log(err.message);
     }
