@@ -108,7 +108,7 @@ export const shareSocials = {
 
 export const speedDial = { '& .MuiFab-default': { width: 0, height: 0 } };
 
-export const articleMargin = { mt: '30px' };
+export const articleMargin = { mt: '30px', display: 'block' };
 export const formMargin = { mt: '10px' };
 export const formBottomMargin = { mb: '20px' };
 export const controlMargin = { m: '20px 0' };

@@ -17,6 +17,8 @@ export const API_REQUEST_PROPS = {
     'Content-Type': 'application/json',
   },
   baseURL: BASE_URL,
+  withCredentials: true,
+  credentials: 'include',
 };
 
 export const ACTION = {

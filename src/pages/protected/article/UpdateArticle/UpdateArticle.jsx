@@ -21,7 +21,7 @@ import { omit } from 'ramda';
 import MDEditor from '@uiw/react-md-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../../store/features/category/categoryMiddlewares';
-import { BUTTON_VARIANT, formMargin, ROUTES, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
+import { BUTTON_VARIANT, formMargin, TYPOGRAPHY_VARIANTS } from '../../../../helpers';
 import { uploadImage } from '../../../../store/features/image/imageMiddlewares';
 import {
   getArticleByUrl,
@@ -94,7 +94,7 @@ export const UpdateArticle = () => {
           }),
         );
       });
-      navigate(ROUTES.HOME);
+      navigate(-1);
     } catch (err) {
       setServerError('Server Error');
     }
@@ -148,9 +148,9 @@ export const UpdateArticle = () => {
                     label="Категорія"
                     error={!!errors.category}
                   >
-                    {categories.map(({ _id, category }) => (
+                    {categories.map(({ _id, name }) => (
                       <MenuItem key={_id} value={_id}>
-                        {category}
+                        {name}
                       </MenuItem>
                     ))}
                   </Select>

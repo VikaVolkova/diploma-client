@@ -41,7 +41,6 @@ const validationSchema = yup
 
 export const CreateArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
-  // const [categories, setCategories] = useState([]);
   const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
   const [serverError, setServerError] = useState('');
   const { userInfo } = useSelector((state) => state.auth);
@@ -67,13 +66,6 @@ export const CreateArticle = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, []);
-  // useEffect(() => {
-  //   if (categories.length === 0) {
-  //     dispatch(getCategories()).then((res) => {
-  //       setCategories(res.payload);
-  //     });
-  //   }
-  // }, [categories.length, dispatch]);
 
   const onUploadImage = (e) => {
     e.target.name === 'coverImage' && e.target.files[0] && setImgBtnText('Завантажено');
