@@ -107,6 +107,9 @@ const articleSlice = createSlice({
     [toggleArticlePublish.rejected]: setError,
     [toggleArticlePublish.fulfilled]: (state, action) => {
       state.articles = state.articles.filter((item) => item._id !== action.payload.data._id);
+      state.unpublishedArticles = state.unpublishedArticles.filter(
+        (item) => item._id !== action.payload.data._id,
+      );
       state.article = action.payload.data;
       state.loadingArticles = false;
       state.success = true;

@@ -64,6 +64,7 @@ export const ArticleList = ({ page, categoryUrl, type, isPhone }) => {
   const publishArticle = async (id) => {
     try {
       dispatch(toggleArticlePublish({ id, isPublished: true }));
+      setArticlesArray(articlesArray.filter((article) => article._id !== id));
     } catch (err) {
       console.log(err.message);
     }
