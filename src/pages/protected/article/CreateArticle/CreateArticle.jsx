@@ -30,28 +30,28 @@ import { ERROR_MESSAGES, HELPER_TEXT } from '../../../../helpers';
 
 const validationSchema = yup
   .object({
-    title: yup.string().required().max(255),
+    title: yup.string().required().max(50),
     category: yup.string().required(),
     url: yup.string().required().max(30),
-    spoiler: yup.string().required().max(100),
-    content: yup.string().required().max(10000),
+    spoiler: yup.string().required().min(30).max(100),
+    content: yup.string().required().min(100).max(10000),
     picture: yup.string(),
   })
   .required();
 
 export const CreateArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [imgBtnText, setImgBtnText] = useState('Завантажити зображення');
   const [serverError, setServerError] = useState('');
   const { userInfo } = useSelector((state) => state.auth);
+  const { categories } = useSelector((state) => state.category);
   const formRef = useRef();
   const dispatch = useDispatch();
 
   const {
     handleSubmit,
     formState: { errors },
-    reset,
     control,
   } = useForm({
     defaultValues: {
@@ -65,12 +65,15 @@ export const CreateArticle = () => {
   });
 
   useEffect(() => {
-    if (categories.length === 0) {
-      dispatch(getCategories()).then((res) => {
-        setCategories(res.payload);
-      });
-    }
-  }, [categories.length, dispatch]);
+    dispatch(getCategories());
+  }, []);
+  // useEffect(() => {
+  //   if (categories.length === 0) {
+  //     dispatch(getCategories()).then((res) => {
+  //       setCategories(res.payload);
+  //     });
+  //   }
+  // }, [categories.length, dispatch]);
 
   const onUploadImage = (e) => {
     e.target.name === 'coverImage' && e.target.files[0] && setImgBtnText('Завантажено');
@@ -92,7 +95,6 @@ export const CreateArticle = () => {
           }),
         );
       });
-      reset();
     } catch (err) {
       setServerError(ERROR_MESSAGES.SERVER_ERROR);
       console.log(err);
@@ -147,9 +149,9 @@ export const CreateArticle = () => {
                     label="Категорія"
                     error={!!errors.category}
                   >
-                    {categories.map(({ _id, category }) => (
+                    {categories.map(({ _id, name }) => (
                       <MenuItem key={_id} value={_id}>
-                        {category}
+                        {name}
                       </MenuItem>
                     ))}
                   </Select>

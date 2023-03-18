@@ -116,6 +116,7 @@ export const errorStyle = { m: '10px auto', color: '#d32f2f' };
 export const titleMargin = { m: '20px auto 0' };
 export const commentsMargin = { m: '50px auto 10px' };
 export const commentsBottomMargin = { mb: 20 };
+export const buttonMargin = { ml: '15px' };
 
 export const formContainerStyle = {
   display: 'flex',
