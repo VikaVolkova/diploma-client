@@ -10,13 +10,14 @@
 }
 
 .navItemLink {
+  font: 600 var(--sm-font-size) 'Open Sans';
   text-decoration: none;
   color: gray;
 }
 
 .navItemActive {
-  color: royalblue;
-  font-weight: 600;
+  color: #1565c0;
+  font: 600 var(--sm-font-size) 'Open Sans';
 }
 
 .navContainer {

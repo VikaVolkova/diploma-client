@@ -118,6 +118,11 @@ export const commentsMargin = { m: '50px auto 10px' };
 export const commentsBottomMargin = { mb: 20 };
 export const buttonMargin = { ml: '15px' };
 
+export const commentsTitle = {
+  m: '50px auto 10px',
+  font: "600 var(--md-font-size) 'Open Sans', sans-serif",
+};
+
 export const formContainerStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -128,6 +133,7 @@ export const categoriesButton = {
   color: 'gray',
   cursor: 'pointer',
   padding: 0,
+  fontWeight: 600,
 };
 
 export const listStyle = { justifyContent: 'space-between', borderBottom: '1px solid blue ' };

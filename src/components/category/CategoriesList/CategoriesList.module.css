@@ -16,3 +16,8 @@
 .small-container {
   width: 30%;
 }
+
+.categoryButtonStyle {
+  color: #1565c0 !important;
+  font: 600 var(--sm-font-size) 'Open Sans' !important;
+}

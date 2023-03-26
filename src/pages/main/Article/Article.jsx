@@ -19,7 +19,7 @@ import {
   articleMargin,
   COLORS,
   commentsBottomMargin,
-  commentsMargin,
+  commentsTitle,
   MESSAGES,
   MESSAGE_TYPE,
   ROLES,
@@ -137,17 +137,19 @@ export const Article = () => {
         <Container sx={articleMargin}>
           <Markdown>{article.content}</Markdown>
         </Container>
-        <Container sx={commentsBottomMargin}>
-          <Typography variant={TYPOGRAPHY_VARIANTS.H6} color={COLORS.PRIMARY} sx={commentsMargin}>
-            Коментарі
-          </Typography>
-          {userInfo && !userInfo.isBlocked ? (
-            <AddComment article={article._id} />
-          ) : (
-            !userInfo && <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
-          )}
-          <CommentsList articleId={article._id} />
-        </Container>
+        {article.isPublished && (
+          <Container sx={commentsBottomMargin}>
+            <Typography variant={TYPOGRAPHY_VARIANTS.H6} color={COLORS.PRIMARY} sx={commentsTitle}>
+              Коментарі
+            </Typography>
+            {userInfo && !userInfo.isBlocked ? (
+              <AddComment article={article._id} />
+            ) : (
+              !userInfo && <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
+            )}
+            <CommentsList articleId={article._id} />
+          </Container>
+        )}
       </>
     )
   );

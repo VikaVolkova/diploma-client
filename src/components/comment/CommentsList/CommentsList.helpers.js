@@ -1,5 +1,5 @@
 export const getArticleLinkStyle = (isPhone) => ({
-  color: 'royalblue',
+  color: '#1565c0',
   textDecoration: 'none',
   fontFamily: 'sans-serif',
   fontWeight: 600,

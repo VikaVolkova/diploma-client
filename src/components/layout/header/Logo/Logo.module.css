@@ -1,9 +1,10 @@
 .logo {
-  color: blue;
-  font-weight: 700;
+  color: #1565c0;
+  font: 700 18px 'Open Sans';
 }
 
 .link {
-  color: black;
+  color: #2e2e2e;
   text-decoration: none;
+  font: 700 18px 'Open Sans';
 }

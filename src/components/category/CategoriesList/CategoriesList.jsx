@@ -46,6 +46,7 @@ export const CategoriesList = ({ isOpened, close }) => {
                 variant="text"
                 size={btnSize}
                 onClick={() => openCategoryPage(category.url)}
+                sx={{ font: '600 var(--sm-font-size) "Open Sans"' }}
               >
                 {category.name}
               </Button>

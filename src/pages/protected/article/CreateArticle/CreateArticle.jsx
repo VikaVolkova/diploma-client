@@ -52,7 +52,7 @@ export const CreateArticle = () => {
     handleSubmit,
     formState: { errors },
     control,
-    reset,
+    // reset,
   } = useForm({
     defaultValues: {
       title: '',
@@ -79,17 +79,16 @@ export const CreateArticle = () => {
 
       setServerError('');
       setIsLoading(true);
-      await dispatch(uploadImage({ image }))
-        .then((res) => {
-          dispatch(
-            createArticle({
-              ...data,
-              author: userInfo._id,
-              coverImage: res.payload.data || DEFAULT_ARTICLE_IMAGE,
-            }),
-          );
-        })
-        .then(reset());
+      await dispatch(uploadImage({ image })).then((res) => {
+        dispatch(
+          createArticle({
+            ...data,
+            author: userInfo._id,
+            coverImage: res.payload.data || DEFAULT_ARTICLE_IMAGE,
+          }),
+        );
+      });
+      // .then(reset());
     } catch (err) {
       setServerError(ERROR_MESSAGES.SERVER_ERROR);
       console.log(err);
@@ -196,7 +195,11 @@ export const CreateArticle = () => {
             rules={{ required: true }}
             render={({ field }) => (
               <div data-color-mode="light">
-                <MDEditor {...field} preview="edit" />
+                <MDEditor
+                  {...field}
+                  preview="edit"
+                  commandsFilter={(cmd) => (cmd && /(link)/.test(cmd.name) ? false : cmd)}
+                />
                 {errors.content && <FormHelperText error>{errors.content?.message}</FormHelperText>}
               </div>
             )}
