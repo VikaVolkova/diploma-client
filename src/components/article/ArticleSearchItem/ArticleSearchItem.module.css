@@ -16,6 +16,7 @@
   cursor: pointer;
   width: fit-content;
   padding: 0;
+  text-align: start;
 }
 
 .title:hover {
