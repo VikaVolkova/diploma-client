@@ -5,9 +5,9 @@ export const DEFAULT_USER_IMAGE =
 export const NOT_FOUND_ILLUSTRATION =
   'https://res.cloudinary.com/dtrtjvdfj/image/upload/v1674228988/3828537_ryra6w.jpg';
 export const NOT_FOUND_ALT = "The page doesn't exist";
-export const BASE_URL = 'http://localhost:5000/api';
-export const WEBSITE_URL = 'http://localhost:3000';
-export const REGISTER_URL = 'http://localhost:5000/api/users/register';
+export const BASE_URL = 'https://learn-me.herokuapp.com/api';
+export const WEBSITE_URL = 'https://learn-me.netlify.app';
+export const REGISTER_URL = 'https://learn-me.herokuapp.com/api/users/register';
 export const OAUTH_CLIENT_ID =
   '945998487819-3fr915t89v64bdgk45gg2bb8k6q6jg85.apps.googleusercontent.com';
 export const ACCESS_TOKEN = 'x-access-token';
