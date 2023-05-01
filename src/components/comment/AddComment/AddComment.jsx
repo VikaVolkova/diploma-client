@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, CircularProgress, FormHelperText, Stack } from '@mui/material';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../../store/features/comments/commentsMiddlewares';
@@ -16,12 +15,6 @@ import {
 } from '../../../helpers';
 import { toggleComment } from '../../../store/features/article/articleMiddlewares';
 import { buttonMargin } from '../../../helpers';
-
-const validationSchema = yup
-  .object({
-    text: yup.string().required(),
-  })
-  .required();
 
 export const AddComment = ({ article }) => {
   const dispatch = useDispatch();
@@ -38,7 +31,6 @@ export const AddComment = ({ article }) => {
     defaultValues: {
       text: '',
     },
-    // resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = ({ text }) => {
