@@ -38,10 +38,12 @@ export const AddComment = ({ article }) => {
     defaultValues: {
       text: '',
     },
-    resolver: yupResolver(validationSchema),
+    // resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = ({ text }) => {
+    console.log(text);
+    if (!text) return;
     dispatch(createComment({ text, article, author })).then((comment) => {
       dispatch(
         toggleComment({ articleId: article, commentId: comment.payload._id, deleted: false }),

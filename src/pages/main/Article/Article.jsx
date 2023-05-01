@@ -38,7 +38,7 @@ export const Article = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [articleId, setArticleId] = useState(0);
   const [likes, setLikes] = useState([]);
-  const { article, loadingArticles } = useSelector((state) => state.article);
+  const { article } = useSelector((state) => state.article);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,13 +68,11 @@ export const Article = () => {
     navigate(-1);
   };
 
-  const toggleLikes = (liked, e) => {
-    e.preventDefault();
+  const toggleLikes = (liked) => {
     userInfo && dispatch(toggleLike({ articleId, liked }));
   };
 
   return (
-    !loadingArticles &&
     article && (
       <>
         {article.isPublished && <ShareSocial />}
@@ -126,9 +124,9 @@ export const Article = () => {
                       ) : (
                         <FavoriteBorderIcon />
                       )}
+                      <span className={s.likesCount}>{article.likes?.length}</span>
                     </IconButton>
                   </Tooltip>
-                  <span className={s.likesCount}>{article.likes?.length}</span>
                 </div>
               )}
             </div>
