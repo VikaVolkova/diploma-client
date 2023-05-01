@@ -121,7 +121,6 @@
 .spoiler {
   margin: 0;
   font: 400 var(--md-font-size) 'Open Sans', sans-serif;
-  /* font-size: var(--md-font-size); */
 }
 
 @media screen and (max-width: 1200px) {
