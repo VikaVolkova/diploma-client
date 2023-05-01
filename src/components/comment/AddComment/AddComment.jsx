@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, CircularProgress, FormHelperText, Stack } from '@mui/material';
-import * as yup from 'yup';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createComment } from '../../../store/features/comments/commentsMiddlewares';
