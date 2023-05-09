@@ -41,7 +41,7 @@
 
 .likesCount {
   padding-left: 5px;
-  font-size: 18px;
+  font-size: var(--md-font-size);
 }
 
 img {
@@ -53,7 +53,7 @@ p {
 }
 
 h3 {
-  font-size: 18px;
+  font-size: var(--md-font-size);
   color: #1976d2;
 }
 
@@ -63,12 +63,20 @@ h3 {
   }
 
   .title {
-    font-size: 18px;
+    font-size: var(--md-font-size);
     left: 20px;
   }
 
   .likesCount {
     padding-left: 2px;
-    font-size: 14px;
+    font-size: var(--xs-font-size);
+  }
+
+  p {
+    font-size: var(--xs-font-size);
+  }
+
+  h3 {
+    font-size: var(--sm-font-size);
   }
 }

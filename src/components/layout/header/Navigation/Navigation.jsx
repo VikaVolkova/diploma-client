@@ -58,7 +58,10 @@ export const Navigation = ({ navigationList }) => {
           {articles && <SearchArticleModal isOpen={isOpen} setIsOpen={setIsOpen} />}
         </>
       ) : (
-        <MobileMenu />
+        <nav className={s.navContainer}>
+          <MobileMenu />
+          <AuthNavigation />
+        </nav>
       )}
     </>
   );

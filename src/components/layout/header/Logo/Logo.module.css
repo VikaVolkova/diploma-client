@@ -8,3 +8,10 @@
   text-decoration: none;
   font: 700 18px 'Open Sans';
 }
+
+@media screen and (max-width: 900px) {
+  .link,
+  .logo {
+    font-size: var(--xs-font-size);
+  }
+}
