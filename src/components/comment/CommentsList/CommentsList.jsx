@@ -128,7 +128,7 @@ export const CommentsList = ({ articleId, type }) => {
             ) : (
               <div className={s.commentStyle}>
                 <Comment comment={comment} />
-                {userInfo._id === comment.author._id && (
+                {userInfo?._id === comment.author._id && (
                   <ActionPanel
                     handleDelete={checkAdmin(userInfo) && (() => removeComment(comment._id))}
                   />

@@ -57,6 +57,11 @@ h3 {
   color: #1976d2;
 }
 
+h2 {
+  font-size: var(--lg-font-size);
+  color: #3d3d3d;
+}
+
 @media screen and (max-width: 900px) {
   .baner {
     height: 200px;
@@ -78,5 +83,8 @@ h3 {
 
   h3 {
     font-size: var(--sm-font-size);
+  }
+  h2 {
+    font-size: var(--md-font-size);
   }
 }

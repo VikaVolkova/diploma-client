@@ -33,7 +33,6 @@ export const AddComment = ({ article }) => {
   });
 
   const onSubmit = ({ text }) => {
-    console.log(text);
     if (!text) return;
     dispatch(createComment({ text, article, author })).then((comment) => {
       dispatch(

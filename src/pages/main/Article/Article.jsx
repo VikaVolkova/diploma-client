@@ -21,11 +21,11 @@ import {
   commentsBottomMargin,
   commentsTitle,
   MESSAGES,
-  MESSAGE_TYPE,
   ROLES,
   ROUTES,
   SIZE_TYPES,
   TYPOGRAPHY_VARIANTS,
+  PAGE_TYPE,
 } from '../../../helpers';
 import { checkAdmin, checkAuthor, checkRole, getDeviceSize } from '../../../helpers/helpers';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -146,7 +146,7 @@ export const Article = () => {
             {userInfo && !userInfo.isBlocked ? (
               <AddComment article={article._id} />
             ) : (
-              !userInfo && <Message text={MESSAGES.UNAUTHORIZED} type={MESSAGE_TYPE.LOGIN} />
+              !userInfo && <Message text={MESSAGES.UNAUTHORIZED} type={PAGE_TYPE.LOGIN} />
             )}
             <CommentsList articleId={article._id} />
           </Container>
