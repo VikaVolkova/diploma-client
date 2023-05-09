@@ -73,12 +73,12 @@ export const AuthNavigation = () => {
             }}
           >
             <MenuItem>
-              <NavLink to={ROUTES.LOGIN} className={s.authLink}>
+              <NavLink to={ROUTES.LOGIN} className={s.authLink} onClick={handleClose}>
                 Зайти
               </NavLink>
             </MenuItem>
             <MenuItem>
-              <NavLink to={ROUTES.REGISTER} className={s.authLink}>
+              <NavLink to={ROUTES.REGISTER} className={s.authLink} onClick={handleClose}>
                 Зареєструватись
               </NavLink>
             </MenuItem>

@@ -45,6 +45,7 @@ export const MobileMenu = () => {
                 cn(s.navItemLink, s.navItemSmall, { [s.navItemActive]: isActive })
               }
               to={('/', url)}
+              onClick={handleClose}
             >
               {name}
             </NavLink>
