@@ -38,7 +38,7 @@ export const ACTION = {
 
 export const SIZE_TYPES = {
   SMALL: 'small',
-  MEDIUM: 'nedium',
+  MEDIUM: 'medium',
   LARGE: 'large',
   LG: 'lg',
   MD: 'md',

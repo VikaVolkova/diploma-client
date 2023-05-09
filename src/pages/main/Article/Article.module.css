@@ -3,6 +3,7 @@
   height: 400px;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .baner::before {
@@ -54,4 +55,20 @@ p {
 h3 {
   font-size: 18px;
   color: #1976d2;
+}
+
+@media screen and (max-width: 900px) {
+  .baner {
+    height: 200px;
+  }
+
+  .title {
+    font-size: 18px;
+    left: 20px;
+  }
+
+  .likesCount {
+    padding-left: 2px;
+    font-size: 14px;
+  }
 }

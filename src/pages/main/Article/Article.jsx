@@ -27,7 +27,7 @@ import {
   SIZE_TYPES,
   TYPOGRAPHY_VARIANTS,
 } from '../../../helpers';
-import { checkAdmin, checkAuthor, checkRole } from '../../../helpers/helpers';
+import { checkAdmin, checkAuthor, checkRole, getDeviceSize } from '../../../helpers/helpers';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { pink } from '@mui/material/colors';
@@ -42,6 +42,7 @@ export const Article = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isTablet, isMonitor } = getDeviceSize();
 
   useEffect(() => {
     dispatch(getArticleByUrl({ newsUrl }));
@@ -75,7 +76,7 @@ export const Article = () => {
   return (
     article && (
       <>
-        {article.isPublished && <ShareSocial />}
+        {article.isPublished && isMonitor && <ShareSocial />}
         <Container>
           <div className={s.containerBaner}>
             <div
@@ -116,13 +117,15 @@ export const Article = () => {
                     <IconButton
                       aria-label={ACTION.LIKE}
                       sx={{ p: 0 }}
-                      size={SIZE_TYPES.LARGE}
                       onClick={(e) => toggleLikes(!isLiked, e)}
                     >
                       {isLiked ? (
-                        <FavoriteIcon sx={{ color: pink[500] }} />
+                        <FavoriteIcon
+                          sx={{ color: pink[500] }}
+                          fontSize={isTablet ? 'small' : SIZE_TYPES.MEDIUM}
+                        />
                       ) : (
-                        <FavoriteBorderIcon />
+                        <FavoriteBorderIcon fontSize={isTablet ? 'small' : SIZE_TYPES.MEDIUM} />
                       )}
                       <span className={s.likesCount}>{article.likes?.length}</span>
                     </IconButton>
