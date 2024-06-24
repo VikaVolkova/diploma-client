@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+## Diploma Project - Client
+This repository contains the client-side code for a diploma project, which appears to be a web application focused on a specific domain or functionality.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Features
+- User Authentication: Secure login and registration system.
+- Responsive Design: Adaptable UI for various devices and screen sizes.
+- API Integration: Seamless communication with a backend server.
 
-## Available Scripts
+### Technologies Used
+- React: JavaScript library for building user interfaces.
+- Redux Toolkit: State management library for JavaScript apps.
+- Axios: Promise-based HTTP client for making API requests.
+- React Router: Library for routing in React applications.
+- Material-UI: React components for faster and easier web development.
+- Styled Components: Library for styling React components with CSS.
+- Formik: Library for handling forms in React.
+- Yup: JavaScript schema builder for value parsing and validation.
 
-In the project directory, you can run:
+### Setup and Installation
+Clone the repository:
+``` 
+git clone https://github.com/VikaVolkova/diploma-client.git
+```
+Navigate to the project directory:
+```
+cd diploma-client
+```
+Install dependencies:
+```
+npm install
+```
+Start the development server:
+```
+npm start
+```
 
-### `npm start`
+### Project Structure
+- `src/components:` Contains React components.
+- `src/redux:` Includes Redux actions, reducers, and store configuration.
+- `src/services:` API service configurations and methods.
+- `src/styles:` Styled components and global styles.
+- `src/utils:` Utility functions and constants.
+- `src/views:` Main views and pages of the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Contributing
+Contributions are welcome! Please create an issue or pull request for any improvements or bug fixes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### License
+This project is licensed under the MIT License.
